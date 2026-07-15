@@ -72,7 +72,7 @@ def enviar_notificacion_expo(title, body, data=None):
 
 @shared_task
 def ping_antena_192_168_1_117():
-    ip = "192.168.100.17"
+    ip = "192.168.1.253"
 
     try:
         result = subprocess.run(

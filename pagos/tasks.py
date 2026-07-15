@@ -392,3 +392,129 @@ def autoReboot121():
         "notification": push_result,
         "checked_at": timezone.now().isoformat(),
     }  
+
+def autoReboot127():
+
+    # Antenas que vamos a comprobar
+    antenas = [
+        "192.168.1.21",
+        "192.168.1.175",
+        "192.168.1.171",
+        "192.168.1.152",
+        "192.168.1.190",
+
+    ]
+
+    # Antena principal del sector que se reiniciará
+    ip_reboot = "192.168.1.127"
+
+    usuario = "ubnt"
+    password = "ubnt2"
+
+    resultados = []
+
+    # Comprobar las 4 antenas
+    for ip in antenas:
+
+        resultado = comprobar_ping(ip)
+        resultados.append(resultado)
+
+        if resultado["online"]:
+            print(f"[OK] Antena {ip} respondió ping")
+        else:
+            print(
+                f"[ALERTA] Antena {ip} no respondió "
+                f"a ninguno de los 5 pings"
+            )
+
+    # Obtener antenas offline
+    antenas_offline = [
+        resultado["ip"]
+        for resultado in resultados
+        if not resultado["online"]
+    ]
+
+    cantidad_offline = len(antenas_offline)
+
+    print(
+        f"[SECTOR 127] Antenas sin ping: "
+        f"{cantidad_offline}/{len(antenas)}"
+    )
+
+    # Si hay menos de 2 offline, no hacemos reboot
+    if cantidad_offline < 2:
+
+        return {
+            "ok": True,
+            "reboot": False,
+            "sector": ip_reboot,
+            "offline_count": cantidad_offline,
+            "offline_ips": antenas_offline,
+            "results": resultados,
+            "checked_at": timezone.now().isoformat(),
+        }
+
+    # =========================================================
+    # 2 O MÁS ANTENAS SIN PING -> REINICIAR SECTOR 121
+    # =========================================================
+
+    print(
+        f"[REBOOT] {cantidad_offline} antenas sin conexión. "
+        f"Reiniciando {ip_reboot}"
+    )
+
+    reboot_result = reboot_via_https_confirm(
+        ip_reboot,
+        usuario,
+        password,
+    )
+
+    # Preparar lista de IPs para notificación
+    ips_offline_texto = ", ".join(antenas_offline)
+
+    if reboot_result.get("ok"):
+
+        push_result = enviar_notificacion_expo(
+            title="🔄 Reinicio automático Sector 121",
+            body=(
+                f"{cantidad_offline} de {len(antenas)} antenas "
+                f"no respondieron. Se reinició {ip_reboot}. "
+                f"Sin conexión: {ips_offline_texto}"
+            ),
+            data={
+                "type": "auto_reboot_sector",
+                "sector": "121",
+                "ip_reboot": ip_reboot,
+                "offline_count": cantidad_offline,
+                "offline_ips": antenas_offline,
+            },
+        )
+
+    else:
+
+        push_result = enviar_notificacion_expo(
+            title="❌ Error reiniciando Sector 121",
+            body=(
+                f"{cantidad_offline} antenas no respondieron, "
+                f"pero no fue posible reiniciar {ip_reboot}."
+            ),
+            data={
+                "type": "auto_reboot_error",
+                "sector": "127",
+                "ip_reboot": ip_reboot,
+                "offline_ips": antenas_offline,
+                "reboot_result": reboot_result,
+            },
+        )
+
+    return {
+        "ok": reboot_result.get("ok", False),
+        "reboot": True,
+        "sector": ip_reboot,
+        "offline_count": cantidad_offline,
+        "offline_ips": antenas_offline,
+        "results": resultados,
+        "reboot_result": reboot_result,
+        "notification": push_result,
+        "checked_at": timezone.now().isoformat(),
+    }  

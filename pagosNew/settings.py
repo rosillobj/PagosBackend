@@ -170,4 +170,8 @@ CELERY_BEAT_SCHEDULE = {
         "task": "pagos.tasks.autoReboot121",
         "schedule": crontab(minute="*/5"),
     },
+            "auto-reboot-sector-127": {
+        "task": "pagos.tasks.autoReboot127",
+        "schedule": crontab(minute="*/5"),
+    },
 }

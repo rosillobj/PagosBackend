@@ -166,4 +166,8 @@ CELERY_BEAT_SCHEDULE = {
         "task": "pagos.tasks.ping_antena_192_168_1_117",
         "schedule": crontab(minute="*/5"),
     },
+        "auto-reboot-sector-121": {
+        "task": "pagos.tasks.autoReboot121",
+        "schedule": crontab(minute="*/5"),
+    },
 }

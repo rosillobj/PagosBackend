@@ -392,7 +392,7 @@ def autoReboot121():
         "notification": push_result,
         "checked_at": timezone.now().isoformat(),
     }  
-
+@shared_task
 def autoReboot127():
 
     # Antenas que vamos a comprobar

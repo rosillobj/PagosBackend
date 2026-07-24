@@ -11,6 +11,16 @@ class Privada(models.Model):
     def __str__(self):
         return self.privada
 class Cliente(models.Model):
+    class FrecuenciaPago(models.TextChoices):
+        MENSUAL = "MENSUAL", "Cada mes"
+        BIMESTRAL = "BIMESTRAL", "Cada 2 meses"
+
+    frecuencia_pago = models.CharField(
+        max_length=10,
+        choices=FrecuenciaPago.choices,
+        default=FrecuenciaPago.MENSUAL,
+        db_index=True,
+    )
     privadas = [
     'abedul', 'abeto', 'abruzos','ahuehuete','alamo', 'alassia', 'alessandria','agrigento','aguaribay','amelia','ancona', 'aosta', 'arezo','basilicata','bari','barletta','bayan', 'belli','bolonia', 'brazalete','brindisi','bugato','bunya',
     'castaño','calabrece', 'catalpa','cedro','ciclamor', 'ciruelo', 'citrus','coliseo', 'daniel la pape', 'encina', 'eukalipto','farolillo', 'ferrara',
@@ -103,11 +113,6 @@ class tokenExpo(models.Model):
 
     id_user = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True)
     token = models.CharField(max_length=100)
-
-
-
-
-
 
 
 

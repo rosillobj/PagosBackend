@@ -164,14 +164,14 @@ CELERY_ENABLE_UTC = False
 CELERY_BEAT_SCHEDULE = {
     "ping-antena-192-168-1-117-every-5-min": {
         "task": "pagos.tasks.ping_antena_192_168_1_117",
-        "schedule": crontab(minute="*/5"),
+        "schedule": crontab(minute="*/1000"),
     },
         "auto-reboot-sector-121": {
         "task": "pagos.tasks.autoReboot121",
-        "schedule": crontab(minute="*/5"),
+        "schedule": crontab(minute="*/1000"),
     },
             "auto-reboot-sector-127": {
         "task": "pagos.tasks.autoReboot127",
-        "schedule": crontab(minute="*/5"),
+        "schedule": crontab(minute="*/1000"),
     },
 }

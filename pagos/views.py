@@ -199,6 +199,7 @@ class CortarServicio(UpdateAPIView):
         id_ClienteRaw = request.data['cliente_id']
         print(id_ClienteRaw)
         cliente = Cliente.objects.get(id = id_ClienteRaw)
+        
         if cliente:
             setattr(cliente,'cortado', True )
             cliente.save()
@@ -1020,6 +1021,7 @@ def mt_status(ip: str, user: str, password: str) -> dict:
 
         # Resource
         res = next(iter(api.path("/system/resource").select()), None)
+        print(res)
         # RouterOS v6 suele traer keys: version, board-name, platform, uptime, cpu-load, free-memory, total-memory...
         version = res.get("version") if isinstance(res, dict) else None
         board = res.get("board-name") if isinstance(res, dict) else None
@@ -1971,3 +1973,263 @@ class tokenObteinView(APIView):
             },
             status=status.HTTP_200_OK,
         )
+class MikrotikStatusView2(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, pk):
+        user = "admin"
+        password = "Elmata3711"
+        ip = "192.168.100.10"
+
+        data = mt_status2(ip, user, password)
+
+        http_status = (
+            status.HTTP_200_OK
+            if data.get("ok")
+            else status.HTTP_503_SERVICE_UNAVAILABLE
+        )
+
+        return Response(
+            {
+                "ip": ip,
+                "mikrotik": data,
+            },
+            status=http_status,
+        )
+def safe_float(value, default=0):
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return default
+
+
+def get_interface_traffic(api, interface_name):
+    try:
+        result = list(
+            api.path("/interface/monitor-traffic").call(
+                interface=interface_name,
+                once="",
+            )
+        )
+
+        traffic = result[0] if result else {}
+
+        rx_bps = safe_float(
+            traffic.get("rx-bits-per-second")
+        )
+        tx_bps = safe_float(
+            traffic.get("tx-bits-per-second")
+        )
+
+        return {
+            "ok": True,
+            "interface": interface_name,
+
+            "rx_bps": int(rx_bps),
+            "tx_bps": int(tx_bps),
+
+            "rx_mbps": round(rx_bps / 1_000_000, 2),
+            "tx_mbps": round(tx_bps / 1_000_000, 2),
+            "total_mbps": round(
+                (rx_bps + tx_bps) / 1_000_000,
+                2,
+            ),
+
+            "rx_packets_per_second": safe_float(
+                traffic.get("rx-packets-per-second")
+            ),
+            "tx_packets_per_second": safe_float(
+                traffic.get("tx-packets-per-second")
+            ),
+            "rx_drops_per_second": safe_float(
+                traffic.get("rx-drops-per-second")
+            ),
+            "tx_drops_per_second": safe_float(
+                traffic.get("tx-drops-per-second")
+            ),
+            "rx_errors_per_second": safe_float(
+                traffic.get("rx-errors-per-second")
+            ),
+            "tx_errors_per_second": safe_float(
+                traffic.get("tx-errors-per-second")
+            ),
+        }
+
+    except Exception as e:
+        return {
+            "ok": False,
+            "interface": interface_name,
+            "message": str(e),
+        }
+def mt_status2(ip: str, user: str, password: str) -> dict:
+    tcp = _tcp_check(ip, 8728)
+
+    if not tcp["ok"]:
+        return {
+            "ok": False,
+            "stage": "tcp_check",
+            "message": "No abre API 8728",
+            "tcp": tcp,
+        }
+
+    try:
+        api = mt_connect(ip, user, password)
+        print(api)
+        # Identidad
+        ident = next(
+            iter(api.path("/system/identity").select()),
+            None,
+        )
+
+        identity = (
+            ident.get("name")
+            if isinstance(ident, dict)
+            else None
+        )
+
+        # Recursos
+        res = next(
+            iter(api.path("/system/resource").select()),
+            None,
+        )
+
+        res = res if isinstance(res, dict) else {}
+
+        version = res.get("version")
+        board = res.get("board-name")
+        uptime = res.get("uptime")
+        cpu_load = safe_float(res.get("cpu-load"))
+        free_mem = safe_float(res.get("free-memory"))
+        total_mem = safe_float(res.get("total-memory"))
+
+        free_pct = None
+
+        if total_mem > 0:
+            free_pct = round(
+                (free_mem / total_mem) * 100,
+                1,
+            )
+
+        # Estado de las interfaces
+        interfaces = get_interfaces_status(
+            api,
+            ["ether2", "ether3", "ether4"],
+        )
+
+        # Tráfico instantáneo
+        internet_1 = get_interface_traffic(
+            api,
+            "ether2",
+        )
+
+        internal_network = get_interface_traffic(
+            api,
+            "ether3",
+        )
+
+        internet_2 = get_interface_traffic(
+            api,
+            "ether4",
+        )
+
+        return {
+            "ok": True,
+            "transport": "routeros_api",
+            "normalized": {
+                "device": {
+                    "identity": identity,
+                    "board": board,
+                    "version": version,
+                    "uptime": uptime,
+                },
+                "system": {
+                    "cpu_load_pct": cpu_load,
+                    "free_memory": free_mem,
+                    "total_memory": total_mem,
+                    "free_ram_pct": free_pct,
+                },
+                "interfaces": interfaces,
+                "traffic": {
+                    "internet_1": {
+                        "name": "Internet 1",
+                        **internet_1,
+                    },
+                    "internal_network": {
+                        "name": "Red interna",
+                        **internal_network,
+                    },
+                    "internet_2": {
+                        "name": "Internet 2",
+                        **internet_2,
+                    },
+                },
+            },
+        }
+
+    except LibRouterosError as e:
+        return {
+            "ok": False,
+            "stage": "api_error",
+            "message": str(e),
+        }
+
+    except Exception as e:
+        return {
+            "ok": False,
+            "stage": "unknown",
+            "message": str(e),
+        }
+
+
+def to_bool(value):
+    if isinstance(value, bool):
+        return value
+
+    if isinstance(value, str):
+        return value.lower() == "true"
+
+    return None
+
+
+def get_interfaces_status(api, interface_names):
+    found = {}
+
+    try:
+        for interface in api.path("/interface").select():
+            if not isinstance(interface, dict):
+                continue
+
+            name = interface.get("name")
+
+            if name not in interface_names:
+                continue
+
+            found[name] = {
+                "name": name,
+                "running": to_bool(interface.get("running")),
+                "disabled": to_bool(interface.get("disabled")),
+                "type": interface.get("type"),
+                "mtu": interface.get("mtu"),
+                "actual_mtu": interface.get("actual-mtu"),
+                "mac_address": interface.get("mac-address"),
+                "rx_byte": safe_float(interface.get("rx-byte")),
+                "tx_byte": safe_float(interface.get("tx-byte")),
+                "rx_packet": safe_float(interface.get("rx-packet")),
+                "tx_packet": safe_float(interface.get("tx-packet")),
+            }
+
+    except Exception:
+        pass
+
+    for name in interface_names:
+        if name not in found:
+            found[name] = {
+                "name": name,
+                "running": None,
+                "disabled": None,
+                "found": False,
+            }
+        else:
+            found[name]["found"] = True
+
+    return found

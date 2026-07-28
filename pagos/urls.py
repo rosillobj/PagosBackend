@@ -18,6 +18,7 @@ urlpatterns = [
     path("editInfoAntena/<int:pk>/",views.EditAntenaView.as_view(),name="EditarAntena"),
     path("sector/<int:pk>/tx-health/",views.SectorTxHealthView.as_view(), name ="AutoReboot"),
     path("tokenExpoObtain/",views.tokenObteinView.as_view(), name ="AutoReboot"),
+    path("sectorData2/<int:pk>/",views.MikrotikStatusView2.as_view(),name='sectorData'),
 
     path("airos/toggle-lan/<int:pk>/",views.ToggleAirosLanAPIView.as_view(),name="airos_toggle_lan"),
 ]

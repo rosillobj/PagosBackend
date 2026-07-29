@@ -1978,7 +1978,7 @@ class MikrotikStatusView2(APIView):
 
     def get(self, request, pk):
         user = "admin"
-        password = "Elmata30403"
+        password = "Elmata30403.."
         ip = "192.168.1.2"
 
         data = mt_status2(ip, user, password)
@@ -2074,7 +2074,7 @@ def mt_status2(ip: str, user: str, password: str) -> dict:
 
     try:
         api = mt_connect(ip, user, password)
-        print(api,"new")
+        print(api)
         # Identidad
         ident = next(
             iter(api.path("/system/identity").select()),

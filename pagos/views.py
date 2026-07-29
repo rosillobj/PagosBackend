@@ -1978,8 +1978,8 @@ class MikrotikStatusView2(APIView):
 
     def get(self, request, pk):
         user = "admin"
-        password = "Elmata3711"
-        ip = "192.168.100.10"
+        password = "Elmata30403"
+        ip = "192.168.1.2"
 
         data = mt_status2(ip, user, password)
 
@@ -2233,3 +2233,707 @@ def get_interfaces_status(api, interface_names):
             found[name]["found"] = True
 
     return found
+
+
+
+class MikrotikToggleInterfaceView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, pk):
+        interface_name = request.data.get("interface")
+        enabled = request.data.get("enabled")
+        print(request.data,"UNO")
+        if not interface_name:
+            print("UNO")
+            return Response(
+                {
+                    "ok": False,
+                    "message": "Falta el campo interface.",
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        if not isinstance(enabled, bool):
+            return Response(
+                {
+                    "ok": False,
+                    "message": (
+                        "El campo enabled debe ser "
+                        "true o false."
+                    ),
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        if interface_name not in ALLOWED_WAN_INTERFACES:
+            return Response(
+                {
+                    "ok": False,
+                    "message": (
+                        "Solamente se permite modificar "
+                        "ether2 o ether4."
+                    ),
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        user = "admin"
+        password = "Elmata30403.."
+        ip = "192.168.1.2"
+
+        result = set_mikrotik_interface_status(
+            ip=ip,
+            user=user,
+            password=password,
+            interface_name=interface_name,
+            enabled=enabled,
+        )
+
+        http_status = (
+            status.HTTP_200_OK
+            if result.get("ok")
+            else status.HTTP_503_SERVICE_UNAVAILABLE
+        )
+
+        return Response(
+            {
+                "ip": ip,
+                "mikrotik": result,
+            },
+            status=http_status,
+        )
+    ALLOWED_WAN_INTERFACES = {
+    "ether2",
+    "ether4",
+}
+
+
+def to_bool(value):
+    if isinstance(value, bool):
+        return value
+
+    if isinstance(value, str):
+        return value.lower() in ("true", "yes", "1")
+
+    return None
+
+
+def set_mikrotik_interface_status(
+    ip: str,
+    user: str,
+    password: str,
+    interface_name: str,
+    enabled: bool,
+) -> dict:
+
+    if interface_name not in ALLOWED_WAN_INTERFACES:
+        return {
+            "ok": False,
+            "stage": "validation",
+            "message": (
+                f"No está permitido modificar "
+                f"la interfaz {interface_name}."
+            ),
+        }
+
+    tcp = _tcp_check(ip, 8728)
+
+    if not tcp["ok"]:
+        return {
+            "ok": False,
+            "stage": "tcp_check",
+            "message": "No abre API 8728",
+            "tcp": tcp,
+        }
+
+    try:
+        api = mt_connect(ip, user, password)
+        interface_path = api.path("/interface")
+
+        interface_data = None
+
+        for item in interface_path.select():
+            if (
+                isinstance(item, dict)
+                and item.get("name") == interface_name
+            ):
+                interface_data = item
+                break
+
+        if not interface_data:
+            return {
+                "ok": False,
+                "stage": "interface_not_found",
+                "message": (
+                    f"No se encontró la interfaz "
+                    f"{interface_name}."
+                ),
+            }
+
+        interface_id = interface_data.get(".id")
+
+        if not interface_id:
+            return {
+                "ok": False,
+                "stage": "missing_interface_id",
+                "message": (
+                    f"No se pudo obtener el ID de "
+                    f"{interface_name}."
+                ),
+            }
+
+        previous_disabled = to_bool(
+            interface_data.get("disabled")
+        )
+
+        # En RouterOS enabled=True significa disabled=False
+        new_disabled = not enabled
+
+        interface_path.update(
+            **{
+                ".id": interface_id,
+                "disabled": new_disabled,
+            }
+        )
+
+        # Volvemos a consultar para verificar el cambio
+        updated_interface = None
+
+        for item in interface_path.select():
+            if (
+                isinstance(item, dict)
+                and item.get("name") == interface_name
+            ):
+                updated_interface = item
+                break
+
+        current_disabled = (
+            to_bool(updated_interface.get("disabled"))
+            if updated_interface
+            else None
+        )
+
+        current_running = (
+            to_bool(updated_interface.get("running"))
+            if updated_interface
+            else None
+        )
+
+        change_confirmed = (
+            current_disabled == new_disabled
+        )
+
+        return {
+            "ok": change_confirmed,
+            "interface": interface_name,
+            "enabled": not current_disabled
+            if current_disabled is not None
+            else None,
+            "disabled": current_disabled,
+            "running": current_running,
+            "previous_disabled": previous_disabled,
+            "change_confirmed": change_confirmed,
+            "message": (
+                f"{interface_name} activada correctamente."
+                if enabled and change_confirmed
+                else (
+                    f"{interface_name} desactivada correctamente."
+                    if change_confirmed
+                    else "No fue posible confirmar el cambio."
+                )
+            ),
+        }
+
+    except LibRouterosError as e:
+        return {
+            "ok": False,
+            "stage": "api_error",
+            "message": str(e),
+        }
+
+    except Exception as e:
+        return {
+            "ok": False,
+            "stage": "unknown",
+            "message": str(e),
+        }
+ALLOWED_WAN_INTERFACES = {
+    "ether2",
+    "ether4",
+}
+
+
+def to_bool(value):
+    if isinstance(value, bool):
+        return value
+
+    if isinstance(value, str):
+        return value.lower() in ("true", "yes", "1")
+
+    return None
+
+
+def set_mikrotik_interface_status(
+    ip: str,
+    user: str,
+    password: str,
+    interface_name: str,
+    enabled: bool,
+) -> dict:
+
+    if interface_name not in ALLOWED_WAN_INTERFACES:
+        return {
+            "ok": False,
+            "stage": "validation",
+            "message": (
+                f"No está permitido modificar "
+                f"la interfaz {interface_name}."
+            ),
+        }
+
+    tcp = _tcp_check(ip, 8728)
+
+    if not tcp["ok"]:
+        return {
+            "ok": False,
+            "stage": "tcp_check",
+            "message": "No abre API 8728",
+            "tcp": tcp,
+        }
+
+    try:
+        api = mt_connect(ip, user, password)
+        interface_path = api.path("/interface")
+
+        interface_data = None
+
+        for item in interface_path.select():
+            if (
+                isinstance(item, dict)
+                and item.get("name") == interface_name
+            ):
+                interface_data = item
+                break
+
+        if not interface_data:
+            return {
+                "ok": False,
+                "stage": "interface_not_found",
+                "message": (
+                    f"No se encontró la interfaz "
+                    f"{interface_name}."
+                ),
+            }
+
+        interface_id = interface_data.get(".id")
+
+        if not interface_id:
+            return {
+                "ok": False,
+                "stage": "missing_interface_id",
+                "message": (
+                    f"No se pudo obtener el ID de "
+                    f"{interface_name}."
+                ),
+            }
+
+        previous_disabled = to_bool(
+            interface_data.get("disabled")
+        )
+
+        # En RouterOS enabled=True significa disabled=False
+        new_disabled = not enabled
+
+        interface_path.update(
+            **{
+                ".id": interface_id,
+                "disabled": new_disabled,
+            }
+        )
+
+        # Volvemos a consultar para verificar el cambio
+        updated_interface = None
+
+        for item in interface_path.select():
+            if (
+                isinstance(item, dict)
+                and item.get("name") == interface_name
+            ):
+                updated_interface = item
+                break
+
+        current_disabled = (
+            to_bool(updated_interface.get("disabled"))
+            if updated_interface
+            else None
+        )
+
+        current_running = (
+            to_bool(updated_interface.get("running"))
+            if updated_interface
+            else None
+        )
+
+        change_confirmed = (
+            current_disabled == new_disabled
+        )
+
+        return {
+            "ok": change_confirmed,
+            "interface": interface_name,
+            "enabled": not current_disabled
+            if current_disabled is not None
+            else None,
+            "disabled": current_disabled,
+            "running": current_running,
+            "previous_disabled": previous_disabled,
+            "change_confirmed": change_confirmed,
+            "message": (
+                f"{interface_name} activada correctamente."
+                if enabled and change_confirmed
+                else (
+                    f"{interface_name} desactivada correctamente."
+                    if change_confirmed
+                    else "No fue posible confirmar el cambio."
+                )
+            ),
+        }
+
+    except LibRouterosError as e:
+        return {
+            "ok": False,
+            "stage": "api_error",
+            "message": str(e),
+        }
+
+    except Exception as e:
+        return {
+            "ok": False,
+            "stage": "unknown",
+            "message": str(e),
+        }
+ALLOWED_BALANCE_MODES = {
+    "balanced",
+    "ether2_only",
+    "ether4_only",
+}
+
+REQUIRED_MANGLE_RULES = {
+    "APP_PCC_CONN_ETHER4",
+    "APP_PCC_CONN_ETHER2",
+    "APP_PCC_ROUTE_ETHER4",
+    "APP_PCC_ROUTE_ETHER2",
+    "APP_FORCE_ETHER2",
+    "APP_FORCE_ETHER4",
+}
+def routeros_to_bool(value):
+    if isinstance(value, bool):
+        return value
+
+    if isinstance(value, str):
+        return value.lower() in {
+            "true",
+            "yes",
+            "1",
+        }
+
+    return None
+
+
+def get_app_mangle_rules(mangle_path):
+    rules = {}
+
+    for rule in mangle_path.select():
+        if not isinstance(rule, dict):
+            continue
+
+        comment = rule.get("comment")
+
+        if comment in REQUIRED_MANGLE_RULES:
+            rules[comment] = rule
+
+    return rules
+def apply_balancing_mode(
+    mangle_path,
+    current_rules,
+    mode,
+):
+    changes = []
+
+    def set_rule(comment, enabled):
+        rule = current_rules.get(comment)
+
+        if not rule:
+            raise ValueError(
+                f"No se encontró la regla {comment}."
+            )
+
+        rule_id = rule.get(".id")
+
+        if not rule_id:
+            raise ValueError(
+                f"La regla {comment} no tiene .id."
+            )
+
+        mangle_path.update(
+            **{
+                ".id": rule_id,
+                "disabled": not enabled,
+            }
+        )
+
+        changes.append({
+            "comment": comment,
+            "enabled": enabled,
+        })
+
+    if mode == "balanced":
+        # Primero habilitamos PCC.
+        set_rule("APP_PCC_CONN_ETHER4", True)
+        set_rule("APP_PCC_CONN_ETHER2", True)
+        set_rule("APP_PCC_ROUTE_ETHER4", True)
+        set_rule("APP_PCC_ROUTE_ETHER2", True)
+
+        # Después quitamos el forzado.
+        set_rule("APP_FORCE_ETHER2", False)
+        set_rule("APP_FORCE_ETHER4", False)
+
+    elif mode == "ether2_only":
+        # Primero habilitamos la salida solicitada.
+        set_rule("APP_FORCE_ETHER2", True)
+        set_rule("APP_FORCE_ETHER4", False)
+
+        # Después deshabilitamos PCC.
+        set_rule("APP_PCC_CONN_ETHER4", False)
+        set_rule("APP_PCC_CONN_ETHER2", False)
+        set_rule("APP_PCC_ROUTE_ETHER4", False)
+        set_rule("APP_PCC_ROUTE_ETHER2", False)
+
+    elif mode == "ether4_only":
+        set_rule("APP_FORCE_ETHER4", True)
+        set_rule("APP_FORCE_ETHER2", False)
+
+        set_rule("APP_PCC_CONN_ETHER4", False)
+        set_rule("APP_PCC_CONN_ETHER2", False)
+        set_rule("APP_PCC_ROUTE_ETHER4", False)
+        set_rule("APP_PCC_ROUTE_ETHER2", False)
+
+    else:
+        raise ValueError(
+            f"Modo no permitido: {mode}."
+        )
+
+    return changes
+def change_mikrotik_balancing_mode(
+    ip,
+    user,
+    password,
+    mode,
+):
+    if mode not in ALLOWED_BALANCE_MODES:
+        return {
+            "ok": False,
+            "stage": "validation",
+            "message": (
+                "Modo inválido. Utiliza balanced, "
+                "ether2_only o ether4_only."
+            ),
+        }
+
+    tcp = _tcp_check(ip, 8728)
+
+    if not tcp["ok"]:
+        return {
+            "ok": False,
+            "stage": "tcp_check",
+            "message": "No abre el API de MikroTik.",
+            "tcp": tcp,
+        }
+
+    try:
+        api = mt_connect(
+            ip,
+            user,
+            password,
+        )
+
+        mangle_path = api.path(
+            "/ip/firewall/mangle"
+        )
+
+        current_rules = get_app_mangle_rules(
+            mangle_path
+        )
+
+        missing_rules = sorted(
+            REQUIRED_MANGLE_RULES
+            - set(current_rules.keys())
+        )
+
+        if missing_rules:
+            return {
+                "ok": False,
+                "stage": "missing_rules",
+                "message": (
+                    "Faltan reglas requeridas en "
+                    "MikroTik."
+                ),
+                "missing_rules": missing_rules,
+            }
+
+        changes = apply_balancing_mode(
+            mangle_path=mangle_path,
+            current_rules=current_rules,
+            mode=mode,
+        )
+
+        # Consultamos nuevamente para verificar.
+        updated_rules = get_app_mangle_rules(
+            mangle_path
+        )
+
+        rules_status = {}
+
+        for comment in sorted(REQUIRED_MANGLE_RULES):
+            rule = updated_rules.get(comment, {})
+
+            disabled = routeros_to_bool(
+                rule.get("disabled")
+            )
+
+            rules_status[comment] = {
+                "enabled": (
+                    not disabled
+                    if disabled is not None
+                    else None
+                ),
+                "disabled": disabled,
+            }
+
+        return {
+            "ok": True,
+            "mode": mode,
+            "message": (
+                "Modo de balanceo actualizado "
+                "correctamente."
+            ),
+            "changes": changes,
+            "rules": rules_status,
+        }
+
+    except LibRouterosError as e:
+        return {
+            "ok": False,
+            "stage": "api_error",
+            "message": str(e),
+        }
+
+    except ValueError as e:
+        return {
+            "ok": False,
+            "stage": "configuration_error",
+            "message": str(e),
+        }
+
+    except Exception as e:
+        return {
+            "ok": False,
+            "stage": "unknown",
+            "message": str(e),
+        }
+
+class MikrotikBalanceModeView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, pk):
+        mode = request.data.get("mode")
+        print(mode,"que hay")
+        if not mode:
+            return Response(
+                {
+                    "ok": False,
+                    "message": "Falta el campo mode.",
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        if not isinstance(mode, str):
+            return Response(
+                {
+                    "ok": False,
+                    "message": (
+                        "El campo mode debe ser texto."
+                    ),
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        mode = mode.strip().lower()
+
+        if mode not in ALLOWED_BALANCE_MODES:
+            return Response(
+                {
+                    "ok": False,
+                    "message": (
+                        "Modo inválido. Las opciones son "
+                        "balanced, ether2_only y "
+                        "ether4_only."
+                    ),
+                    "allowed_modes": sorted(
+                        ALLOWED_BALANCE_MODES
+                    ),
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        ip = "192.168.1.2"
+
+        user = "admin"
+
+        password ="Elmata30403.."
+
+        if not password:
+            return Response(
+                {
+                    "ok": False,
+                    "message": (
+                        "No está configurada la variable "
+                        "MIKROTIK_API_PASSWORD."
+                    ),
+                },
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
+
+        result = change_mikrotik_balancing_mode(
+            ip=ip,
+            user=user,
+            password=password,
+            mode=mode,
+        )
+
+        if result.get("ok"):
+            response_status = status.HTTP_200_OK
+
+        elif result.get("stage") in {
+            "validation",
+            "missing_rules",
+            "configuration_error",
+        }:
+            response_status = (
+                status.HTTP_400_BAD_REQUEST
+            )
+
+        else:
+            response_status = (
+                status.HTTP_503_SERVICE_UNAVAILABLE
+            )
+
+        return Response(
+            {
+                "ok": result.get("ok", False),
+                "ip": ip,
+                "mikrotik_id": pk,
+                "result": result,
+            },
+            status=response_status,
+        )

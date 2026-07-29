@@ -19,6 +19,7 @@ urlpatterns = [
     path("sector/<int:pk>/tx-health/",views.SectorTxHealthView.as_view(), name ="AutoReboot"),
     path("tokenExpoObtain/",views.tokenObteinView.as_view(), name ="AutoReboot"),
     path("sectorData2/<int:pk>/",views.MikrotikStatusView2.as_view(),name='sectorData'),
-
+    path("mikrotik/toggle-interface/<int:pk>/",views.MikrotikToggleInterfaceView.as_view(),name="mikrotik_toggle_interface"),
+    path("mikrotik/<int:pk>/balance-mode/",views.MikrotikBalanceModeView.as_view(),name="mikrotik_balance_mode"),
     path("airos/toggle-lan/<int:pk>/",views.ToggleAirosLanAPIView.as_view(),name="airos_toggle_lan"),
 ]

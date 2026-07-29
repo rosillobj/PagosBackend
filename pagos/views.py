@@ -2074,7 +2074,7 @@ def mt_status2(ip: str, user: str, password: str) -> dict:
 
     try:
         api = mt_connect(ip, user, password)
-        print(api)
+        print(api,"new")
         # Identidad
         ident = next(
             iter(api.path("/system/identity").select()),

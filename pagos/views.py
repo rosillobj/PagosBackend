@@ -178,6 +178,7 @@ class CortesView(ListAPIView):
                 "pago_id": p.id,
                 "cliente_id": c.id if c else None,
                 "cliente_nombre": getattr(c, "nombre", None),  # ajusta si tu campo se llama diferente
+                "cortado":getattr(c,"cortado",None),
                  "cliente_direccion":getattr(c,"direccion",None),
                 "ultimo_pago": p.ultimo_pago,                 # DateField -> DRF lo serializa a "YYYY-MM-DD"
                 "ultimo_pago_p": p.ultimo_pago_p,

@@ -323,7 +323,7 @@ class CortarServicio(APIView):
             "cliente_id"
         )
 
-        cortado = True
+        cortado = request.data.get('cortado')
         print(request.data)
         if not cliente_id:
             return Response(

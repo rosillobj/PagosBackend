@@ -26,6 +26,7 @@ from librouteros import connect
 from librouteros.exceptions import LibRouterosError
 from bs4 import BeautifulSoup
 from rest_framework.decorators import api_view
+import os
 # Create your views here.
 
 
@@ -191,19 +192,249 @@ class CortesView(ListAPIView):
             },
             status=status.HTTP_200_OK
         )
-class CortarServicio(UpdateAPIView):
+
+
+
+MIKROTIK_CUT_LIST = "CLIENTES_CORTADOS"
+
+
+def get_cut_entries(address_list_path, ip):
+    entries = []
+
+    for entry in address_list_path.select():
+        if not isinstance(entry, dict):
+            continue
+
+        if (
+            entry.get("list") == MIKROTIK_CUT_LIST
+            and entry.get("address") == ip
+        ):
+            entries.append(entry)
+
+    return entries
+
+
+def set_mikrotik_client_cut(
+    ip_router,
+    user,
+    password,
+    client_ip,
+    client_id,
+    client_name,
+    cut,
+):
+    tcp = _tcp_check(ip_router, 8728)
+
+    if not tcp["ok"]:
+        return {
+            "ok": False,
+            "stage": "tcp_check",
+            "message": "No abre el API de MikroTik.",
+            "tcp": tcp,
+        }
+
+    try:
+        api = mt_connect(
+            ip_router,
+            user,
+            password,
+        )
+
+        address_list_path = api.path(
+            "/ip/firewall/address-list"
+        )
+
+        current_entries = get_cut_entries(
+            address_list_path,
+            client_ip,
+        )
+
+        if cut:
+            # Solamente agregamos si todavía no existe.
+            if not current_entries:
+                address_list_path.add(
+                    list=MIKROTIK_CUT_LIST,
+                    address=client_ip,
+                    comment=(
+                        f"APP_CLIENTE_{client_id} "
+                        f"{client_name}"
+                    ),
+                )
+
+            message = (
+                f"Servicio cortado para {client_ip}."
+            )
+
+        else:
+            # Eliminamos todas las entradas coincidentes.
+            for entry in current_entries:
+                entry_id = entry.get(".id")
+
+                if entry_id:
+                    address_list_path.remove(
+                        entry_id
+                    )
+
+            message = (
+                f"Servicio restablecido para "
+                f"{client_ip}."
+            )
+
+        # Verificación
+        updated_entries = get_cut_entries(
+            address_list_path,
+            client_ip,
+        )
+
+        is_cut = len(updated_entries) > 0
+        confirmed = is_cut == cut
+
+        return {
+            "ok": confirmed,
+            "client_ip": client_ip,
+            "cut": is_cut,
+            "requested_cut": cut,
+            "confirmed": confirmed,
+            "message": (
+                message
+                if confirmed
+                else "No fue posible confirmar el cambio."
+            ),
+        }
+
+    except LibRouterosError as e:
+        return {
+            "ok": False,
+            "stage": "api_error",
+            "message": str(e),
+        }
+
+    except Exception as e:
+        return {
+            "ok": False,
+            "stage": "unknown",
+            "message": str(e),
+        }
+class CortarServicio(APIView):
     permission_classes = [IsAuthenticated]
-    queryset = Cliente.objects.all()
-    
+
     def patch(self, request, *args, **kwargs):
-        id_ClienteRaw = request.data['cliente_id']
-        print(id_ClienteRaw)
-        cliente = Cliente.objects.get(id = id_ClienteRaw)
-        
-        if cliente:
-            setattr(cliente,'cortado', True )
-            cliente.save()
-        return Response ( status=status.HTTP_200_OK)
+        cliente_id = request.data.get(
+            "cliente_id"
+        )
+
+        cortado = request.data.get(
+            "cortado"
+        )
+
+        if not cliente_id:
+            return Response(
+                {
+                    "ok": False,
+                    "message": "Falta cliente_id.",
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        if not isinstance(cortado, bool):
+            return Response(
+                {
+                    "ok": False,
+                    "message": (
+                        "El campo cortado debe ser "
+                        "true o false."
+                    ),
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        cliente = get_object_or_404(
+            Cliente,
+            id=cliente_id,
+        )
+
+        client_ip = (
+            cliente.ip_completa.strip()
+            if cliente.ip_completa
+            else None
+        )
+
+        if not client_ip:
+            return Response(
+                {
+                    "ok": False,
+                    "message": (
+                        "El cliente no tiene una IP "
+                        "configurada."
+                    ),
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        ip_router = "192.168.1.2"
+
+        user = 'admin'
+
+        password = 'Elmata30403..'
+
+        if not password:
+            return Response(
+                {
+                    "ok": False,
+                    "message": (
+                        "No está configurada la "
+                        "contraseña del MikroTik."
+                    ),
+                },
+                status=(
+                    status.HTTP_500_INTERNAL_SERVER_ERROR
+                ),
+            )
+
+        result = set_mikrotik_client_cut(
+            ip_router=ip_router,
+            user=user,
+            password=password,
+            client_ip=client_ip,
+            client_id=cliente.id,
+            client_name=cliente.nombre,
+            cut=cortado,
+        )
+
+        # Actualizamos Django solamente si MikroTik
+        # confirmó el cambio.
+        if result.get("ok"):
+            cliente.cortado = cortado
+
+            cliente.save(
+                update_fields=["cortado"]
+            )
+
+            return Response(
+                {
+                    "ok": True,
+                    "cliente": {
+                        "id": cliente.id,
+                        "nombre": cliente.nombre,
+                        "ip": client_ip,
+                        "cortado": cliente.cortado,
+                    },
+                    "mikrotik": result,
+                },
+                status=status.HTTP_200_OK,
+            )
+
+        return Response(
+            {
+                "ok": False,
+                "message": (
+                    "MikroTik no confirmó el cambio. "
+                    "La base de datos no fue modificada."
+                ),
+                "mikrotik": result,
+            },
+            status=status.HTTP_502_BAD_GATEWAY,
+        )
 
 
 class ActivarServicio(UpdateAPIView):

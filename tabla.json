@@ -1,0 +1,3890 @@
+[
+{
+  "model": "pagos.cliente",
+  "pk": 26,
+  "fields": {
+    "frecuencia_pago": "BIMESTRAL",
+    "cortado": false,
+    "nombre": "karla mora",
+    "direccion": "bolonia",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525565140786",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 247,
+    "ip_completa": "192.168.1.247",
+    "id_privada": null,
+    "recibo_pdf": "karla_morabolonia2025-03-10.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 27,
+  "fields": {
+    "frecuencia_pago": "BIMESTRAL",
+    "cortado": false,
+    "nombre": "Victor Hugo",
+    "direccion": "Esquilino",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+527732184474",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 250,
+    "ip_completa": "192.168.1.250",
+    "id_privada": null,
+    "recibo_pdf": "Victor_HugoEsquilino2025-04-30.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 29,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Oscar Lopez",
+    "direccion": "Cedro",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525569814607",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 213,
+    "ip_completa": "192.168.1.213",
+    "id_privada": null,
+    "recibo_pdf": "guadalupekiri2024-12-31.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 30,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Farmacia Plaza Exito",
+    "direccion": "paseos de la pradera",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525539161049",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 177,
+    "ip_completa": "192.168.1.177",
+    "id_privada": null,
+    "recibo_pdf": "Farmacia_Plaza_Exitopaseos_de_la_pradera2025-03-28.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 31,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Tortilleria toscana alta",
+    "direccion": "Toscana alta",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525528099908",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 60,
+    "ip_completa": "192.168.1.60",
+    "id_privada": null,
+    "recibo_pdf": "Tortilleria_toscana_altaToscana_alta2025-05-04.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 32,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "alfredo cornejo",
+    "direccion": "alessandria",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525531036049",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 135,
+    "ip_completa": "192.168.1.135",
+    "id_privada": null,
+    "recibo_pdf": "alfredo_cornejoalessandria2025-04-30.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 33,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "alejandro ixmatlahua",
+    "direccion": "ravena",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525527452066",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 75,
+    "ip_completa": "192.168.1.75",
+    "id_privada": null,
+    "recibo_pdf": "alejandro_ixmatlahuaravena2025-03-22.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 34,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Amalia Facundo",
+    "direccion": "Prov Arezzo",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525529969683",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 235,
+    "ip_completa": "192.168.1.235",
+    "id_privada": null,
+    "recibo_pdf": "Amalia_FacundoProv_Arezzo2025-02-28.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 35,
+  "fields": {
+    "frecuencia_pago": "MOROSO",
+    "cortado": false,
+    "nombre": "Viviana Mendez ",
+    "direccion": "aosta",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525546491612",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 59,
+    "ip_completa": "192.168.1.59",
+    "id_privada": null,
+    "recibo_pdf": "viviana_mendezaosta2025-04-22.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 36,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Tlapaleria",
+    "direccion": "Local de la Plaza de la piedra",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525584505457",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 202,
+    "ip_completa": "192.168.1.202",
+    "id_privada": null,
+    "recibo_pdf": "TlapaleriaLocal_de_la_Plaza_de_la_piedra2024-07-23.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 37,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "delia ortiz medina",
+    "direccion": "latina",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525545099707",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 76,
+    "ip_completa": "192.168.1.76",
+    "id_privada": null,
+    "recibo_pdf": "delia_ortiz_medinalatina2025-12-21.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 38,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Monica Lizbeth ",
+    "direccion": "Abruzos",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525572742986",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 246,
+    "ip_completa": "192.168.1.246",
+    "id_privada": null,
+    "recibo_pdf": "Monica_Lizbeth_Abruzos2026-01-14.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 39,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Maria Cristina",
+    "direccion": "Local Ropa Haya",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525519735377",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 185,
+    "ip_completa": "192.168.1.185",
+    "id_privada": null,
+    "recibo_pdf": "Maria_CristinaLocal_Ropa_Haya2025-03-22.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 40,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Juana Quevedo Parra",
+    "direccion": "Secuoya",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525525334295",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 172,
+    "ip_completa": "192.168.1.172",
+    "id_privada": null,
+    "recibo_pdf": "Juana_Quevedo_ParraSecuoya2025-03-22.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 41,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "roberto estevez",
+    "direccion": "milan",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525510946021",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 249,
+    "ip_completa": "192.168.1.249",
+    "id_privada": null,
+    "recibo_pdf": "roberto_estevezmilan2025-01-17.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 42,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Paleteria",
+    "direccion": "Paleteria",
+    "Tipo_instalacion": "cable",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525533208740",
+    "primera_parte_ip": 5,
+    "segunda_parte_ip": 2,
+    "ip_completa": "192.168.5.2",
+    "id_privada": null,
+    "recibo_pdf": "PaleteriaPaleteria2024-12-04.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 43,
+  "fields": {
+    "frecuencia_pago": "MOROSO",
+    "cortado": false,
+    "nombre": "jose leon",
+    "direccion": "Ancona",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525530213740",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 240,
+    "ip_completa": "192.168.1.240",
+    "id_privada": null,
+    "recibo_pdf": "jose_leonAncona2025-03-14.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 44,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "lucila merino",
+    "direccion": "alessandria",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525585737964",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 95,
+    "ip_completa": "192.168.1.95",
+    "id_privada": null,
+    "recibo_pdf": "lucila_merinoalessandria2025-06-16.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 45,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Carniceria Ricardo",
+    "direccion": "plaza de la piedra local Carniceria",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525622003392",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 57,
+    "ip_completa": "192.168.1.57",
+    "id_privada": null,
+    "recibo_pdf": "Carniceria_Ricardoplaza_de_la_piedra_local_Carniceria2025-01-29.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 46,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Ene Castillo",
+    "direccion": "Farnese",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525931190222",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 233,
+    "ip_completa": "192.168.1.233",
+    "id_privada": null,
+    "recibo_pdf": "Ene_CastilloFarnese2025-01-29.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 47,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Familia Molina",
+    "direccion": "ferrara",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525521841617",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 83,
+    "ip_completa": "192.168.1.83",
+    "id_privada": null,
+    "recibo_pdf": "Familia_Molinaferrara2025-03-22.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 48,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "pascual",
+    "direccion": "brazalete",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525516055037",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 203,
+    "ip_completa": "192.168.1.203",
+    "id_privada": null,
+    "recibo_pdf": "pascualbrazalete2024-12-30.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 50,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Sonia Cortez",
+    "direccion": "Bari",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525546889763",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 34,
+    "ip_completa": "192.168.1.34",
+    "id_privada": null,
+    "recibo_pdf": "Sonia_CortezBari2026-01-02.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 51,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "tacho",
+    "direccion": "brazalete",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525528537253",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 105,
+    "ip_completa": "192.168.1.105",
+    "id_privada": null,
+    "recibo_pdf": "tachobrazalete2025-01-09.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 52,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "amalia gonzalez",
+    "direccion": "ravena",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525567343576",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 93,
+    "ip_completa": "192.168.1.93",
+    "id_privada": null,
+    "recibo_pdf": "amalia_gonzalezravena2026-01-04.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 53,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Familia Martinez Tienda",
+    "direccion": "Calabrece",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525533208740",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 113,
+    "ip_completa": "192.168.1.113",
+    "id_privada": null,
+    "recibo_pdf": "Familia_Martinez_TiendaCalabrece2024-06-24.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 54,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "juan carlos",
+    "direccion": "Jacarandas",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525542967561",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 211,
+    "ip_completa": "192.168.1.211",
+    "id_privada": null,
+    "recibo_pdf": "juan_carlosJacarandas2025-05-04.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 55,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "eveling hernandez",
+    "direccion": "pavia",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+527731322256",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 62,
+    "ip_completa": "192.168.1.62",
+    "id_privada": null,
+    "recibo_pdf": "eveling_hernandezpavia2025-01-29.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 56,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Angel",
+    "direccion": "Brazalete",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525572873242",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 97,
+    "ip_completa": "192.168.1.97",
+    "id_privada": null,
+    "recibo_pdf": "AngelBrazalete2025-03-16.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 57,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "ordaz",
+    "direccion": "catalpa",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525518168935",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 155,
+    "ip_completa": "192.168.1.155",
+    "id_privada": null,
+    "recibo_pdf": "ordazcatalpa2024-11-23.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 58,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Mitzy Gomez",
+    "direccion": "Brazalete",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525639863200",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 182,
+    "ip_completa": "192.168.1.182",
+    "id_privada": null,
+    "recibo_pdf": "oscar_muñozbunya2025-01-17.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 59,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "ivan",
+    "direccion": "bugato",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525614964871",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 243,
+    "ip_completa": "192.168.1.243",
+    "id_privada": null,
+    "recibo_pdf": "ivanbugato2025-03-15.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 60,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "gil viz guerra",
+    "direccion": "laurel",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525538046239",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 84,
+    "ip_completa": "192.168.1.84",
+    "id_privada": null,
+    "recibo_pdf": "gil_viz_guerralaurel2025-01-21.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 61,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Juana Alamo",
+    "direccion": "Alamo",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525516424404",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 94,
+    "ip_completa": "192.168.1.94",
+    "id_privada": null,
+    "recibo_pdf": "Juana_AlamoAlamo2026-01-14.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 62,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "rogelio",
+    "direccion": "cedro",
+    "Tipo_instalacion": "mikrotik",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525533208740",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 41,
+    "ip_completa": "192.168.1.41",
+    "id_privada": null,
+    "recibo_pdf": "rogeliocedro2025-03-15.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 63,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "mercedez cruz",
+    "direccion": "roble",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525581220585",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 37,
+    "ip_completa": "192.168.1.37",
+    "id_privada": null,
+    "recibo_pdf": "mercedez_cruzroble2024-10-08.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 64,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Alejandro Alfredo",
+    "direccion": "brazalete",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525549418226",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 167,
+    "ip_completa": "192.168.1.167",
+    "id_privada": null,
+    "recibo_pdf": "jonathan_zamorabrazalete2024-11-05.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 65,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "arvizu",
+    "direccion": "eukalipto",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525569400125",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 225,
+    "ip_completa": "192.168.1.225",
+    "id_privada": null,
+    "recibo_pdf": "arvizueukalipto2025-05-02.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 66,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "leticia cruz",
+    "direccion": "alassia 160",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525638040479",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 74,
+    "ip_completa": "192.168.1.74",
+    "id_privada": null,
+    "recibo_pdf": "leticia_cruzalassia_1602024-11-02.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 67,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "papeleria",
+    "direccion": "paseos de la pradera",
+    "Tipo_instalacion": "cable",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525519259898",
+    "primera_parte_ip": 5,
+    "segunda_parte_ip": 3,
+    "ip_completa": "192.168.5.3",
+    "id_privada": null,
+    "recibo_pdf": "papeleriapaseos_de_la_pradera2025-02-27.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 68,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Joel Badillo",
+    "direccion": "ancona",
+    "Tipo_instalacion": "mikrotik",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525515811677",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 29,
+    "ip_completa": "192.168.1.29",
+    "id_privada": null,
+    "recibo_pdf": "Joel_Badilloancona2024-10-08.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 69,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "sergio ivan",
+    "direccion": "ciclamor",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525533208740",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 174,
+    "ip_completa": "192.168.1.174",
+    "id_privada": null,
+    "recibo_pdf": "sergio_ivanciclamor2025-05-01.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 70,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "ana lilia chavez",
+    "direccion": "ciruelo",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525533208740",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 72,
+    "ip_completa": "192.168.1.72",
+    "id_privada": null,
+    "recibo_pdf": "ana_lilia_chavezciruelo2025-07-25.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 71,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "julio soto",
+    "direccion": "ciruelo",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525512845631",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 132,
+    "ip_completa": "192.168.1.132",
+    "id_privada": null,
+    "recibo_pdf": "julio_sotociruelo2024-10-14.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 72,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Ana Maria Cardozo",
+    "direccion": "Rio Alia",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525535607490",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 21,
+    "ip_completa": "192.168.1.21",
+    "id_privada": null,
+    "recibo_pdf": "Ana_Maria_CardozoRio_Alia2025-02-28.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 73,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "antonio martinez balerio",
+    "direccion": "brazalete",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525560155974",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 164,
+    "ip_completa": "192.168.1.164",
+    "id_privada": null,
+    "recibo_pdf": "antonio_martinez_baleriobrazalete2025-04-30.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 74,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "miguel angel",
+    "direccion": "alessandria",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525533208740",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 248,
+    "ip_completa": "192.168.1.248",
+    "id_privada": null,
+    "recibo_pdf": "miguel_angelalessandria2024-11-26.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 75,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "tamara ramirez",
+    "direccion": "alessandria",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525523779101",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 245,
+    "ip_completa": "192.168.1.245",
+    "id_privada": null,
+    "recibo_pdf": "tamara_ramirezalessandria2025-03-22.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 76,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "abraham gonzalez",
+    "direccion": "brazalete",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525560091336",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 223,
+    "ip_completa": "192.168.1.223",
+    "id_privada": null,
+    "recibo_pdf": "abraham_gonzalezbrazalete2024-10-09.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 77,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Nadya Isabel",
+    "direccion": "Magnolia",
+    "Tipo_instalacion": "mikrotik",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525571958537",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 206,
+    "ip_completa": "192.168.1.206",
+    "id_privada": null,
+    "recibo_pdf": "Adelaida_VazquezLiguria2025-04-30.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 78,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "veronica",
+    "direccion": "ancona",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525533208740",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 98,
+    "ip_completa": "192.168.1.98",
+    "id_privada": null,
+    "recibo_pdf": "veronicaancona2025-05-29.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 79,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "ana karen",
+    "direccion": "ahuehuete",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525578817462",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 236,
+    "ip_completa": "192.168.1.236",
+    "id_privada": null,
+    "recibo_pdf": "ana_karenahuehuete2025-01-09.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 80,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "arturo maleni",
+    "direccion": "plaza del duomo",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525530534650",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 86,
+    "ip_completa": "192.168.1.86",
+    "id_privada": null,
+    "recibo_pdf": "arturo_maleniplaza_del_duomo2024-06-24.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 81,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "karla berenice ZAmudio mora",
+    "direccion": "brazalete",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525619547863",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 104,
+    "ip_completa": "192.168.1.104",
+    "id_privada": null,
+    "recibo_pdf": "karla_berenice_ZAmudio_morabrazalete2024-10-08.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 82,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Gomez Alicia",
+    "direccion": "Farolillo",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525529985615",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 189,
+    "ip_completa": "192.168.1.189",
+    "id_privada": null,
+    "recibo_pdf": "Gomez_AliciaFarolillo2025-05-04.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 83,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "luis miguel salvador",
+    "direccion": "venecia",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525617349206",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 54,
+    "ip_completa": "192.168.1.54",
+    "id_privada": null,
+    "recibo_pdf": "luis_miguel_salvadorvenecia2025-02-28.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 84,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Tania Bello",
+    "direccion": "Alessandria",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525630207306",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 96,
+    "ip_completa": "192.168.1.96",
+    "id_privada": null,
+    "recibo_pdf": "Familia_Camarenaalamo2024-10-10.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 85,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Jessica Vazquez",
+    "direccion": "Latina",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525570851650",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 165,
+    "ip_completa": "192.168.1.165",
+    "id_privada": null,
+    "recibo_pdf": "Jessica_VazquezLatina2025-10-08.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 86,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Primaria Jaime Torres Bodet",
+    "direccion": "toscana media",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+527757846159",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 154,
+    "ip_completa": "192.168.1.154",
+    "id_privada": null,
+    "recibo_pdf": "Primaria_Jaime_Torres_Bodettoscana_media2024-06-26.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 87,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Familia Vanegaz venecia",
+    "direccion": "venecia",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525630054916",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 168,
+    "ip_completa": "192.168.1.168",
+    "id_privada": null,
+    "recibo_pdf": "Familia_Vanegaz_veneciavenecia2024-07-11.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 88,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "arturo morales",
+    "direccion": "abruzos",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525540721167",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 147,
+    "ip_completa": "192.168.1.147",
+    "id_privada": null,
+    "recibo_pdf": "arturo_moralesabruzos2025-05-02.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 90,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Fermin Carmona",
+    "direccion": "Puerta Mayor",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525537620021",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 192,
+    "ip_completa": "192.168.1.192",
+    "id_privada": null,
+    "recibo_pdf": "Fermin_CarmonaPuerta_Mayor2025-03-15.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 91,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "supervision de primarias",
+    "direccion": "toscana media",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+527713830122",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 139,
+    "ip_completa": "192.168.1.139",
+    "id_privada": null,
+    "recibo_pdf": "supervision_de_primariastoscana_media2024-12-30.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 92,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Erendira Brindisi",
+    "direccion": "brindisi",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525512243661",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 166,
+    "ip_completa": "192.168.1.166",
+    "id_privada": null,
+    "recibo_pdf": "Erendira_Brindisibrindisi2025-03-22.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 94,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Mario Ahuehuete",
+    "direccion": "ahuehuete",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525630346537",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 146,
+    "ip_completa": "192.168.1.146",
+    "id_privada": null,
+    "recibo_pdf": "Mario_Ahuehueteahuehuete2024-06-26.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 95,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "liz modesto",
+    "direccion": "Joaquin Belli",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525612884830",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 232,
+    "ip_completa": "192.168.1.232",
+    "id_privada": null,
+    "recibo_pdf": "liz_modestoJoaquin_Belli2025-03-15.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 96,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Familia Ramirez",
+    "direccion": "barletta",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525630763730",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 137,
+    "ip_completa": "192.168.1.137",
+    "id_privada": null,
+    "recibo_pdf": "Familia_Ramirezbarletta2025-03-15.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 97,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "perla valencia",
+    "direccion": "ancona",
+    "Tipo_instalacion": "mikrotik",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525567736635",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 158,
+    "ip_completa": "192.168.1.158",
+    "id_privada": null,
+    "recibo_pdf": "perla_valenciaancona2024-07-23.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 98,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "cyber plaza libertad",
+    "direccion": "plaza libertad",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525582918039",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 161,
+    "ip_completa": "192.168.1.161",
+    "id_privada": null,
+    "recibo_pdf": "cyber_plaza_libertadplaza_libertad2025-03-16.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 99,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Jhonathan",
+    "direccion": "haya",
+    "Tipo_instalacion": "mikrotik",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525513635915",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 144,
+    "ip_completa": "192.168.1.144",
+    "id_privada": null,
+    "recibo_pdf": "Jhonathanhaya2025-01-29.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 100,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Elizabeth alamo rex",
+    "direccion": "alamo",
+    "Tipo_instalacion": "mikrotik",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525540302289",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 205,
+    "ip_completa": "192.168.1.205",
+    "id_privada": null,
+    "recibo_pdf": "Elizabeth_alamo_rexalamo2024-07-17.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 101,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Mario Nogal",
+    "direccion": "nogal",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525572683839",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 253,
+    "ip_completa": "192.168.1.253",
+    "id_privada": null,
+    "recibo_pdf": "Mario_Nogalnogal2025-01-29.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 102,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Felix Galicia",
+    "direccion": "florencia",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+527752349016",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 114,
+    "ip_completa": "192.168.1.114",
+    "id_privada": null,
+    "recibo_pdf": "Felix_Galiciaflorencia2024-06-18.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 103,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Alvarez liguria",
+    "direccion": "liguria",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+527731741517",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 157,
+    "ip_completa": "192.168.1.157",
+    "id_privada": null,
+    "recibo_pdf": "Alvarez_ligurialiguria2025-02-28.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 104,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "adan rodriguez",
+    "direccion": "alamo",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525620154158",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 234,
+    "ip_completa": "192.168.1.234",
+    "id_privada": null,
+    "recibo_pdf": "adan_rodriguezalamo2024-06-24.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 105,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Eduardo Almazan",
+    "direccion": "Av coliseo Toscana Alta",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525639578444",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 151,
+    "ip_completa": "192.168.1.151",
+    "id_privada": null,
+    "recibo_pdf": "Eduardo_AlmazanAv_coliseo_Toscana_Alta2025-03-22.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 106,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Raymundo Apostol",
+    "direccion": "Toscana Alta Plaza del duomo",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-30",
+    "telefono": "+525619410793",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 138,
+    "ip_completa": "192.168.1.138",
+    "id_privada": null,
+    "recibo_pdf": "Raymundo_ApostolToscana_Alta_Plaza_del_duomo2025-03-22.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 107,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "ofelia cedillo barletta",
+    "direccion": "barletta",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525523323033",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 112,
+    "ip_completa": "192.168.1.112",
+    "id_privada": null,
+    "recibo_pdf": "ofelia_cedillo_barlettabarletta2024-12-30.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 108,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Pedro Marquez",
+    "direccion": "Arezzo",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525633597131",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 40,
+    "ip_completa": "192.168.1.40",
+    "id_privada": null,
+    "recibo_pdf": "Pedro_MarquezArezzo2024-10-17.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 109,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Tienda en Latina",
+    "direccion": "Latina",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+527731986428",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 208,
+    "ip_completa": "192.168.1.208",
+    "id_privada": null,
+    "recibo_pdf": "Hector_Villalpanabeto2025-01-29.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 110,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Alejandro Centeno",
+    "direccion": "salerno",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525518643330",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 48,
+    "ip_completa": "192.168.1.48",
+    "id_privada": null,
+    "recibo_pdf": "Alejandro_Centenosalerno2025-03-05.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 111,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Norma Romero",
+    "direccion": "calabrece",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525627909689",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 90,
+    "ip_completa": "192.168.1.90",
+    "id_privada": null,
+    "recibo_pdf": "Norma_Romerocalabrece2024-06-18.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 113,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Abel Ruiz",
+    "direccion": "laurel",
+    "Tipo_instalacion": "mikrotik",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525535773220",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 195,
+    "ip_completa": "192.168.1.195",
+    "id_privada": null,
+    "recibo_pdf": "beatrizalessandria2024-07-29.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 114,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Paulina Rodriguez",
+    "direccion": "ahuehuete",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525587054784",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 51,
+    "ip_completa": "192.168.1.51",
+    "id_privada": null,
+    "recibo_pdf": "Paulina_Rodriguezahuehuete2024-07-23.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 115,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Leydi Patricia Gaitan",
+    "direccion": "ancona",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+527732256234",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 38,
+    "ip_completa": "192.168.1.38",
+    "id_privada": null,
+    "recibo_pdf": "Leydi_Patricia_Gaitanancona2025-01-29.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 116,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Janet Vara",
+    "direccion": "salerno",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525581068914",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 39,
+    "ip_completa": "192.168.1.39",
+    "id_privada": null,
+    "recibo_pdf": "Janet_Varasalerno2025-03-22.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 117,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "luis guerrero recauderia",
+    "direccion": "parada de piedra",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525617660640",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 231,
+    "ip_completa": "192.168.1.231",
+    "id_privada": null,
+    "recibo_pdf": "luis_guerrero_recauderiaparada_de_piedra2024-07-11.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 118,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "luis guerrero",
+    "direccion": "perugia",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525615389789",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 70,
+    "ip_completa": "192.168.1.70",
+    "id_privada": null,
+    "recibo_pdf": "luis_guerreroperugia2024-07-11.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 119,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "elizabeth alamo lavanderia",
+    "direccion": "paseos de la pradera",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525540302289",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 200,
+    "ip_completa": "192.168.1.200",
+    "id_privada": null,
+    "recibo_pdf": "elizabeth_alamo_lavanderiapaseos_de_la_pradera2024-07-17.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 120,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "fortino david",
+    "direccion": "plaza de la republica",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525561414983",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 186,
+    "ip_completa": "192.168.1.186",
+    "id_privada": null,
+    "recibo_pdf": "fortino_davidplaza_de_la_republica2025-03-16.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 121,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "isabel hernandez",
+    "direccion": "venecia",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525611373538",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 43,
+    "ip_completa": "192.168.1.43",
+    "id_privada": null,
+    "recibo_pdf": "isabel_hernandezvenecia2025-01-29.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 122,
+  "fields": {
+    "frecuencia_pago": "MOROSO",
+    "cortado": false,
+    "nombre": "Veronica Lila",
+    "direccion": "Lila",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525632667637",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 145,
+    "ip_completa": "192.168.1.145",
+    "id_privada": null,
+    "recibo_pdf": "Veronica_LilaLila2024-06-01.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 123,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Manuel Nova Arezzo",
+    "direccion": "Plaza Arezzo Toscana Alta",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525562504460",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 109,
+    "ip_completa": "192.168.1.109",
+    "id_privada": null,
+    "recibo_pdf": "Manuel_Nova_ArezzoPlaza_Arezzo_Toscana_Alta2025-03-22.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 124,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Martha de Liguria",
+    "direccion": "Liguria",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525529105116",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 170,
+    "ip_completa": "192.168.1.170",
+    "id_privada": null,
+    "recibo_pdf": "Martha_de_LiguriaLiguria2025-03-22.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 125,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Jimena Cruz",
+    "direccion": "Puerta Mayor",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525581523762",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 148,
+    "ip_completa": "192.168.1.148",
+    "id_privada": null,
+    "recibo_pdf": "Jimena_CruzPuerta_Mayor2024-12-30.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 126,
+  "fields": {
+    "frecuencia_pago": "MOROSO",
+    "cortado": false,
+    "nombre": "Andrea",
+    "direccion": "ancona",
+    "Tipo_instalacion": "mikrotik",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525532377123",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 22,
+    "ip_completa": "192.168.1.22",
+    "id_privada": null,
+    "recibo_pdf": "Andreaancona2025-06-01.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 127,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "luis miguel alassia",
+    "direccion": "alassia",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525576274525",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 143,
+    "ip_completa": "192.168.1.143",
+    "id_privada": null,
+    "recibo_pdf": "luis_miguel_alassiaalassia2024-11-01.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 128,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Guadalupe castaño",
+    "direccion": "castaño",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525584029081",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 252,
+    "ip_completa": "192.168.1.252",
+    "id_privada": null,
+    "recibo_pdf": "Guadalupe_castañocastaño2025-03-22.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 129,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Claudia Arvizu",
+    "direccion": "Ebano",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-12-28",
+    "telefono": "+525637246100",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 35,
+    "ip_completa": "192.168.1.35",
+    "id_privada": null,
+    "recibo_pdf": "Claudia_ArvizuEbano2024-07-18.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 130,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Martha Ponciano Jimenez",
+    "direccion": "Abeto 102 c.p.42995",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525635746247",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 68,
+    "ip_completa": "192.168.1.68",
+    "id_privada": null,
+    "recibo_pdf": "Martha_Ponciano_JimenezAbeto_102_c.p.429952025-02-14.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 131,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Victoria Vicky Campo de las flores",
+    "direccion": "Campo de las Flores",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525548155110",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 89,
+    "ip_completa": "192.168.1.89",
+    "id_privada": null,
+    "recibo_pdf": "Victoria_Vicky_Campo_de_las_floresCampo_de_las_Flores2025-01-29.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 132,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Alma de liguria",
+    "direccion": "liguria",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525545130164",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 221,
+    "ip_completa": "192.168.1.221",
+    "id_privada": null,
+    "recibo_pdf": "Alma_de_ligurialiguria2025-03-15.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 133,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Lesli Flores Estetica",
+    "direccion": "Plaza en Toscana Alta",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+527732238261",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 32,
+    "ip_completa": "192.168.1.32",
+    "id_privada": null,
+    "recibo_pdf": "Lesli_Flores_EsteticaPlaza_en_Toscana_Alta2025-03-15.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 134,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Isabel Flores",
+    "direccion": "Catania",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525531758823",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 237,
+    "ip_completa": "192.168.1.237",
+    "id_privada": null,
+    "recibo_pdf": "Isabel_FloresCatania2024-11-29.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 135,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Andres Fernando Soto Lopez",
+    "direccion": "plaza de la republica",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525530765042",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 173,
+    "ip_completa": "192.168.1.173",
+    "id_privada": null,
+    "recibo_pdf": "Andres_Fernando_Soto_Lopezplaza_de_la_republica2025-03-22.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 136,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Minisuper Plaza Libertad",
+    "direccion": "Plaza Libertad",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525582550673",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 47,
+    "ip_completa": "192.168.1.47",
+    "id_privada": null,
+    "recibo_pdf": "Minisuper_Plaza_LibertadPlaza_Libertad2025-01-17.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 137,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Minisuper Toscana Alta",
+    "direccion": "Plaza en Toscana Alta",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525582550673",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 227,
+    "ip_completa": "192.168.1.227",
+    "id_privada": null,
+    "recibo_pdf": "Minisuper_Toscana_AltaPlaza_en_Toscana_Alta2025-01-17.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 138,
+  "fields": {
+    "frecuencia_pago": "MOROSO",
+    "cortado": false,
+    "nombre": "Luna Roble Luviet",
+    "direccion": "Abedul",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525513930222",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 149,
+    "ip_completa": "192.168.1.149",
+    "id_privada": null,
+    "recibo_pdf": "Luna_Roble_LuvietAbedul2024-07-07.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 139,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Sergio 2",
+    "direccion": "CiClamor",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525624192694",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 241,
+    "ip_completa": "192.168.1.241",
+    "id_privada": null,
+    "recibo_pdf": "Sergio_2CiClamor2026-02-17.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 141,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Raquel Vega",
+    "direccion": "Rio Tiber",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525519867992",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 107,
+    "ip_completa": "192.168.1.107",
+    "id_privada": null,
+    "recibo_pdf": "Raquel_VegaRio_Tiber2026-02-18.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 142,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Antonio Garduño",
+    "direccion": "Alessandria",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525521524413",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 201,
+    "ip_completa": "192.168.1.201",
+    "id_privada": null,
+    "recibo_pdf": "Antonio_GarduñoPlaza_Minerva2024-10-09.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 143,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Guillermo Plaza Minerva",
+    "direccion": "Plaza Minerva",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525588066024",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 42,
+    "ip_completa": "192.168.1.42",
+    "id_privada": null,
+    "recibo_pdf": "Guillermo_Plaza_MinervaPlaza_Minerva2024-12-30.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 144,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Jorge Herrera",
+    "direccion": "Cheti",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525584199177",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 193,
+    "ip_completa": "192.168.1.193",
+    "id_privada": null,
+    "recibo_pdf": "Jorge_HerreraCheti2024-11-01.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 145,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Monserrat De Anda",
+    "direccion": "aosta",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525577814003",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 183,
+    "ip_completa": "192.168.1.183",
+    "id_privada": null,
+    "recibo_pdf": "Monserrat_De_Andaaosta2025-02-28.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 146,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Alexis Aorta Kuzo",
+    "direccion": "Kuzo",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525541012784",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 116,
+    "ip_completa": "192.168.1.116",
+    "id_privada": null,
+    "recibo_pdf": "Alexis_Aorta_KuzoKuzo2025-05-01.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 147,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Familia Cedillo Peral",
+    "direccion": "Peral",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525542737535",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 33,
+    "ip_completa": "192.168.1.33",
+    "id_privada": null,
+    "recibo_pdf": "Familia_Cedillo_PeralPeral2025-05-02.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 148,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Maria del rosario",
+    "direccion": "Framboyan",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+527716835227",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 222,
+    "ip_completa": "192.168.1.222",
+    "id_privada": null,
+    "recibo_pdf": "Maria_del_rosarioFramboyan2024-07-07.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 149,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Andrea Cisneros",
+    "direccion": "Basilicata",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525618852690",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 119,
+    "ip_completa": "192.168.1.119",
+    "id_privada": null,
+    "recibo_pdf": "Andrea_CisnerosBasilicata2024-07-07.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 150,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Maria de Jesus",
+    "direccion": "Alamo",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525584139461",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 229,
+    "ip_completa": "192.168.1.229",
+    "id_privada": null,
+    "recibo_pdf": "Maria_de_JesusAlamo2024-10-10.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 151,
+  "fields": {
+    "frecuencia_pago": "BIMESTRAL",
+    "cortado": false,
+    "nombre": "yara Luna kynder",
+    "direccion": "Abeto",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525618011838",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 191,
+    "ip_completa": "192.168.1.191",
+    "id_privada": null,
+    "recibo_pdf": "yara_Luna_kynderAbeto2025-03-05.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 152,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "guadalupe ferrari",
+    "direccion": "plaza ferrari",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+527732041055",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 102,
+    "ip_completa": "192.168.1.102",
+    "id_privada": null,
+    "recibo_pdf": "guadalupe_ferrariplaza_ferrari2024-06-25.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 153,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Brianda abril ruiz",
+    "direccion": "abeto",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+527731586777",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 150,
+    "ip_completa": "192.168.1.150",
+    "id_privada": null,
+    "recibo_pdf": "Brianda_abril_ruizabeto2024-05-16.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 154,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Guadalupe Tapia",
+    "direccion": "calabrece",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525631543923",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 103,
+    "ip_completa": "192.168.1.103",
+    "id_privada": null,
+    "recibo_pdf": "Guadalupe_Tapiacalabrece2024-10-08.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 155,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Primaria Sor Juana Ines De La Cruz",
+    "direccion": "Toscana Baja",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+527731332675",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 50,
+    "ip_completa": "192.168.1.50",
+    "id_privada": null,
+    "recibo_pdf": "Primaria_Sor_Juana_Ines_De_La_CruzToscana_Baja2025-10-07.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 156,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Jose Luis Vazquez",
+    "direccion": "Amelia",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525547847527",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 239,
+    "ip_completa": "192.168.1.239",
+    "id_privada": null,
+    "recibo_pdf": "Jose_Luis_VazquezAmelia2024-12-31.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 157,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Carmela Angela",
+    "direccion": "Rio Alcantara",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525567800626",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 152,
+    "ip_completa": "192.168.1.152",
+    "id_privada": null,
+    "recibo_pdf": "PintumexAzar2024-07-17.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 158,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Primaria Toscana Alta",
+    "direccion": "Toscana Alta",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+527721093950",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 78,
+    "ip_completa": "192.168.1.78",
+    "id_privada": null,
+    "recibo_pdf": "Primaria_Toscana_AltaToscana_Alta2024-10-10.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 159,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Selene Cruz",
+    "direccion": "Liguria",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525566108932",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 31,
+    "ip_completa": "192.168.1.31",
+    "id_privada": null,
+    "recibo_pdf": "Selene_CruzLiguria2025-12-10.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 160,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Botanas Vickys",
+    "direccion": "Paseos de la pradera",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525545585099",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 88,
+    "ip_completa": "192.168.1.88",
+    "id_privada": null,
+    "recibo_pdf": "Botanas_VickysPaseos_de_la_pradera2025-10-07.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 161,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Sergio Catalpa",
+    "direccion": "Catalpa",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525533606607",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 117,
+    "ip_completa": "192.168.1.117",
+    "id_privada": null,
+    "recibo_pdf": "Sergio_CatalpaCatalpa2024-06-26.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 162,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Nora Cruz",
+    "direccion": "Biella",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525621333046",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 106,
+    "ip_completa": "192.168.1.106",
+    "id_privada": null,
+    "recibo_pdf": "Nora_CruzBiella2024-07-17.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 163,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Profesor Mario Soto",
+    "direccion": "Catalpa",
+    "Tipo_instalacion": "mikrotik",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+527714100569",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 30,
+    "ip_completa": "192.168.1.30",
+    "id_privada": null,
+    "recibo_pdf": "Profesor_Mario_SotoCatalpa2024-12-31.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 164,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Ami Mendoza Inmobilaria",
+    "direccion": "Plaza Exito",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525529641734",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 52,
+    "ip_completa": "192.168.1.52",
+    "id_privada": null,
+    "recibo_pdf": "Ami_Mendoza_InmobilariaPlaza_Exito2025-03-22.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 165,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Sarah Patricia",
+    "direccion": "Cedro",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525519764611",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 66,
+    "ip_completa": "192.168.1.66",
+    "id_privada": null,
+    "recibo_pdf": "Sarah_PatriciaCedro2025-01-29.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 166,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Bella Verduleria",
+    "direccion": "Rio Hada Tienda",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525549168804",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 175,
+    "ip_completa": "192.168.1.175",
+    "id_privada": null,
+    "recibo_pdf": "Jesus_ZamoraRio_Hada2024-07-07.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 167,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Daniela Martinez",
+    "direccion": "plaza minerva",
+    "Tipo_instalacion": "mikrotik",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525570512592",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 162,
+    "ip_completa": "192.168.1.162",
+    "id_privada": null,
+    "recibo_pdf": "raquel_rafaelplaza_minerva2024-05-16.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 168,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Carolina Cruz",
+    "direccion": "Bolonia",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+527732232940",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 159,
+    "ip_completa": "192.168.1.159",
+    "id_privada": null,
+    "recibo_pdf": "Carolina_CruzBolonia2024-07-17.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 169,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Roxana Perugia",
+    "direccion": "Perugia 11",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525540273367",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 251,
+    "ip_completa": "192.168.1.251",
+    "id_privada": null,
+    "recibo_pdf": "Roxana_PerugiaPerugia_112024-04-14.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 170,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Jose Morelia",
+    "direccion": "Abedul",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525548589654",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 210,
+    "ip_completa": "192.168.1.210",
+    "id_privada": null,
+    "recibo_pdf": "Jose_MoreliaAbedul2026-02-17.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 171,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "norma grisel",
+    "direccion": "bolzano",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525578631584",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 63,
+    "ip_completa": "192.168.1.63",
+    "id_privada": null,
+    "recibo_pdf": "norma_griselbolzano2024-11-02.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 172,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Jose Homero Portilla",
+    "direccion": "salerno",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525514354580",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 187,
+    "ip_completa": "192.168.1.187",
+    "id_privada": null,
+    "recibo_pdf": "Jose_Homero_Portillasalerno2024-12-31.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 173,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Alejandro de la paz",
+    "direccion": "alessandria",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525518290721",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 73,
+    "ip_completa": "192.168.1.73",
+    "id_privada": null,
+    "recibo_pdf": "Alejandro_de_la_pazalessandria2024-07-07.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 174,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Francisco Real",
+    "direccion": "ancona",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-08-31",
+    "telefono": "+525514013190",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 26,
+    "ip_completa": "192.168.1.26",
+    "id_privada": null,
+    "recibo_pdf": "Francisco_Realancona2024-07-29.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 175,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Adriana Rodriguez",
+    "direccion": "Catalpa",
+    "Tipo_instalacion": "mikrotik",
+    "f_instalacion": "2023-09-01",
+    "telefono": "+525534577577",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 45,
+    "ip_completa": "192.168.1.45",
+    "id_privada": null,
+    "recibo_pdf": "Adriana_RodriguezCatalpa2025-04-22.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 176,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": true,
+    "nombre": "Ever Cuevas",
+    "direccion": "Pesaro #98",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-09-01",
+    "telefono": "+525582978799",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 81,
+    "ip_completa": "192.168.1.81",
+    "id_privada": null,
+    "recibo_pdf": "Ever_CuevasPesaro_#982025-05-06.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 177,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Lorenzo Rios",
+    "direccion": "Alassia",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-09-01",
+    "telefono": "+525514376699",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 92,
+    "ip_completa": "192.168.1.92",
+    "id_privada": null,
+    "recibo_pdf": "Lorenzo_RiosAlassia2025-01-17.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 178,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Rasta",
+    "direccion": "paseos de la pradera",
+    "Tipo_instalacion": "mikrotik",
+    "f_instalacion": "2023-09-01",
+    "telefono": "+525533208740",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 91,
+    "ip_completa": "192.168.1.91",
+    "id_privada": null,
+    "recibo_pdf": "Rastapaseos_de_la_pradera2024-06-26.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 179,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "refugio cesar",
+    "direccion": "Rio Enza",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-09-01",
+    "telefono": "+525528936052",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 56,
+    "ip_completa": "192.168.1.56",
+    "id_privada": null,
+    "recibo_pdf": "refugio_cesarRio_Enza2024-06-26.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 180,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "sandra minerva",
+    "direccion": "Ancona",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-09-01",
+    "telefono": "+525511360411",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 163,
+    "ip_completa": "192.168.1.163",
+    "id_privada": null,
+    "recibo_pdf": "sandra_minervaAncona2024-12-31.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 181,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Emilia Flores",
+    "direccion": "Joaquin Belli",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-09-01",
+    "telefono": "+527731279982",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 190,
+    "ip_completa": "192.168.1.190",
+    "id_privada": null,
+    "recibo_pdf": ""
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 182,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Aleli Moncada",
+    "direccion": "Farolillo",
+    "Tipo_instalacion": "mikrotik",
+    "f_instalacion": "2023-09-01",
+    "telefono": "+525528618618",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 212,
+    "ip_completa": "192.168.1.212",
+    "id_privada": null,
+    "recibo_pdf": "Aleli_MoncadaFarolillo2025-05-06.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 183,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Rafaela Bautizta",
+    "direccion": "Amelia",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-09-01",
+    "telefono": "+524775010245",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 80,
+    "ip_completa": "192.168.1.80",
+    "id_privada": null,
+    "recibo_pdf": "Rafaela_BautiztaAmelia2025-06-04.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 184,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Mario Villegas",
+    "direccion": "Puerta Mayor",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-09-01",
+    "telefono": "+525533208740",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 44,
+    "ip_completa": "192.168.1.44",
+    "id_privada": null,
+    "recibo_pdf": "Mario_VillegasPuerta_Mayor2025-01-17.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 185,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Carlos",
+    "direccion": "Rio Alia",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-09-01",
+    "telefono": "+525614665264",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 171,
+    "ip_completa": "192.168.1.171",
+    "id_privada": null,
+    "recibo_pdf": "CarlosRio_Alia2024-11-02.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 187,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Tienda Paseos de la Pradera",
+    "direccion": "Paseos de la pradera",
+    "Tipo_instalacion": "cable",
+    "f_instalacion": "2023-01-02",
+    "telefono": "+525533208740",
+    "primera_parte_ip": 5,
+    "segunda_parte_ip": 4,
+    "ip_completa": "192.168.5.4",
+    "id_privada": null,
+    "recibo_pdf": "Tienda_Paseos_de_la_PraderaPaseos_de_la_pradera2025-06-16.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 188,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Sonia Cortez Tienda",
+    "direccion": "Bari",
+    "Tipo_instalacion": "mikrotik",
+    "f_instalacion": "2023-01-02",
+    "telefono": "+525516360510",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 85,
+    "ip_completa": "192.168.1.85",
+    "id_privada": null,
+    "recibo_pdf": "Jarceria_Paseos_De_la_PraderaPaseos_de_la_pradera2025-01-17.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 189,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Esmeralda Nicolas",
+    "direccion": "Cedro",
+    "Tipo_instalacion": "mikrotik",
+    "f_instalacion": "2023-01-02",
+    "telefono": "+527298224753",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 244,
+    "ip_completa": "192.168.1.244",
+    "id_privada": null,
+    "recibo_pdf": "Esmeralda_NicolasCedro2025-03-19.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 190,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Perla Torres",
+    "direccion": "plaza de la republica",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-01-02",
+    "telefono": "+525556397769",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 27,
+    "ip_completa": "192.168.1.27",
+    "id_privada": null,
+    "recibo_pdf": "Perla_Torresplaza_de_la_republica2025-01-29.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 192,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Mayra Contreras",
+    "direccion": "Puerta Mayor",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-09-02",
+    "telefono": "+525571710229",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 228,
+    "ip_completa": "192.168.1.228",
+    "id_privada": null,
+    "recibo_pdf": "Mayra_ContrerasPuerta_Mayor2024-12-30.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 193,
+  "fields": {
+    "frecuencia_pago": "MOROSO",
+    "cortado": false,
+    "nombre": "Zaira America",
+    "direccion": "Arce",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-09-02",
+    "telefono": "+525538850439",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 169,
+    "ip_completa": "192.168.1.169",
+    "id_privada": null,
+    "recibo_pdf": "Zaira_AmericaArce2024-06-24.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 194,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "David Miranda",
+    "direccion": "Brecsia",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-09-11",
+    "telefono": "+525534342531",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 217,
+    "ip_completa": "192.168.1.217",
+    "id_privada": null,
+    "recibo_pdf": "David_MirandaBrecsia2025-02-26.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 195,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Tienda Jazmin Flores",
+    "direccion": "Ferrari",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-09-13",
+    "telefono": "+525528544972",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 69,
+    "ip_completa": "192.168.1.69",
+    "id_privada": null,
+    "recibo_pdf": "Tienda_Jazmin_FloresFerrari2024-07-18.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 196,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Ana Maria de Jesus",
+    "direccion": "Savona",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-09-25",
+    "telefono": "+523337833940",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 49,
+    "ip_completa": "192.168.1.49",
+    "id_privada": null,
+    "recibo_pdf": "Ana_Maria_de_JesusSavona2024-07-07.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 197,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "sandra manrriquez saldaña",
+    "direccion": "farolillos",
+    "Tipo_instalacion": "mikrotik",
+    "f_instalacion": "2023-09-25",
+    "telefono": "+525570584855",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 219,
+    "ip_completa": "192.168.1.219",
+    "id_privada": null,
+    "recibo_pdf": "sandra_manrriquez_saldañafarolillos2025-02-28.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 198,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Jazmin Flores Casa",
+    "direccion": "Ferrari",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-09-25",
+    "telefono": "+525528544972",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 230,
+    "ip_completa": "192.168.1.230",
+    "id_privada": null,
+    "recibo_pdf": "Jazmin_Flores_CasaFerrari2024-10-09.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 199,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Elizabeth Comida 3",
+    "direccion": "paseos de la pradera",
+    "Tipo_instalacion": "mikrotik",
+    "f_instalacion": "2023-09-25",
+    "telefono": "+525582610965",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 209,
+    "ip_completa": "192.168.1.209",
+    "id_privada": null,
+    "recibo_pdf": "Jesus_PerezCatalpa2024-12-10.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 200,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Rebeca Morales",
+    "direccion": "Brazalete",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-09-25",
+    "telefono": "+525537585729",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 64,
+    "ip_completa": "192.168.1.64",
+    "id_privada": null,
+    "recibo_pdf": "Rebeca_MoralesBrazalete2025-10-17.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 201,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Janet Rodea",
+    "direccion": "Cheti",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-09-25",
+    "telefono": "+525581960803",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 28,
+    "ip_completa": "192.168.1.28",
+    "id_privada": null,
+    "recibo_pdf": "Janet_RodeaCheti2026-02-18.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 202,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Tortilleria",
+    "direccion": "Plaza de la Piedra",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-10-05",
+    "telefono": "+525528099908",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 58,
+    "ip_completa": "192.168.1.58",
+    "id_privada": null,
+    "recibo_pdf": "TortilleriaPlaza_de_la_Piedra2025-05-04.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 203,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Julieta Jimenez",
+    "direccion": "Rio Hada 101 int 1",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-10-11",
+    "telefono": "+525610041109",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 215,
+    "ip_completa": "192.168.1.215",
+    "id_privada": null,
+    "recibo_pdf": "Julieta_JimenezRio_Hada_101_int_12025-05-04.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 204,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Luciano Mendez",
+    "direccion": "Kiri",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-10-16",
+    "telefono": "+525515374404",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 25,
+    "ip_completa": "192.168.1.25",
+    "id_privada": null,
+    "recibo_pdf": "Luciano_MendezKiri2025-01-29.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 205,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Tortilleria Plaza San Jose",
+    "direccion": "Plaza San Jose",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2023-10-18",
+    "telefono": "+525528099908",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 214,
+    "ip_completa": "192.168.1.214",
+    "id_privada": null,
+    "recibo_pdf": "Tortilleria_Plaza_San_JosePlaza_San_Jose2025-05-04.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 209,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Angelica Morales",
+    "direccion": "Plaza Trevi",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2024-02-15",
+    "telefono": "+525573227223",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 198,
+    "ip_completa": "192.168.1.198",
+    "id_privada": null,
+    "recibo_pdf": "Angelica_MoralesPlaza_Trevi2026-02-18.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 210,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Jaime Tienda Electrica",
+    "direccion": "Ahuehuete",
+    "Tipo_instalacion": "mikrotik",
+    "f_instalacion": "2024-02-29",
+    "telefono": "+525616263474",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 118,
+    "ip_completa": "192.168.1.118",
+    "id_privada": null,
+    "recibo_pdf": "Jaime_Tienda_ElectricaAhuehuete2026-01-18.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 211,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Martha Elizabeth Solares",
+    "direccion": "Magnolia",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2024-02-29",
+    "telefono": "+525610881010",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 36,
+    "ip_completa": "192.168.1.36",
+    "id_privada": null,
+    "recibo_pdf": "Martha_Elizabeth_SolaresMagnolia2024-07-23.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 212,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Elena Trejo",
+    "direccion": "Citrus",
+    "Tipo_instalacion": "mikrotik",
+    "f_instalacion": "2024-02-29",
+    "telefono": "+525619424399",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 115,
+    "ip_completa": "192.168.1.115",
+    "id_privada": null,
+    "recibo_pdf": "Elena_SantosAlassia2025-03-03.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 213,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Tortilleria Plaza Exito",
+    "direccion": "Toscana Media",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2024-02-29",
+    "telefono": "+525648252748",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 82,
+    "ip_completa": "192.168.1.82",
+    "id_privada": null,
+    "recibo_pdf": "Tortilleria_Plaza_ExitoToscana_Media2025-05-04.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 215,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Farmacia GI Patricia",
+    "direccion": "Plaza Libertad",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2024-02-29",
+    "telefono": "+527731062553",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 184,
+    "ip_completa": "192.168.1.184",
+    "id_privada": null,
+    "recibo_pdf": "Vanessa_PeñaBenevento2025-04-01.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 217,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Veronica Alonso",
+    "direccion": "Peral",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2024-02-29",
+    "telefono": "+527732022714",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 188,
+    "ip_completa": "192.168.1.188",
+    "id_privada": null,
+    "recibo_pdf": "Veronica_AlonsoPeral2025-07-04.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 218,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Wendy Pamela",
+    "direccion": "Aosta",
+    "Tipo_instalacion": "mikrotik",
+    "f_instalacion": "2024-04-03",
+    "telefono": "+525614315500",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 224,
+    "ip_completa": "192.168.1.224",
+    "id_privada": null,
+    "recibo_pdf": "Wendy_PamelaAosta2025-05-07.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 219,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Juan Marquez",
+    "direccion": "bolonia",
+    "Tipo_instalacion": "mikrotik",
+    "f_instalacion": "2024-04-03",
+    "telefono": "+527731504199",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 204,
+    "ip_completa": "192.168.1.204",
+    "id_privada": null,
+    "recibo_pdf": "Juan_Marquezbolonia2025-05-01.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 221,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Ortencia Ramirez",
+    "direccion": "Catalpa",
+    "Tipo_instalacion": "mikrotik",
+    "f_instalacion": "2024-04-03",
+    "telefono": "+525575208987",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 61,
+    "ip_completa": "192.168.1.61",
+    "id_privada": null,
+    "recibo_pdf": "Ortencia_RamirezCatalpa2025-06-19.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 222,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Monica Brataza",
+    "direccion": "Plaza San Ignacio",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2024-04-03",
+    "telefono": "+525561269030",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 65,
+    "ip_completa": "192.168.1.65",
+    "id_privada": null,
+    "recibo_pdf": "Monica_BratazaPlaza_San_Ignacio2025-03-20.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 224,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Gisela Quezada",
+    "direccion": "Arezzo",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2024-04-21",
+    "telefono": "+525638225129",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 24,
+    "ip_completa": "192.168.1.24",
+    "id_privada": null,
+    "recibo_pdf": "Gisela_QuezadaArezzo2025-01-09.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 226,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Elizabeth",
+    "direccion": "Arezzo",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2024-05-29",
+    "telefono": "+525578927896",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 238,
+    "ip_completa": "192.168.1.238",
+    "id_privada": null,
+    "recibo_pdf": "ElizabethArezzo2025-05-22.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 227,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Araceli Vega",
+    "direccion": "Farnese",
+    "Tipo_instalacion": "cable",
+    "f_instalacion": "2024-06-21",
+    "telefono": "+525517675240",
+    "primera_parte_ip": 5,
+    "segunda_parte_ip": 7,
+    "ip_completa": "192.168.5.7",
+    "id_privada": null,
+    "recibo_pdf": "Araceli_VegaFarnese2025-03-22.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 228,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Paulina Rodriguez 2",
+    "direccion": "Amelia",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2024-06-26",
+    "telefono": "+525587054784",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 53,
+    "ip_completa": "192.168.1.53",
+    "id_privada": null,
+    "recibo_pdf": "Paulina_Rodriguez_2Amelia2025-05-06.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 232,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Enrique Purificadora Luna",
+    "direccion": "Toscana Alta",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2024-10-08",
+    "telefono": "+525584445783",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 226,
+    "ip_completa": "192.168.1.226",
+    "id_privada": null,
+    "recibo_pdf": "Fernando_PerezAmelia_1472025-08-06.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 234,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Erika Sto",
+    "direccion": "Avellino",
+    "Tipo_instalacion": "mikrotik",
+    "f_instalacion": "2025-01-29",
+    "telefono": "+525634130927",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 108,
+    "ip_completa": "192.168.1.108",
+    "id_privada": null,
+    "recibo_pdf": ""
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 235,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Carniceria Plaza San Jose",
+    "direccion": "Plaza San Jose",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2025-02-28",
+    "telefono": "+525622003392",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 178,
+    "ip_completa": "192.168.1.178",
+    "id_privada": null,
+    "recibo_pdf": ""
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 236,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Familia Calzada",
+    "direccion": "Puerta Mayor",
+    "Tipo_instalacion": "mikrotik",
+    "f_instalacion": "2025-02-28",
+    "telefono": "+525519333204",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 134,
+    "ip_completa": "192.168.1.134",
+    "id_privada": null,
+    "recibo_pdf": "Familia_CalzadaPuerta_Mayor2026-02-18.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 237,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Guadalupe Ferrari 2",
+    "direccion": "nagoni",
+    "Tipo_instalacion": "mikrotik",
+    "f_instalacion": "2025-02-28",
+    "telefono": "+525513510708",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 176,
+    "ip_completa": "192.168.1.176",
+    "id_privada": null,
+    "recibo_pdf": ""
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 238,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Familia Ramirez 3",
+    "direccion": "Aosta",
+    "Tipo_instalacion": "mikrotik",
+    "f_instalacion": "2025-03-03",
+    "telefono": "+525532097325",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 55,
+    "ip_completa": "192.168.1.55",
+    "id_privada": null,
+    "recibo_pdf": ""
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 239,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Jesus Reyes",
+    "direccion": "Plaza Garibaldi",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2025-03-03",
+    "telefono": "+525633026391",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 131,
+    "ip_completa": "192.168.1.131",
+    "id_privada": null,
+    "recibo_pdf": ""
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 240,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Isabel Rebollo",
+    "direccion": "Cedro",
+    "Tipo_instalacion": "mikrotik",
+    "f_instalacion": "2025-03-04",
+    "telefono": "+527201513723",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 216,
+    "ip_completa": "192.168.1.216",
+    "id_privada": null,
+    "recibo_pdf": ""
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 241,
+  "fields": {
+    "frecuencia_pago": "MOROSO",
+    "cortado": false,
+    "nombre": "Luna 2",
+    "direccion": "Abedul",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2025-03-04",
+    "telefono": "+525548196619",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 207,
+    "ip_completa": "192.168.1.207",
+    "id_privada": null,
+    "recibo_pdf": ""
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 242,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Hija Blanca",
+    "direccion": "Coliseo",
+    "Tipo_instalacion": "mikrotik",
+    "f_instalacion": "2025-03-05",
+    "telefono": "+527298176094",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 67,
+    "ip_completa": "192.168.1.67",
+    "id_privada": null,
+    "recibo_pdf": ""
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 243,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Jesus Abraham",
+    "direccion": "Arezzo",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2025-03-05",
+    "telefono": "+527298168160",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 199,
+    "ip_completa": "192.168.1.199",
+    "id_privada": null,
+    "recibo_pdf": "Jesus_AbrahamArezzo2025-05-01.pdf"
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 244,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Gabriela Gonzalez",
+    "direccion": "Arezzo",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2025-03-16",
+    "telefono": "+525536512356",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 79,
+    "ip_completa": "192.168.1.79",
+    "id_privada": null,
+    "recibo_pdf": ""
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 245,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Alma Onesto",
+    "direccion": "Ancona",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2025-12-18",
+    "telefono": "+525566973621",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 71,
+    "ip_completa": "192.168.1.71",
+    "id_privada": null,
+    "recibo_pdf": ""
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 246,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Yulitzi Martinez",
+    "direccion": "Brazalete",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2026-02-18",
+    "telefono": "+525533113164",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 46,
+    "ip_completa": "192.168.1.46",
+    "id_privada": null,
+    "recibo_pdf": ""
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 247,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Margarita Rios",
+    "direccion": "Alassia",
+    "Tipo_instalacion": "mikrotik",
+    "f_instalacion": "2026-04-22",
+    "telefono": "+524424238093",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 180,
+    "ip_completa": "192.168.1.180",
+    "id_privada": null,
+    "recibo_pdf": ""
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 248,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Patricia Peña",
+    "direccion": "Bari",
+    "Tipo_instalacion": "mikrotik",
+    "f_instalacion": "2026-04-23",
+    "telefono": "+525614927792",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 181,
+    "ip_completa": "192.168.1.181",
+    "id_privada": null,
+    "recibo_pdf": ""
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 249,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Violeta Jimenez",
+    "direccion": "Alassia",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2026-03-10",
+    "telefono": "+525632790241",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 130,
+    "ip_completa": "192.168.1.130",
+    "id_privada": null,
+    "recibo_pdf": ""
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 250,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Alma Ramirez",
+    "direccion": "brindisi",
+    "Tipo_instalacion": "mikrotik",
+    "f_instalacion": "2026-03-26",
+    "telefono": "+525533208740",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 140,
+    "ip_completa": "192.168.1.140",
+    "id_privada": null,
+    "recibo_pdf": ""
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 251,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Adilene Solorzano",
+    "direccion": "brazalete",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2026-06-27",
+    "telefono": "+524291455191",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 242,
+    "ip_completa": "192.168.1.242",
+    "id_privada": null,
+    "recibo_pdf": ""
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 252,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Angel Aguilar",
+    "direccion": "aosta",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2026-06-17",
+    "telefono": "+525532645272",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 220,
+    "ip_completa": "192.168.1.220",
+    "id_privada": null,
+    "recibo_pdf": ""
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 253,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Veronica Cipres",
+    "direccion": "aosta",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2026-06-17",
+    "telefono": "+525657723513",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 218,
+    "ip_completa": "192.168.1.218",
+    "id_privada": null,
+    "recibo_pdf": ""
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 254,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Sulemay Palacios",
+    "direccion": "aosta",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2026-06-17",
+    "telefono": "+525630490157",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 197,
+    "ip_completa": "192.168.1.197",
+    "id_privada": null,
+    "recibo_pdf": ""
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 255,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Monica santana Papeleria",
+    "direccion": "Toscana alta",
+    "Tipo_instalacion": "mikrotik",
+    "f_instalacion": "2026-07-01",
+    "telefono": "+525572683839",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 196,
+    "ip_completa": "192.168.1.196",
+    "id_privada": null,
+    "recibo_pdf": ""
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 256,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Aurora Cano",
+    "direccion": "ascolin",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2026-06-14",
+    "telefono": "+525559971553",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 194,
+    "ip_completa": "192.168.1.194",
+    "id_privada": null,
+    "recibo_pdf": ""
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 257,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Cindy Cortez",
+    "direccion": "liguria",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2026-07-16",
+    "telefono": "+525530736647",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 160,
+    "ip_completa": "192.168.1.160",
+    "id_privada": null,
+    "recibo_pdf": ""
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 258,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Almadelia retalma",
+    "direccion": "cercis",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2026-07-10",
+    "telefono": "+527732259426",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 23,
+    "ip_completa": "192.168.1.23",
+    "id_privada": null,
+    "recibo_pdf": ""
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 259,
+  "fields": {
+    "frecuencia_pago": "MOROSO",
+    "cortado": false,
+    "nombre": "sandra gisellen",
+    "direccion": "ancona",
+    "Tipo_instalacion": "ubiquiti",
+    "f_instalacion": "2026-07-18",
+    "telefono": "+525511728577",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 141,
+    "ip_completa": "192.168.1.141",
+    "id_privada": null,
+    "recibo_pdf": ""
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 260,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Lacero Guadalue",
+    "direccion": "Rio Nera Duplex 108/3",
+    "Tipo_instalacion": "mikrotik",
+    "f_instalacion": "2026-07-22",
+    "telefono": "+525654094063",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 153,
+    "ip_completa": "192.168.1.153",
+    "id_privada": null,
+    "recibo_pdf": ""
+  }
+},
+{
+  "model": "pagos.cliente",
+  "pk": 261,
+  "fields": {
+    "frecuencia_pago": "MENSUAL",
+    "cortado": false,
+    "nombre": "Taller Motos",
+    "direccion": "Local",
+    "Tipo_instalacion": "cable",
+    "f_instalacion": "2026-07-11",
+    "telefono": "+525654094063",
+    "primera_parte_ip": 1,
+    "segunda_parte_ip": 6,
+    "ip_completa": "192.168.5.6",
+    "id_privada": null,
+    "recibo_pdf": ""
+  }
+}
+]

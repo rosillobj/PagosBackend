@@ -1,10 +1,12 @@
 import subprocess
 import requests
-from .views import login_airos_session,_is_login_html,_parse_reboot_form,urljoin
+from .views import login_airos_session,_is_login_html,_parse_reboot_form,urljoin,set_mikrotik_client_cut
 from celery import shared_task
 from django.utils import timezone
+from datetime import timedelta
 import subprocess
-from .models import tokenExpo
+from .models import tokenExpo,Pagos,Cliente
+
 
 
 EXPO_PUSH_URL = "https://exp.host/--/api/v2/push/send"
@@ -518,3 +520,225 @@ def autoReboot127():
         "notification": push_result,
         "checked_at": timezone.now().isoformat(),
     }  
+
+@shared_task
+def advicelist():
+    today = timezone.localdate()
+    limite = today - timedelta(days=40)
+
+    cortes_qs = (
+        Pagos.objects
+        .filter(ultimo_pago=limite)
+        .select_related("id_cliente", "id_user")
+        .order_by("-ultimo_pago")
+    )
+
+    data = []
+
+    for pago in cortes_qs:
+        cliente = pago.id_cliente
+
+        if cliente is None:
+            continue
+
+        data.append({
+            "cliente_id": cliente.id,
+            "cliente_nombre": getattr(cliente, "nombre", None),
+            "cortado": getattr(cliente, "cortado", False),
+            "ultimo_pago": pago.ultimo_pago.isoformat(),
+            "ultimo_pago_p": pago.ultimo_pago_p,
+            "ip": getattr(cliente, "ip_completa", None),
+        })
+
+    cantidad_clientes = len(data)
+
+    # Si no se encontraron clientes, no se manda notificación
+    if cantidad_clientes == 0:
+        return {
+            "ok": True,
+            "notification_sent": False,
+            "fecha_consultada": limite.isoformat(),
+            "cantidad": 0,
+            "clientes": [],
+            "checked_at": timezone.now().isoformat(),
+        }
+
+    nombres = [
+        cliente["cliente_nombre"] or f'Cliente #{cliente["cliente_id"]}'
+        for cliente in data
+    ]
+
+    # Evita que la notificación sea demasiado larga
+    nombres_mostrados = ", ".join(nombres[:5])
+
+    if cantidad_clientes > 5:
+        nombres_mostrados += f" y {cantidad_clientes - 5} más"
+
+    push_result = enviar_notificacion_expo(
+        title="⚠️ Nuevos clientes para corte",
+        body=(
+            f"{cantidad_clientes} cliente(s) llegaron a "
+            f"40 días sin pago: {nombres_mostrados}"
+        ),
+        data={
+            "type": "clientes_para_corte",
+            "cantidad": cantidad_clientes,
+            "fecha_limite": limite.isoformat(),
+            "clientes": data,
+        },
+    )
+
+    return {
+        "ok": True,
+        "notification_sent": True,
+        "fecha_consultada": limite.isoformat(),
+        "cantidad": cantidad_clientes,
+        "clientes": data,
+        "notification": push_result,
+        "checked_at": timezone.now().isoformat(),
+    }
+
+
+
+@shared_task
+def morososAdvice():
+    limite = timezone.localdate() - timedelta(days=30)
+
+    # Credenciales preferentemente desde variables de entorno/settings.py
+    ip_router = "192.168.1.2"
+    usuario = "admin"
+    password = "Elmata30403.."
+
+    clientes_morosos = Cliente.objects.filter(
+        frecuencia_pago="MOROSO",
+        cortado=False,
+    )
+
+    cortados = []
+    errores = []
+    omitidos = []
+
+    for cliente in clientes_morosos:
+        ultimo_pago = (
+            Pagos.objects
+            .filter(id_cliente=cliente)
+            .exclude(ultimo_pago__isnull=True)
+            .order_by("-ultimo_pago")
+            .first()
+        )
+
+        # Cliente sin registro de pago
+        if ultimo_pago is None:
+            omitidos.append({
+                "cliente_id": cliente.id,
+                "cliente_nombre": cliente.nombre,
+                "motivo": "No tiene registros de pago",
+            })
+            continue
+
+        # Todavía no cumple 30 días
+        if ultimo_pago.ultimo_pago > limite:
+            continue
+
+        client_ip = getattr(cliente, "ip_completa", None)
+
+        if not client_ip:
+            errores.append({
+                "cliente_id": cliente.id,
+                "cliente_nombre": cliente.nombre,
+                "motivo": "No tiene una IP registrada",
+            })
+            continue
+
+        resultado = set_mikrotik_client_cut(
+            ip_router=ip_router,
+            user=usuario,
+            password=password,
+            client_ip=client_ip,
+            client_id=cliente.id,
+            client_name=cliente.nombre,
+            cut=True,
+        )
+
+        if resultado.get("ok") and resultado.get("confirmed"):
+            # Actualizamos Django solamente después de confirmar el corte
+            cliente.cortado = True
+            cliente.save(update_fields=["cortado"])
+
+            cortados.append({
+                "cliente_id": cliente.id,
+                "cliente_nombre": cliente.nombre,
+                "ip": client_ip,
+                "ultimo_pago": ultimo_pago.ultimo_pago.isoformat(),
+                "resultado": resultado,
+            })
+
+        else:
+            errores.append({
+                "cliente_id": cliente.id,
+                "cliente_nombre": cliente.nombre,
+                "ip": client_ip,
+                "ultimo_pago": ultimo_pago.ultimo_pago.isoformat(),
+                "motivo": resultado.get(
+                    "message",
+                    "No fue posible confirmar el corte",
+                ),
+                "resultado": resultado,
+            })
+
+    cantidad_cortados = len(cortados)
+    cantidad_errores = len(errores)
+
+    # Mandar notificación si hubo cortes o errores
+    push_result = None
+
+    if cantidad_cortados > 0 or cantidad_errores > 0:
+        nombres = [
+            cliente["cliente_nombre"]
+            for cliente in cortados[:5]
+        ]
+
+        nombres_texto = ", ".join(nombres)
+
+        if cantidad_cortados > 5:
+            nombres_texto += (
+                f" y {cantidad_cortados - 5} más"
+            )
+
+        if cantidad_cortados > 0:
+            body = (
+                f"Se cortaron {cantidad_cortados} clientes: "
+                f"{nombres_texto}."
+            )
+        else:
+            body = "No se pudo cortar ningún cliente."
+
+        if cantidad_errores > 0:
+            body += (
+                f" Se encontraron {cantidad_errores} errores."
+            )
+
+        push_result = enviar_notificacion_expo(
+            title="⚠️ Corte automático de morosos",
+            body=body,
+            data={
+                "type": "corte_automatico_morosos",
+                "cantidad_cortados": cantidad_cortados,
+                "cantidad_errores": cantidad_errores,
+                "cortados": cortados,
+                "errores": errores,
+            },
+        )
+
+    return {
+        "ok": cantidad_errores == 0,
+        "fecha_limite": limite.isoformat(),
+        "cantidad_cortados": cantidad_cortados,
+        "cantidad_errores": cantidad_errores,
+        "cantidad_omitidos": len(omitidos),
+        "cortados": cortados,
+        "errores": errores,
+        "omitidos": omitidos,
+        "notification": push_result,
+        "checked_at": timezone.now().isoformat(),
+    }

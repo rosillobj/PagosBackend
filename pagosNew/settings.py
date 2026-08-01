@@ -174,4 +174,12 @@ CELERY_BEAT_SCHEDULE = {
         "task": "pagos.tasks.autoReboot127",
         "schedule": crontab(minute="*/1000"),
     },
+        "avisar-clientes-con-40-dias": {
+        "task": "pagos.tasks.advicelist",
+        "schedule": crontab(hour="8,20", minute=0),
+    },
+            "avisar-clientes-con-30-dias-morosos": {
+        "task": "pagos.tasks.morososAdvice",
+        "schedule": crontab(minute="*/2"),
+    },
 }

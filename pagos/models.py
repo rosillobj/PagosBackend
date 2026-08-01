@@ -117,6 +117,12 @@ class tokenExpo(models.Model):
 
 
 
+class SectorHealtModel(models.Model):
+
+    sector = models.CharField(max_length=16,blank=True,null=True)
+    numeroAntenas = models.IntegerField(blank=True,null=True)
+    ccqMin = models.CharField(max_length=4,blank=True,null=True)
+    nombreSector = models.CharField(max_length=200,null=True,blank=True)
 
 
 

@@ -180,6 +180,6 @@ CELERY_BEAT_SCHEDULE = {
     },
             "avisar-clientes-con-30-dias-morosos": {
         "task": "pagos.tasks.morososAdvice",
-        "schedule": crontab(minute="*/2"),
+        "schedule": crontab(hour="8,20",minute=0),
     },
 }

@@ -5,7 +5,7 @@ from celery import shared_task
 from django.utils import timezone
 from datetime import timedelta
 import subprocess
-from .models import tokenExpo,Pagos,Cliente
+from .models import tokenExpo,Pagos,Cliente,SectorHealtModel
 
 
 
@@ -742,4 +742,400 @@ def morososAdvice():
         "omitidos": omitidos,
         "notification": push_result,
         "checked_at": timezone.now().isoformat(),
+    }
+import json
+import re
+import subprocess
+
+import urllib3
+from celery import shared_task
+from django.utils import timezone
+
+from .models import SectorHealtModel
+
+
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+
+SECTORES_UBIQUITI = [
+    "192.168.1.121",
+    "192.168.1.122",
+    "192.168.1.123",
+    "192.168.1.124",
+    "192.168.1.127",
+    "192.168.1.126",
+    "192.168.1.156",
+    "192.168.1.129",
+    "192.168.1.77",
+]
+
+
+def convertir_float(valor, default=0.0):
+    """
+    Convierte valores como:
+    95, "95", "95.5", "65 Mbps", "65000 kbps"
+    """
+    if valor is None:
+        return default
+
+    if isinstance(valor, (int, float)):
+        return float(valor)
+
+    coincidencia = re.search(r"-?\d+(?:\.\d+)?", str(valor))
+
+    if not coincidencia:
+        return default
+
+    return float(coincidencia.group())
+
+
+def normalizar_ccq(valor):
+    """
+    Algunos equipos airOS entregan el CCQ como:
+    95   -> 95 %
+    950  -> 95 %
+    9500 -> 95 %
+    """
+    ccq = convertir_float(valor)
+
+    while ccq > 100:
+        ccq /= 10
+
+    return round(ccq, 2)
+
+
+def normalizar_velocidad(valor):
+    """
+    Intenta convertir la velocidad a Mbps.
+
+    Ejemplos:
+    "65 Mbps"   -> 65
+    "65000 Kbps" -> 65
+    65          -> 65
+    """
+    velocidad = convertir_float(valor)
+    texto = str(valor).lower()
+
+    if "kbps" in texto or "kbit" in texto:
+        velocidad /= 1000
+    elif "gbps" in texto or "gbit" in texto:
+        velocidad *= 1000
+    elif "bps" in texto and "mbps" not in texto:
+        velocidad /= 1_000_000
+
+    return round(velocidad, 2)
+
+
+def obtener_lista_antenas(data):
+    """
+    sta.cgi puede regresar directamente una lista o un diccionario
+    que contiene stations.
+    """
+    if isinstance(data, list):
+        return data
+
+    if isinstance(data, dict):
+        for llave in ("stations", "sta", "clients"):
+            estaciones = data.get(llave)
+
+            if isinstance(estaciones, list):
+                return estaciones
+
+    return []
+
+
+def obtener_valor(antena, posibles_campos, default=None):
+    for campo in posibles_campos:
+        if campo in antena and antena[campo] is not None:
+            return antena[campo]
+
+    return default
+
+
+def obtener_nombre_antena(antena):
+    return (
+        antena.get("hostname")
+        or antena.get("name")
+        or antena.get("mac")
+        or antena.get("lastip")
+        or "Antena desconocida"
+    )
+
+
+def obtener_ping_promedio(ip):
+    """
+    Envía tres pings y devuelve el promedio en milisegundos.
+    Devuelve None cuando el sector no responde.
+    """
+    try:
+        resultado = subprocess.run(
+            ["ping", "-c", "3", "-W", "2", ip],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            timeout=10,
+        )
+
+        if resultado.returncode != 0:
+            return None
+
+        # Ejemplo:
+        # rtt min/avg/max/mdev = 0.5/0.8/1.1/0.2 ms
+        coincidencia = re.search(
+            r"=\s*[\d.]+/([\d.]+)/[\d.]+/[\d.]+\s*ms",
+            resultado.stdout,
+        )
+
+        if not coincidencia:
+            return None
+
+        return round(float(coincidencia.group(1)), 2)
+
+    except (subprocess.TimeoutExpired, OSError, ValueError):
+        return None
+
+
+def enviar_alerta_sector(resultado):
+    """
+    Sustituye el contenido de esta función por tu sistema actual
+    de notificaciones Expo.
+    """
+    mensaje = (
+        f"Alerta en {resultado['nombre_sector']} "
+        f"({resultado['ip']}):\n- "
+        + "\n- ".join(resultado["alertas"])
+    )
+
+    print(mensaje)
+
+    # Aquí puedes llamar tu función existente:
+    #
+    # send_push_notification(
+    #     title=f"Alerta: {resultado['nombre_sector']}",
+    #     body=mensaje,
+    # )
+
+
+@shared_task
+def analisisSector():
+    resultados = []
+
+    sectores = SectorHealtModel.objects.filter(
+        sector__in=SECTORES_UBIQUITI
+    ).order_by("id")
+
+    usuario = "ubnt"
+    password = "ubnt2"
+
+    sectores_encontrados = set(sectores.values_list("sector", flat=True))
+
+    # Detectar IP configurada en la tarea, pero ausente en la tabla.
+    for ip in SECTORES_UBIQUITI:
+        if ip not in sectores_encontrados:
+            resultado = {
+                "ip": ip,
+                "nombre_sector": ip,
+                "ok": False,
+                "alertas": [
+                    "El sector no está registrado en SectorHealtModel."
+                ],
+            }
+
+            resultados.append(resultado)
+            enviar_alerta_sector(resultado)
+
+    for parametros in sectores:
+        ip_sector = parametros.sector
+        base = f"https://{ip_sector}"
+        alertas = []
+
+        resultado = {
+            "ip": ip_sector,
+            "nombre_sector": parametros.nombreSector or ip_sector,
+            "ok": False,
+            "alertas": alertas,
+            "revisado_en": timezone.now().isoformat(),
+        }
+
+        # -----------------------------------------------------
+        # 1. Comprobar ping
+        # -----------------------------------------------------
+        ping_promedio = obtener_ping_promedio(ip_sector)
+        ping_maximo = convertir_float(parametros.ping)
+
+        resultado["ping_ms"] = ping_promedio
+        resultado["ping_maximo_ms"] = ping_maximo
+
+        if ping_promedio is None:
+            alertas.append("El sector no respondió al ping.")
+        elif ping_maximo > 0 and ping_promedio > ping_maximo:
+            alertas.append(
+                f"Ping alto: {ping_promedio} ms; "
+                f"máximo permitido: {ping_maximo} ms."
+            )
+
+        try:
+            # -------------------------------------------------
+            # 2. Iniciar sesión en airOS
+            # -------------------------------------------------
+            sesion = login_airos_session(
+                ip_sector,
+                usuario,
+                password,
+            )
+
+            respuesta = sesion.get(
+                f"{base}/sta.cgi",
+                timeout=(3, 10),
+                verify=False,
+            )
+
+            if respuesta.status_code != 200:
+                alertas.append(
+                    f"sta.cgi respondió HTTP {respuesta.status_code}."
+                )
+
+                resultados.append(resultado)
+                enviar_alerta_sector(resultado)
+                continue
+
+            if _is_login_html(respuesta.text):
+                alertas.append(
+                    "La sesión de airOS no fue válida; "
+                    "sta.cgi devolvió la pantalla de inicio de sesión."
+                )
+
+                resultados.append(resultado)
+                enviar_alerta_sector(resultado)
+                continue
+
+            try:
+                data = respuesta.json()
+            except ValueError:
+                data = json.loads(respuesta.text)
+
+            antenas = obtener_lista_antenas(data)
+
+            # -------------------------------------------------
+            # 3. Comparar número de antenas
+            # -------------------------------------------------
+            numero_actual = len(antenas)
+            numero_esperado = parametros.numeroAntenas or 0
+
+            resultado["numero_antenas"] = numero_actual
+            resultado["numero_antenas_esperado"] = numero_esperado
+
+            if numero_actual < numero_esperado:
+                alertas.append(
+                    f"Antenas conectadas: {numero_actual}; "
+                    f"esperadas: {numero_esperado}. "
+                    f"Faltan {numero_esperado - numero_actual}."
+                )
+            elif numero_actual > numero_esperado:
+                alertas.append(
+                    f"Hay {numero_actual} antenas conectadas, "
+                    f"pero en la tabla están registradas "
+                    f"{numero_esperado}."
+                )
+
+            # -------------------------------------------------
+            # 4. Comparar cada antena
+            # -------------------------------------------------
+            ccq_individual_minimo = convertir_float(
+                parametros.ccqAntMin
+            )
+            tx_minimo = convertir_float(parametros.TxtMin)
+            rx_minimo = convertir_float(parametros.RxtMin)
+
+            ccq_encontrados = []
+
+            for antena in antenas:
+                nombre = obtener_nombre_antena(antena)
+
+                ccq_raw = obtener_valor(
+                    antena,
+                    ["ccq", "txccq", "tx_ccq"],
+                )
+                tx_raw = obtener_valor(
+                    antena,
+                    ["tx", "txrate", "tx_rate"],
+                )
+                rx_raw = obtener_valor(
+                    antena,
+                    ["rx", "rxrate", "rx_rate"],
+                )
+
+                ccq = normalizar_ccq(ccq_raw)
+                tx = normalizar_velocidad(tx_raw)
+                rx = normalizar_velocidad(rx_raw)
+
+                ccq_encontrados.append(ccq)
+
+                if ccq < ccq_individual_minimo:
+                    alertas.append(
+                        f"{nombre}: CCQ {ccq}% menor al mínimo "
+                        f"{ccq_individual_minimo}%."
+                    )
+
+                if tx < tx_minimo:
+                    alertas.append(
+                        f"{nombre}: TX {tx} Mbps menor al mínimo "
+                        f"{tx_minimo} Mbps."
+                    )
+
+                # Si RxtMin es 0, no se valida RX.
+                if rx_minimo > 0 and rx < rx_minimo:
+                    alertas.append(
+                        f"{nombre}: RX {rx} Mbps menor al mínimo "
+                        f"{rx_minimo} Mbps."
+                    )
+
+            # -------------------------------------------------
+            # 5. Comparar CCQ general del sector
+            # -------------------------------------------------
+            ccq_sector_minimo = convertir_float(
+                parametros.ccqMin
+            )
+
+            if ccq_encontrados:
+                ccq_promedio = round(
+                    sum(ccq_encontrados) / len(ccq_encontrados),
+                    2,
+                )
+
+                resultado["ccq_promedio"] = ccq_promedio
+                resultado["ccq_minimo"] = ccq_sector_minimo
+
+                if ccq_promedio < ccq_sector_minimo:
+                    alertas.append(
+                        f"CCQ promedio del sector: {ccq_promedio}%; "
+                        f"mínimo requerido: {ccq_sector_minimo}%."
+                    )
+            else:
+                alertas.append(
+                    "sta.cgi no devolvió ninguna antena conectada."
+                )
+
+        except Exception as error:
+            alertas.append(
+                f"No fue posible consultar el sector: "
+                f"{type(error).__name__}: {error}"
+            )
+
+        resultado["ok"] = len(alertas) == 0
+        resultados.append(resultado)
+
+        if alertas:
+            enviar_alerta_sector(resultado)
+
+    sectores_con_alerta = sum(
+        1 for resultado in resultados if not resultado["ok"]
+    )
+
+    return {
+        "ok": sectores_con_alerta == 0,
+        "sectores_revisados": len(resultados),
+        "sectores_con_alerta": sectores_con_alerta,
+        "resultados": resultados,
+        "revisado_en": timezone.now().isoformat(),
     }

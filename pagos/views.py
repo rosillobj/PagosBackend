@@ -28,8 +28,66 @@ from bs4 import BeautifulSoup
 from rest_framework.decorators import api_view
 import os
 # Create your views here.
+EXPO_PUSH_URL = "https://exp.host/--/api/v2/push/send"
 
+def enviar_notificacion_expo(title, body, data=None):
+    tokens = list(
+        tokenExpo.objects.exclude(token="")
+        .values_list("token", flat=True)
+    )
 
+    if not tokens:
+        print("[PUSH] No hay tokens Expo registrados")
+        return {
+            "ok": False,
+            "message": "No hay tokens Expo registrados",
+        }
+
+    mensajes = []
+
+    for token in tokens:
+        mensajes.append(
+            {
+                "to": token,
+                "sound": "default",
+                "title": title,
+                "body": body,
+                "data": data or {},
+            }
+        )
+
+    try:
+        response = requests.post(
+            EXPO_PUSH_URL,
+            json=mensajes,
+            headers={
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+            },
+            timeout=10,
+        )
+
+        response.raise_for_status()
+
+        print(
+            "[PUSH] Notificaciones enviadas:",
+            response.json(),
+        )
+
+        return {
+            "ok": True,
+            "response": response.json(),
+        }
+
+    except requests.RequestException as e:
+        print(
+            f"[PUSH ERROR] Error enviando notificación: {e}"
+        )
+
+        return {
+            "ok": False,
+            "message": str(e),
+        }
 
 class ClientesListView(ListAPIView):
     
@@ -74,6 +132,8 @@ class PagoNuevoListView(UpdateAPIView):
         cliente_id = request.data.get("id")
         pago_raw = request.data.get("pago")
         fecha_raw = request.data.get("fecha")  # "2026-02-09"
+
+
 
         if not cliente_id or pago_raw is None or not fecha_raw:
             return Response(
@@ -146,6 +206,37 @@ class PagoNuevoListView(UpdateAPIView):
         pagos.id_user = request.user
 
         pagos.save(update_fields=[mes_p, mes_d, "ultimo_pago", "ultimo_pago_p", "id_user"])
+        # Avisar al administrador solamente cuando otra persona registró el pago
+        if request.user.id != 1:
+            cliente = pagos.id_cliente
+
+            nombre_cliente = (
+        getattr(cliente, "nombre", None)
+        or getattr(cliente, "nombre_cliente", None)
+        or f"Cliente #{cliente_id}"
+    )
+
+            nombre_usuario = (
+        request.user.get_full_name().strip()
+        or request.user.username
+    )
+
+            enviar_notificacion_expo(
+        title="Nuevo pago registrado",
+        body=(
+            f"{nombre_usuario} registró un pago de "
+            f"${pago} para {nombre_cliente}."
+        ),
+        data={
+            "tipo": "pago_registrado",
+            "cliente_id": str(cliente_id),
+            "pago_id": str(pagos.id),
+            "monto": pago,
+            "fecha": str(fecha_pago),
+            "registrado_por_id": request.user.id,
+            "registrado_por": nombre_usuario,
+                },
+    )
 
         return Response(
             {

@@ -123,7 +123,10 @@ class SectorHealtModel(models.Model):
     numeroAntenas = models.IntegerField(blank=True,null=True)
     ccqMin = models.CharField(max_length=4,blank=True,null=True)
     nombreSector = models.CharField(max_length=200,null=True,blank=True)
-
+    ping = models.CharField(max_length=4,null=True,blank=True)
+    ccqAntMin = models.CharField(max_length=3,null=True,blank=True)
+    TxtMin = models.CharField(max_length=3,null=True,blank=True)
+    RxtMin = models.CharField(max_length=3,null=True,blank=True)
 
 
 

@@ -853,11 +853,13 @@ def obtener_valor(antena, posibles_campos, default=None):
 
 
 def obtener_nombre_antena(antena):
+    remote = antena.get("remote") or {}
+
     return (
-        antena.get("hostname")
+        remote.get("hostname")
         or antena.get("name")
-        or antena.get("mac")
         or antena.get("lastip")
+        or antena.get("mac")
         or "Antena desconocida"
     )
 
@@ -1038,57 +1040,122 @@ def analisisSector():
                     f"{numero_esperado}."
                 )
 
+
             # -------------------------------------------------
-            # 4. Comparar cada antena
+            # 4. Comparar CCQ y señales de cada antena
             # -------------------------------------------------
             ccq_individual_minimo = convertir_float(
                 parametros.ccqAntMin
             )
-            tx_minimo = convertir_float(parametros.TxtMin)
-            rx_minimo = convertir_float(parametros.RxtMin)
+
+            # En la tabla se guardan como 70, 75, 85...
+            tx_limite = convertir_float(parametros.TxtMin)
+            rx_limite = convertir_float(parametros.RxtMin)
+
+            # Convertir los límites a dBm negativos:
+            # 70 se convierte en -70 dBm.
+            # 85 se convierte en -85 dBm.
+            tx_limite_dbm = (
+                -abs(tx_limite)
+                if tx_limite > 0
+                else None
+            )
+
+            rx_limite_dbm = (
+                -abs(rx_limite)
+                if rx_limite > 0
+                else None
+            )
 
             ccq_encontrados = []
 
             for antena in antenas:
                 nombre = obtener_nombre_antena(antena)
-
-                ccq_raw = obtener_valor(
-                    antena,
-                    ["ccq", "txccq", "tx_ccq"],
+                ip_cliente = antena.get(
+                    "lastip",
+                    "IP desconocida",
                 )
-                tx_raw = obtener_valor(
-                    antena,
-                    ["tx", "txrate", "tx_rate"],
-                )
-                rx_raw = obtener_valor(
-                    antena,
-                    ["rx", "rxrate", "rx_rate"],
+                mac_cliente = antena.get(
+                    "mac",
+                    "MAC desconocida",
                 )
 
-                ccq = normalizar_ccq(ccq_raw)
-                tx = normalizar_velocidad(tx_raw)
-                rx = normalizar_velocidad(rx_raw)
+                # CCQ de la conexión.
+                ccq = normalizar_ccq(
+                    antena.get("ccq")
+                )
+
+                # Señal recibida por el sector desde el cliente.
+                # Corresponde al RX del sector.
+                rx_signal_raw = antena.get("signal")
+
+                # Señal recibida por el cliente desde el sector.
+                # Corresponde al TX del sector.
+                remote = antena.get("remote") or {}
+                tx_signal_raw = remote.get("signal")
+
+                rx_signal = (
+                    convertir_float(rx_signal_raw)
+                    if rx_signal_raw is not None
+                    else None
+                )
+
+                tx_signal = (
+                    convertir_float(tx_signal_raw)
+                    if tx_signal_raw is not None
+                    else None
+                )
 
                 ccq_encontrados.append(ccq)
 
+                # ---------------------------------------------
+                # Validar CCQ
+                # ---------------------------------------------
                 if ccq < ccq_individual_minimo:
                     alertas.append(
-                        f"{nombre}: CCQ {ccq}% menor al mínimo "
+                        f"{nombre} ({ip_cliente}): "
+                        f"CCQ {ccq}% menor al mínimo "
                         f"{ccq_individual_minimo}%."
                     )
 
-                if tx < tx_minimo:
-                    alertas.append(
-                        f"{nombre}: TX {tx} Mbps menor al mínimo "
-                        f"{tx_minimo} Mbps."
-                    )
+                # ---------------------------------------------
+                # Validar señal TX: remote.signal
+                # ---------------------------------------------
+                if tx_limite_dbm is not None:
+                    if tx_signal is None:
+                        alertas.append(
+                            f"{nombre} ({ip_cliente}): "
+                            f"no reportó señal TX."
+                        )
 
-                # Si RxtMin es 0, no se valida RX.
-                if rx_minimo > 0 and rx < rx_minimo:
-                    alertas.append(
-                        f"{nombre}: RX {rx} Mbps menor al mínimo "
-                        f"{rx_minimo} Mbps."
-                    )
+                    elif tx_signal < tx_limite_dbm:
+                        alertas.append(
+                            f"{nombre} ({ip_cliente}): "
+                            f"señal TX baja: "
+                            f"{tx_signal} dBm; "
+                            f"mínimo permitido: "
+                            f"{tx_limite_dbm} dBm."
+                        )
+
+                # ---------------------------------------------
+                # Validar señal RX: signal
+                # ---------------------------------------------
+                if rx_limite_dbm is not None:
+                    if rx_signal is None:
+                        alertas.append(
+                            f"{nombre} ({ip_cliente}): "
+                            f"no reportó señal RX."
+                        )
+
+                    elif rx_signal < rx_limite_dbm:
+                        alertas.append(
+                            f"{nombre} ({ip_cliente}): "
+                            f"señal RX baja: "
+                            f"{rx_signal} dBm; "
+                            f"mínimo permitido: "
+                            f"{rx_limite_dbm} dBm."
+                        )            # -------------------------------------------------
+
 
             # -------------------------------------------------
             # 5. Comparar CCQ general del sector

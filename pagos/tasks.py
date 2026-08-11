@@ -525,7 +525,7 @@ def autoReboot127():
 @shared_task
 def advicelist():
     today = timezone.localdate()
-    limite = today - timedelta(days=40)
+    limite = today - timedelta(days=41)
 
     cortes_qs = (
         Pagos.objects
@@ -603,7 +603,7 @@ def advicelist():
 
 @shared_task
 def morososAdvice():
-    limite = timezone.localdate() - timedelta(days=30)
+    limite = timezone.localdate() - timedelta(days=31)
 
     # Credenciales preferentemente desde variables de entorno/settings.py
     ip_router = "192.168.1.2"
@@ -650,6 +650,7 @@ def morososAdvice():
                 "motivo": "No tiene una IP registrada",
             })
             continue
+        
 
         resultado = set_mikrotik_client_cut(
             ip_router=ip_router,

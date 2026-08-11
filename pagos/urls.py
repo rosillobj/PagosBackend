@@ -22,4 +22,6 @@ urlpatterns = [
     path("mikrotik/toggle-interface/<int:pk>/",views.MikrotikToggleInterfaceView.as_view(),name="mikrotik_toggle_interface"),
     path("mikrotik/<int:pk>/balance-mode/",views.MikrotikBalanceModeView.as_view(),name="mikrotik_balance_mode"),
     path("airos/toggle-lan/<int:pk>/",views.ToggleAirosLanAPIView.as_view(),name="airos_toggle_lan"),
+    path("updateDay/",views.PagosDayUpdate.as_view(),name="Pagos Update"),
+
 ]

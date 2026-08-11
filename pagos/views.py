@@ -3258,3 +3258,97 @@ class MikrotikBalanceModeView(APIView):
             },
             status=response_status,
         )
+
+from datetime import timedelta
+
+from django.db import transaction
+from django.shortcuts import get_object_or_404
+from django.utils import timezone
+from django.utils.dateparse import parse_date
+
+from rest_framework import status
+from rest_framework.generics import UpdateAPIView
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+
+
+class PagosDayUpdate(UpdateAPIView):
+    permission_classes = [IsAuthenticated]
+    queryset = Pagos.objects.all()
+
+    @transaction.atomic
+    def patch(self, request, *args, **kwargs):
+        print(request.data)
+        cliente_id = request.data.get("id_cliente")
+        fecha_raw = request.data.get("fecha")
+
+        if not cliente_id or not fecha_raw:
+            return Response(
+                {
+                    "detail": (
+                        "Requiere: id y fecha (YYYY-MM-DD)."
+                    )
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        fecha_pago = parse_date(str(fecha_raw))
+
+        if fecha_pago is None:
+            return Response(
+                {
+                    "detail": (
+                        "Fecha inválida. Usa el formato YYYY-MM-DD."
+                    )
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        hoy = timezone.localdate()
+        fecha_maxima = hoy + timedelta(days=20)
+
+
+
+        if fecha_pago > fecha_maxima:
+            return Response(
+                {
+                    "detail": (
+                        "La fecha no puede superar los 20 días "
+                        "desde la fecha actual."
+                    )
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        cliente = get_object_or_404(
+            Cliente,
+            id=cliente_id,
+        )
+
+        pago = get_object_or_404(
+            Pagos,
+            id_cliente=cliente,
+        )
+
+        # Actualizar la fecha del último pago
+        pago.ultimo_pago = fecha_pago
+        pago.save(
+            update_fields=["ultimo_pago"]
+        )
+
+        # Actualizar la frecuencia de pago
+        cliente.frecuencia_pago = "MOROSO"
+        cliente.save(
+            update_fields=["frecuencia_pago"]
+        )
+
+        return Response(
+            {
+                "detail": "Día actualizado correctamente.",
+                "cliente_id": cliente.id,
+                "ultimo_pago": pago.ultimo_pago,
+                "frecuencia_pago": cliente.frecuencia_pago,
+                "fecha_maxima_permitida": fecha_maxima,
+            },
+            status=status.HTTP_200_OK,
+        )

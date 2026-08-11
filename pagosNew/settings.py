@@ -164,22 +164,22 @@ CELERY_ENABLE_UTC = False
 CELERY_BEAT_SCHEDULE = {
     "Analisis antenas": {
         "task": "pagos.tasks.analisisSector",
-        "schedule": crontab(minute="*/5"),
+        "schedule": crontab(hour="8,20",minute=1),
     },
         "auto-reboot-sector-121": {
         "task": "pagos.tasks.autoReboot121",
-        "schedule": crontab(minute="*/10"),
+        "schedule": crontab(minute="*/5"),
     },
             "auto-reboot-sector-127": {
         "task": "pagos.tasks.autoReboot127",
-        "schedule": crontab(minute="*/10"),
+        "schedule": crontab(minute="*/5"),
     },
         "avisar-clientes-con-40-dias": {
         "task": "pagos.tasks.advicelist",
-        "schedule": crontab(hour="8,20", minute=0),
+        "schedule": crontab(hour="8,20", minute=2),
     },
             "avisar-clientes-con-30-dias-morosos": {
         "task": "pagos.tasks.morososAdvice",
-        "schedule": crontab(hour="8,20",minute=0),
+        "schedule": crontab(hour="8,20",minute=3),
     },
 }

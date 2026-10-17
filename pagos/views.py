@@ -1,3 +1,4 @@
+from .airos_leases import parse_dhcp_leases
 from django.shortcuts import render,get_object_or_404
 from .models import Cliente,Pagos,tokenExpo
 from rest_framework.views import APIView
@@ -1821,12 +1822,14 @@ def _try_airOS_status_https(ip: str, user: str, password: str) -> dict:
         normalized = normalize_airos(parsed)
 
         leases = None
+        dhcp_leases = None
 
         if raw_leases_text:
             print("Respuesta leases.cgi:")
             print(raw_leases_text)
 
             try:
+                dhcp_leases = parse_dhcp_leases(raw_leases_text) if "<tr" in raw_leases_text.lower() else None
                 leases = parse_airos_smart(raw_leases_text)
             except Exception as e:
                 leases_error = f"No se pudo parsear leases.cgi: {e}"
@@ -1837,6 +1840,7 @@ def _try_airOS_status_https(ip: str, user: str, password: str) -> dict:
             "source": "status.cgi",
             "normalized": normalized,
             "leases": leases,
+            "dhcp_leases": dhcp_leases,
             "leases_error": leases_error,
         }
 

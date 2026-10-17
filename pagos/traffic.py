@@ -95,18 +95,27 @@ class StartTrafficMeasurement(APIView):
             return Response({'detail': 'El cliente no tiene una IPv4 válida.'}, status=400)
         job = str(uuid4())
         lock = f'traffic:lock:{pk}'
-        store = storage()
+        store = None
+        stage = 'redis'
         try:
+            store = storage()
             if not store.set(lock, job, nx=True, ex=120):
                 return Response({'detail': 'Ya hay una medición en curso para este cliente.'}, status=409)
             store.setex(result_key(job), TTL, json.dumps({'state': 'pending'}))
+            stage = 'celery'
             measure_client_traffic.apply_async(args=[job, pk, ip], expires=60, retry=False)
         except Exception:
-            try:
-                release(store, lock, job)
-            except Exception:
-                pass
-            return Response({'detail': 'El servicio de medición no está disponible.'}, status=503)
+            logger.exception('Unable to start traffic measurement: stage=%s client=%s', stage, pk)
+            if store is not None:
+                try:
+                    release(store, lock, job)
+                    store.delete(result_key(job))
+                except Exception:
+                    pass
+            message = ('No se pudo conectar con Redis para iniciar la medición.'
+                       if stage == 'redis' else
+                       'No se pudo enviar la medición a Celery. Revisa el broker del servidor.')
+            return Response({'detail': message, 'stage': stage}, status=503)
         token = signing.dumps({'job': job, 'user': request.user.pk}, salt=SALT)
         return Response({'measurement_id': token, 'duration_seconds': 30}, status=202)
 

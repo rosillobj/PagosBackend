@@ -1,7 +1,10 @@
 from . import views
+from .traffic import StartTrafficMeasurement, TrafficMeasurementResult
 from django.urls import path
 
 urlpatterns = [
+    path("clientes/<int:pk>/medir-consumo/", StartTrafficMeasurement.as_view(), name="start_traffic_measurement"),
+    path("mediciones/<str:token>/", TrafficMeasurementResult.as_view(), name="traffic_measurement_result"),
     path("index/",views.ClientesListView.as_view(),name="index"),
     path("detallepagos/<int:pk>/",views.PagosListView.as_view(),name="detallePagos"),
     path("paymentRegister/",views.PagoNuevoListView.as_view(),name="paymentRegister"),

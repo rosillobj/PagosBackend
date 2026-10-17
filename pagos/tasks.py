@@ -1207,3 +1207,6 @@ def analisisSector():
         "resultados": resultados,
         "revisado_en": timezone.now().isoformat(),
     }
+
+# Register the traffic task during Celery autodiscovery.
+from .traffic import measure_client_traffic  # noqa: F401,E402

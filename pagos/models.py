@@ -30,7 +30,7 @@ class Cliente(models.Model):
 ]
 
     privada = [(privada,privada)for privada in privadas]
-    tipos = ["ubiquiti","mikrotik","cable"]
+    tipos = ["ubiquiti","mikrotik","cable","ubiquitiAC"]
     tipo = [(tipo, tipo) for tipo in tipos] 
     rango = [(i, str(i)) for i in range(1, 20)]
     numero = [(i, str(i)) for i in range(1, 254)]

@@ -787,6 +787,29 @@ def normalize_airos(status: Dict[str, Any]) -> Dict[str, Any]:
     w = status.get("wireless", {}) if isinstance(status.get("wireless"), dict) else {}
     p = w.get("polling", {}) if isinstance(w.get("polling"), dict) else {}
 
+    stations = w.get("sta", [])
+    if isinstance(stations, dict):
+        stations = list(stations.values())
+    if not isinstance(stations, list):
+        stations = []
+    stations = [item for item in stations if isinstance(item, dict)]
+    apmac = str(w.get("apmac") or "").lower()
+    matching = [item for item in stations if apmac and str(item.get("mac") or "").lower() == apmac]
+    station = matching[0] if len(matching) == 1 else (
+        stations[0] if len(stations) == 1 and str(w.get("mode", "")).startswith("sta") else {}
+    )
+
+    def link_value(key, station_key=None):
+        value = w.get(key)
+        return station.get(station_key or key) if value is None else value
+
+    def kbps_to_mbps(value):
+        try:
+            number = float(value)
+            return round(number / 1000, 3) if math.isfinite(number) and number >= 0 else None
+        except (TypeError, ValueError):
+            return None
+
     eth0 = extract_eth0(status)
     eth0_status = eth0.get("status", {}) if isinstance(eth0.get("status"), dict) else {}
 
@@ -826,15 +849,18 @@ def normalize_airos(status: Dict[str, Any]) -> Dict[str, Any]:
             "chains": w.get("chains"),
         },
         "link": {
-            "signal_dbm": w.get("signal"),
-            "noise_dbm": w.get("noisef"),
+            "signal_dbm": link_value("signal"),
+            "noise_dbm": link_value("noisef", "noisefloor"),
             "txpower_dbm": w.get("txpower"),
-            "distance_m": w.get("distance"),
-            "ccq": w.get("ccq"),
-            "txrate_mbps": w.get("txrate"),
-            "rxrate_mbps": w.get("rxrate"),
+            "distance_m": link_value("distance"),
+            "ccq": link_value("ccq"),
+            "txrate_mbps": link_value("txrate"),
+            "rxrate_mbps": link_value("rxrate"),
             "quality_pct": p.get("quality"),
             "capacity_pct": p.get("capacity"),
+            "download_capacity_mbps": kbps_to_mbps(p.get("dcap")),
+            "upload_capacity_mbps": kbps_to_mbps(p.get("ucap")),
+            "association_uptime": uptime_seconds(station.get("uptime")),
         },
         "interfaces": {
             "eth0": {
@@ -842,7 +868,7 @@ def normalize_airos(status: Dict[str, Any]) -> Dict[str, Any]:
                 "enabled": eth0.get("enabled"),
                 "plugged": eth0_status.get("plugged"),
                 "speed": eth0_status.get("speed"),
-                "duplex": eth0_status.get("duplex"),
+                "duplex": (int(eth0_status["duplex"]) if isinstance(eth0_status.get("duplex"), bool) else eth0_status.get("duplex")),
             }
         }
     }

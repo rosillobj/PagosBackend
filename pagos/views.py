@@ -1013,11 +1013,12 @@ class AntenaView(RetrieveAPIView):
 
     def get(self, request, pk):
         usuario = "ubnt"
-        password = "ubnt2"
 
         cliente = Cliente.objects.filter(id=pk).first()
         if not cliente:
             return Response({"detail": "Cliente no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+
+        password = "mk3711.." if (cliente.Tipo_instalacion or "").strip().lower() == "ubiquitiac" else "ubnt2"
 
         ip = (cliente.ip_completa or "").strip()
         if not ip:
@@ -1194,11 +1195,12 @@ class RebootAntenaView(APIView):
 
     def post(self, request, pk):
         usuario = "ubnt"
-        password = "ubnt2"
 
         cliente = Cliente.objects.filter(id=pk).first()
         if not cliente:
             return Response({"ok": False, "detail": "Cliente no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+
+        password = "mk3711.." if (cliente.Tipo_instalacion or "").strip().lower() == "ubiquitiac" else "ubnt2"
 
         ip = (cliente.ip_completa or "").strip()
         if not ip:

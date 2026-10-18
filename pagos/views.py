@@ -769,14 +769,29 @@ def extract_eth0(status: Dict[str, Any]) -> Dict[str, Any]:
 
 
 def normalize_airos(status: Dict[str, Any]) -> Dict[str, Any]:
+    import math
+
+    host = status.get("host") if isinstance(status.get("host"), dict) else {}
+
+    def host_value(key):
+        value = host.get(key)
+        return status.get(key) if value is None else value
+
+    def uptime_seconds(value):
+        try:
+            seconds = float(value)
+            return int(seconds) if math.isfinite(seconds) and seconds >= 0 else None
+        except (TypeError, ValueError, OverflowError):
+            return None
+
     w = status.get("wireless", {}) if isinstance(status.get("wireless"), dict) else {}
     p = w.get("polling", {}) if isinstance(w.get("polling"), dict) else {}
 
     eth0 = extract_eth0(status)
     eth0_status = eth0.get("status", {}) if isinstance(eth0.get("status"), dict) else {}
 
-    totalram = status.get("totalram")
-    freeram = status.get("freeram")
+    totalram = host_value("totalram")
+    freeram = host_value("freeram")
 
     def pct_free_ram():
         try:
@@ -786,16 +801,16 @@ def normalize_airos(status: Dict[str, Any]) -> Dict[str, Any]:
 
     return {
         "device": {
-            "hostname": status.get("hostname"),
-            "devmodel": status.get("devmodel"),
-            "fwversion": status.get("fwversion"),
-            "fwprefix": status.get("fwprefix"),
-            "netrole": status.get("netrole"),
-            "time": status.get("time"),
-            "uptime": status.get("uptime"),
+            "hostname": host_value("hostname"),
+            "devmodel": host_value("devmodel"),
+            "fwversion": host_value("fwversion"),
+            "fwprefix": host_value("fwprefix"),
+            "netrole": host_value("netrole"),
+            "time": host_value("time"),
+            "uptime": uptime_seconds(host_value("uptime")),
         },
         "system": {
-            "cpuload": status.get("cpuload"),
+            "cpuload": host_value("cpuload"),
             "totalram": totalram,
             "freeram": freeram,
             "free_ram_pct": pct_free_ram(),

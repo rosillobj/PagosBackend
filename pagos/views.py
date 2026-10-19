@@ -1,3 +1,4 @@
+from .ip_inventory import RESERVED_OCTETS
 from .antenna_credentials import query_with_credentials, sector_credentials, UBIQUITI_AC_SECTORS
 from .mikrotik_link import read_wireless_link
 from .airos_leases import parse_dhcp_leases
@@ -549,40 +550,20 @@ class IpsAvaibleView(ListAPIView):
     queryset = Cliente.objects.all()
 
     def get(self, request, *args, **kwargs):
-        start = int(request.query_params.get("start", 21))
-        end = int(request.query_params.get("end", 254))
-        limit = request.query_params.get("limit")
-        limit = int(limit) if limit is not None else None
-
-        if start < 0 or end > 255 or start > end:
-            return Response(
-                {"detail": "Rango inválido. Usa start<=end y 0..255."},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+        try:
+            start = int(request.query_params.get("start", 21))
+            end = int(request.query_params.get("end", 254))
+            limit_raw = request.query_params.get("limit")
+            limit = int(limit_raw) if limit_raw is not None else None
+            if not 1 <= start <= end <= 254 or (limit is not None and limit < 0):
+                raise ValueError()
+        except (TypeError, ValueError):
+            return Response({"detail": "Rango inválido: usa 1..254 y limit no negativo."}, status=400)
 
         network = ipaddress.ip_network("192.168.1.0/24")
 
         # IPs reservadas / excluidas manualmente
-        reserved_ips = {
-            "192.168.1.99",
-            "192.168.1.100",
-            "192.168.1.156",
-            "192.168.1.101",
-            "192.168.1.127",
-            "192.168.1.122",
-            "192.168.1.124",
-            "192.168.1.121",
-            "192.168.1.129",
-            "192.168.1.126",
-            "192.168.1.123",
-            "192.168.1.125",
-            "192.168.1.110",
-            "192.168.1.111",
-            "192.168.1.120",
-            "192.168.1.179",
-            "192.168.1.77",
-            "192.168.1.128",
-        }
+        reserved_ips = {f"192.168.1.{number}" for number in RESERVED_OCTETS}
 
         # Convertimos reservadas a último octeto
         reserved_octets = set()

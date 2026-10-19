@@ -1,8 +1,11 @@
 from . import views
+from .ip_scan import StartIpScanView, IpScanResultView
 from .traffic import StartTrafficMeasurement, TrafficMeasurementResult
 from django.urls import path
 
 urlpatterns = [
+    path("ips-disponibles/escanear/", StartIpScanView.as_view(), name="start_ip_scan"),
+    path("ips-disponibles/escaneos/<str:token>/", IpScanResultView.as_view(), name="ip_scan_result"),
     path("sectorMikrotikData/<int:pk>/", views.MikrotikSectorStatusView.as_view(), name="mikrotik_sector_status"),
     path("clientes/<int:pk>/medir-consumo/", StartTrafficMeasurement.as_view(), name="start_traffic_measurement"),
     path("mediciones/<str:token>/", TrafficMeasurementResult.as_view(), name="traffic_measurement_result"),

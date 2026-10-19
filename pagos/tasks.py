@@ -1210,3 +1210,5 @@ def analisisSector():
 
 # Register the traffic task during Celery autodiscovery.
 from .traffic import measure_client_traffic  # noqa: F401,E402
+
+from .ip_scan import scan_ip_inventory  # noqa: F401,E402

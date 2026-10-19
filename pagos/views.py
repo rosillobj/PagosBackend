@@ -1,3 +1,4 @@
+from .antenna_credentials import query_with_credentials
 from .mikrotik_link import read_wireless_link
 from .airos_leases import parse_dhcp_leases
 from django.shortcuts import render,get_object_or_404
@@ -1025,7 +1026,7 @@ class AntenaView(RetrieveAPIView):
         if not ip:
             return Response({"detail": "Cliente sin ip_completa"}, status=status.HTTP_400_BAD_REQUEST)
 
-        data = _try_airOS_status_https(ip, usuario, password)
+        data = query_with_credentials(_try_airOS_status_https, ip, (usuario, password), "airos")
 
         return Response(
             {"cliente_id": cliente.id, "ip": ip,"status_cortado":cliente.cortado,"antena":data},
@@ -1499,7 +1500,7 @@ class MikrotikStatusView(APIView):
         if not ip:
             return Response({"detail": "Cliente sin ip_completa"}, status=status.HTTP_400_BAD_REQUEST)
 
-        data = mt_status(ip, user, password)
+        data = query_with_credentials(mt_status, ip, (user, password), "mikrotik")
         return Response({"cliente_id": cliente.id, "ip": ip, "mikrotik": data}, status=status.HTTP_200_OK)
 
 

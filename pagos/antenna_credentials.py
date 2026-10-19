@@ -5,6 +5,7 @@ FALLBACK_CREDENTIALS = (
     ('ubnt', 'ubnt3711'),
     ('ubnt', 'camaras1'),
     ('bercy', 'Elmata3711..'),
+    ('bercy', 'Elmata3711'),
     ('ubnt', 'ubnt'),
 )
 

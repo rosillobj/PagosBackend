@@ -1,3 +1,4 @@
+from .mikrotik_link import read_wireless_link
 from .airos_leases import parse_dhcp_leases
 from django.shortcuts import render,get_object_or_404
 from .models import Cliente,Pagos,tokenExpo
@@ -1377,6 +1378,7 @@ def mt_status(ip: str, user: str, password: str) -> dict:
     if not tcp["ok"]:
         return {"ok": False, "stage": "tcp_check", "message": "No abre API 8728", "tcp": tcp}
 
+    api = None
     try:
         api = mt_connect(ip, user, password)
 
@@ -1425,10 +1427,10 @@ def mt_status(ip: str, user: str, password: str) -> dict:
 
         # Wireless (SXT Lite usual: wlan1)
         wlan = None
-        for w in api.path("/interface/wireless").select():
-            if isinstance(w, dict) and w.get("name") == "wlan1":
-                wlan = w
-                break
+        wireless_interfaces = [row for row in api.path("/interface/wireless").select() if isinstance(row, dict)]
+        wlan = next((row for row in wireless_interfaces if row.get("name") == "wlan1" or row.get("default-name") == "wlan1"), None)
+        if wlan is None and len(wireless_interfaces) == 1:
+            wlan = wireless_interfaces[0]
 
         wireless = {
             "name": wlan.get("name") if wlan else "wlan1",
@@ -1440,27 +1442,12 @@ def mt_status(ip: str, user: str, password: str) -> dict:
             "disabled": to_bool(wlan.get("disabled")) if wlan else None,
         }
 
-        # Monitor wireless (da señal, tx/rx, etc). En v6: /interface/wireless/monitor numbers=wlan1 once
-        link = {}
-        try:
-            mon = list(api.path("/interface/wireless/monitor").call(numbers="wlan1", once=""))  # devuelve lista de dicts
-            mon0 = mon[0] if mon else {}
-            # keys típicas: signal-strength, tx-rate, rx-rate, noise-floor, snr, ccq, etc (varía)
-            link = {
-                "signal_dbm": mon0.get("signal-strength"),
-                "noise_dbm": mon0.get("noise-floor"),
-                "snr_db": mon0.get("snr"),
-                "tx_rate": mon0.get("tx-rate"),
-                "rx_rate": mon0.get("rx-rate"),
-                "ccq": mon0.get("ccq"),
-            }
-        except Exception:
-            # no pasa nada si no soporta/permiso
-            link = {}
+        link, link_error = read_wireless_link(api, wlan)
 
         return {
             "ok": True,
             "transport": "routeros_api",
+            "link_error": link_error,
             "normalized": {
                 "device": {
                     "identity": identity,
@@ -1487,6 +1474,13 @@ def mt_status(ip: str, user: str, password: str) -> dict:
     except Exception as e:
         return {"ok": False, "stage": "unknown", "message": str(e)}
     
+
+    finally:
+        if api is not None:
+            try:
+                api.close()
+            except Exception:
+                pass
 
 
 class MikrotikStatusView(APIView):

@@ -1,4 +1,4 @@
-from .antenna_credentials import query_with_credentials
+from .antenna_credentials import query_with_credentials, sector_credentials, UBIQUITI_AC_SECTORS
 from .mikrotik_link import read_wireless_link
 from .airos_leases import parse_dhcp_leases
 from django.shortcuts import render,get_object_or_404
@@ -1308,8 +1308,7 @@ class RebootSectorView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request, pk):
-        usuario = "ubnt"
-        password = "ubnt2"
+        usuario, password = sector_credentials(pk)
 
 
 
@@ -1330,8 +1329,7 @@ class SectorView(RetrieveAPIView):
     queryset = Cliente.objects.all()
 
     def get(self, request, pk):
-        usuario = "ubnt"
-        password = "ubnt2"
+        usuario, password = sector_credentials(pk)
 
  
 
@@ -1340,10 +1338,10 @@ class SectorView(RetrieveAPIView):
         if not ip:
             return Response({"detail": "Cliente sin ip_completa"}, status=status.HTTP_400_BAD_REQUEST)
 
-        data = _try_airOS_status_https(ip, usuario, password)
+        data = query_with_credentials(_try_airOS_status_https, ip, (usuario, password), "airos")
 
         return Response(
-            { "ip": ip, "antena": data},
+            { "ip": ip, "family": "AC" if int(pk) in UBIQUITI_AC_SECTORS else "M", "antena": data},
             status=status.HTTP_200_OK
         )
 
@@ -1580,8 +1578,7 @@ class SectorTxHealthView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request, pk):
-        usuario = "ubnt"
-        password = "ubnt2"
+        usuario, password = sector_credentials(pk)
         ip = f"192.168.1.{pk}"
 
         try:

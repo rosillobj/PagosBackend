@@ -49,3 +49,10 @@ def query_with_credentials(query, ip, primary, family, cache_backend=None):
     cache_backend.set(prefix + ':failed', True, timeout=60)
     return {'ok': False, 'stage': 'authentication',
             'message': 'Ninguna credencial configurada permitió consultar la antena. Se reintentará en un minuto.'}
+
+
+UBIQUITI_AC_SECTORS = frozenset((110, 111, 125))
+
+
+def sector_credentials(sector_id):
+    return ('ubnt', 'mk3711..') if int(sector_id) in UBIQUITI_AC_SECTORS else ('ubnt', 'ubnt2')

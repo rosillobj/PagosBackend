@@ -3391,3 +3391,14 @@ class PagosDayUpdate(UpdateAPIView):
             },
             status=status.HTTP_200_OK,
         )
+
+
+class MikrotikSectorStatusView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, pk):
+        if int(pk) not in (101, 120, 128):
+            return Response({"detail": "Sector MikroTik no configurado."}, status=404)
+        ip = f"192.168.1.{int(pk)}"
+        data = query_with_credentials(mt_status, ip, ("admin", "ubnt2"), "mikrotik")
+        return Response({"sector_id": int(pk), "ip": ip, "mikrotik": data})

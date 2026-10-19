@@ -3,6 +3,7 @@ from .traffic import StartTrafficMeasurement, TrafficMeasurementResult
 from django.urls import path
 
 urlpatterns = [
+    path("sectorMikrotikData/<int:pk>/", views.MikrotikSectorStatusView.as_view(), name="mikrotik_sector_status"),
     path("clientes/<int:pk>/medir-consumo/", StartTrafficMeasurement.as_view(), name="start_traffic_measurement"),
     path("mediciones/<str:token>/", TrafficMeasurementResult.as_view(), name="traffic_measurement_result"),
     path("index/",views.ClientesListView.as_view(),name="index"),

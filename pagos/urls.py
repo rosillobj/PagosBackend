@@ -1,3 +1,4 @@
+from .server_ping import StartServerPingView, ServerPingResultView
 from . import views
 from .assignment_audit import StartAssignmentAuditView, AssignmentAuditResultView
 from .queue_name_sync import QueueNameSyncView, QueueNameSyncResultView
@@ -6,6 +7,8 @@ from .traffic import StartTrafficMeasurement, TrafficMeasurementResult
 from django.urls import path
 
 urlpatterns = [
+    path("ping/", StartServerPingView.as_view(), name="start_server_ping"),
+    path("ping/<str:token>/", ServerPingResultView.as_view(), name="server_ping_result"),
     path("auditoria-asignaciones/", StartAssignmentAuditView.as_view(), name="start_assignment_audit"),
     path("auditoria-asignaciones/<str:token>/", AssignmentAuditResultView.as_view(), name="assignment_audit_result"),
     path("mikrotik/sincronizar-nombres/", QueueNameSyncView.as_view(), name="queue_name_sync"),

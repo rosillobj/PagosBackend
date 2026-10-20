@@ -1,4 +1,4 @@
-from .sector_clients import normalize_stations, attach_clients
+from .sector_clients import normalize_stations, attach_clients, stations_from_status
 from .ip_inventory import RESERVED_OCTETS
 from .antenna_credentials import query_with_credentials, sector_credentials, UBIQUITI_AC_SECTORS
 from .mikrotik_link import read_wireless_link
@@ -842,8 +842,8 @@ def normalize_airos(status: Dict[str, Any]) -> Dict[str, Any]:
             "rxrate_mbps": link_value("rxrate"),
             "quality_pct": p.get("quality"),
             "capacity_pct": p.get("capacity"),
-            "download_capacity_mbps": kbps_to_mbps(p.get("dcap")),
-            "upload_capacity_mbps": kbps_to_mbps(p.get("ucap")),
+            "download_capacity_mbps": kbps_to_mbps(p.get("dcap", p.get("dl_capacity"))),
+            "upload_capacity_mbps": kbps_to_mbps(p.get("ucap", p.get("ul_capacity"))),
             "association_uptime": uptime_seconds(station.get("uptime")),
         },
         "interfaces": {
@@ -1792,17 +1792,23 @@ def fetch_airos_status_and_leases_https_with_session(
     if include_stations:
         stations = None
         stations_error = None
+        stations_source = "status.cgi"
         try:
-            response = s.get(f"{base}/sta.cgi", timeout=(3, 6), verify=False,
-                             headers={"Accept": "application/json"})
-            response.raise_for_status()
-            stations = normalize_stations(response.json(), "airos")
+            rows = stations_from_status(parse_airos_smart(status_text))
+            if rows is None:
+                stations_source = "sta.cgi"
+                response = s.get(f"{base}/sta.cgi", timeout=(3, 6), verify=False,
+                                 headers={"Accept": "application/json"})
+                response.raise_for_status()
+                rows = response.json()
+            stations = normalize_stations(rows, "airos")
         except Exception:
-            stations_error = "No se pudo consultar la lista de antenas asociadas."
+            stations_error = "No se pudo consultar una lista completa de antenas asociadas."
         finally:
             s.close()
         return {"ok": True, "status_raw": status_text, "leases_raw": None,
-                "stations": stations, "stations_error": stations_error}
+                "stations": stations, "stations_error": stations_error,
+                "stations_source": stations_source}
 
     # 4) leases.cgi con la misma sesión
     leases_text = None

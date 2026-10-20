@@ -63,3 +63,30 @@ def attach_clients(stations):
     clients = {row['ip_completa']: row for row in Cliente.objects.filter(ip_completa__in=ips).values('id', 'nombre', 'ip_completa')}
     return [{**row, 'cliente_id': clients.get(row.get('ip'), {}).get('id'),
              'cliente_nombre': clients.get(row.get('ip'), {}).get('nombre')} for row in stations]
+
+
+def stations_from_status(status):
+    """Return only active wireless.sta, never sta_disconnected or remote fields.
+
+    None means unsupported/incomplete, so the caller can try sta.cgi instead.
+    """
+    if not isinstance(status, dict):
+        return None
+    wireless = status.get('wireless')
+    if not isinstance(wireless, dict) or 'sta' not in wireless:
+        return None
+    rows = wireless['sta']
+    if isinstance(rows, dict):
+        if any(not str(key).isdigit() for key in rows):
+            return None
+        rows = [rows[key] for key in sorted(rows, key=lambda key: int(key))]
+    if not isinstance(rows, list) or any(not isinstance(row, dict) for row in rows):
+        return None
+    count = wireless.get('count')
+    if count is not None:
+        try:
+            if int(count) != len(rows):
+                return None
+        except (ValueError, TypeError):
+            return None
+    return rows

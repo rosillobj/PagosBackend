@@ -1,10 +1,13 @@
 from . import views
+from .assignment_audit import StartAssignmentAuditView, AssignmentAuditResultView
 from .queue_name_sync import QueueNameSyncView, QueueNameSyncResultView
 from .ip_scan import StartIpScanView, IpScanResultView
 from .traffic import StartTrafficMeasurement, TrafficMeasurementResult
 from django.urls import path
 
 urlpatterns = [
+    path("auditoria-asignaciones/", StartAssignmentAuditView.as_view(), name="start_assignment_audit"),
+    path("auditoria-asignaciones/<str:token>/", AssignmentAuditResultView.as_view(), name="assignment_audit_result"),
     path("mikrotik/sincronizar-nombres/", QueueNameSyncView.as_view(), name="queue_name_sync"),
     path("mikrotik/sincronizar-nombres/<str:token>/", QueueNameSyncResultView.as_view(), name="queue_name_sync_result"),
     path("ips-disponibles/escanear/", StartIpScanView.as_view(), name="start_ip_scan"),

@@ -49,7 +49,7 @@ def query_airos_peers(ip, user, password):
         if data.get('stations') is None:
             return {'ok': False, 'stage': 'stations',
                     'message': data.get('stations_error') or 'sta.cgi no devolvió una lista de asociaciones válida.'}
-        peers = [{'mac': row.get('mac'), 'ip': row.get('ip')} for row in data['stations']]
+        peers = [{'mac': row.get('mac'), 'ip': row.get('ip'), 'name': row.get('name')} for row in data['stations']]
         return {'ok': True, 'peers': peers}
     except requests.exceptions.Timeout:
         return {'ok': False, 'stage': 'timeout', 'message': 'El sector agotó el tiempo de espera.'}
@@ -80,7 +80,7 @@ def sector_peers(item):
         else:
             connection = mt_connect(ip, 'admin', 'ubnt2')
             rows = list(connection('/interface/wireless/registration-table/print', stats=''))
-            peers = [{'mac': row.get('mac-address'), 'ip': row.get('last-ip')} for row in rows]
+            peers = [{'mac': row.get('mac-address'), 'ip': row.get('last-ip'), 'name': row.get('radio-name')} for row in rows]
         return {'ip': ip, 'ok': True, 'peers': peers, 'total': len(peers)}
     except Exception:
         logger.exception('Cannot read association list on sector %s', ip)

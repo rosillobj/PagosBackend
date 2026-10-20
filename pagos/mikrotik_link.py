@@ -13,9 +13,9 @@ def numeric(value):
     return number if math.isfinite(number) else None
 
 
-def read_wireless_link(api, wlan):
+def read_wireless_link(api, wlan, include_stations=False):
     if not wlan:
-        return {}, 'No se encontró una interfaz inalámbrica.'
+        return ({'stations': None, 'stations_error': 'No se encontró una interfaz inalámbrica.'} if include_stations else {}), 'No se encontró una interfaz inalámbrica.'
     name = wlan.get('name')
     monitor = {}
     errors = []
@@ -25,15 +25,20 @@ def read_wireless_link(api, wlan):
     except Exception:
         errors.append('No se pudo consultar el monitoreo inalámbrico.')
     peer = {}
+    stations = None
+    stations_error = None
     try:
         rows = list(api('/interface/wireless/registration-table/print', stats=''))
         matches = [row for row in rows if row.get('interface') == name]
+        stations = matches
         if len(matches) == 1:
             peer = matches[0]
         elif len(matches) > 1:
-            errors.append('Hay varios enlaces registrados; no se seleccionó un cliente arbitrario.')
+            if not include_stations:
+                errors.append('Hay varios enlaces registrados; no se seleccionó un cliente arbitrario.')
     except Exception:
-        errors.append('No se pudo consultar la tabla de registros inalámbricos.')
+        stations_error = 'No se pudo consultar la tabla de registros inalámbricos.'
+        errors.append(stations_error)
 
     def first(*values):
         return next((v for v in values if v is not None and v != ''), None)
@@ -52,4 +57,6 @@ def read_wireless_link(api, wlan):
         'rx_ccq': ccq(peer.get('rx-ccq')),
         'ccq': ccq(first(peer.get('tx-ccq'), monitor.get('overall-tx-ccq'), monitor.get('ccq'), peer.get('rx-ccq'))),
     }
+    if include_stations:
+        link.update(stations=stations, stations_error=stations_error)
     return link, ' '.join(errors) or None

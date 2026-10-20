@@ -1,3 +1,4 @@
+from .sector_clients import normalize_stations, attach_clients
 from .ip_inventory import RESERVED_OCTETS
 from .antenna_credentials import query_with_credentials, sector_credentials, UBIQUITI_AC_SECTORS
 from .mikrotik_link import read_wireless_link
@@ -1319,7 +1320,7 @@ class SectorView(RetrieveAPIView):
         if not ip:
             return Response({"detail": "Cliente sin ip_completa"}, status=status.HTTP_400_BAD_REQUEST)
 
-        data = query_with_credentials(_try_airOS_status_https, ip, (usuario, password), "airos")
+        data = query_with_credentials(lambda ip, user, password: _try_airOS_status_https(ip, user, password, include_stations=True), ip, (usuario, password), "airos")
 
         return Response(
             { "ip": ip, "family": "AC" if int(pk) in UBIQUITI_AC_SECTORS else "M", "antena": data},
@@ -1352,7 +1353,7 @@ def mt_connect(ip: str, user: str, password: str, port: int = 8728, timeout: int
         port=port,
         timeout=timeout,
     )
-def mt_status(ip: str, user: str, password: str) -> dict:
+def mt_status(ip: str, user: str, password: str, include_stations: bool = False) -> dict:
     # “ping real” al API
     tcp = _tcp_check(ip, 8728)
     if not tcp["ok"]:
@@ -1368,7 +1369,6 @@ def mt_status(ip: str, user: str, password: str) -> dict:
 
         # Resource
         res = next(iter(api.path("/system/resource").select()), None)
-        print(res)
         # RouterOS v6 suele traer keys: version, board-name, platform, uptime, cpu-load, free-memory, total-memory...
         version = res.get("version") if isinstance(res, dict) else None
         board = res.get("board-name") if isinstance(res, dict) else None
@@ -1422,12 +1422,23 @@ def mt_status(ip: str, user: str, password: str) -> dict:
             "disabled": to_bool(wlan.get("disabled")) if wlan else None,
         }
 
-        link, link_error = read_wireless_link(api, wlan)
+        link, link_error = read_wireless_link(api, wlan, include_stations=include_stations)
+        stations = link.pop("stations", None)
+        stations_error = link.pop("stations_error", None)
+        if include_stations and stations is not None:
+            arp = []
+            if any(not row.get("last-ip") for row in stations):
+                try:
+                    arp = list(api('/ip/arp/print'))
+                except Exception:
+                    pass
+            stations = attach_clients(normalize_stations(stations, "mikrotik", arp))
 
         return {
             "ok": True,
             "transport": "routeros_api",
             "link_error": link_error,
+            **({"stations": stations, "stations_error": stations_error} if include_stations else {}),
             "normalized": {
                 "device": {
                     "identity": identity,
@@ -1683,6 +1694,7 @@ def fetch_airos_status_and_leases_https_with_session(
     ip: str,
     user: str,
     password: str,
+    include_stations: bool = False,
 ) -> dict:
     """
     1) Abre login.cgi para setear cookies
@@ -1746,6 +1758,7 @@ def fetch_airos_status_and_leases_https_with_session(
             break
 
     if not logged_in:
+        s.close()
         return {
             "ok": False,
             "stage": "login_failed",
@@ -1768,12 +1781,28 @@ def fetch_airos_status_and_leases_https_with_session(
         status_text = r_status.text
 
     if _is_login_html(status_text):
+        s.close()
         return {
             "ok": False,
             "stage": "status_returned_login",
             "status_raw": status_text,
             "leases_raw": None,
         }
+
+    if include_stations:
+        stations = None
+        stations_error = None
+        try:
+            response = s.get(f"{base}/sta.cgi", timeout=(3, 6), verify=False,
+                             headers={"Accept": "application/json"})
+            response.raise_for_status()
+            stations = normalize_stations(response.json(), "airos")
+        except Exception:
+            stations_error = "No se pudo consultar la lista de antenas asociadas."
+        finally:
+            s.close()
+        return {"ok": True, "status_raw": status_text, "leases_raw": None,
+                "stations": stations, "stations_error": stations_error}
 
     # 4) leases.cgi con la misma sesión
     leases_text = None
@@ -1807,14 +1836,14 @@ def fetch_airos_status_and_leases_https_with_session(
         "leases_raw": leases_text,
         "leases_error": leases_error,
     }
-def _try_airOS_status_https(ip: str, user: str, password: str) -> dict:
-    print("Consultando airOS HTTPS:", ip)
+def _try_airOS_status_https(ip: str, user: str, password: str, include_stations: bool = False) -> dict:
 
     try:
         result = fetch_airos_status_and_leases_https_with_session(
             ip=ip,
             user=user,
             password=password,
+            include_stations=include_stations,
         )
 
         if not result.get("ok"):
@@ -1831,9 +1860,6 @@ def _try_airOS_status_https(ip: str, user: str, password: str) -> dict:
         raw_leases_text = result.get("leases_raw")
         leases_error = result.get("leases_error")
 
-        print("Respuesta status.cgi:")
-        print(raw_status_text)
-        print(raw_leases_text,"hola")
         parsed = parse_airos_smart(raw_status_text)
         normalized = normalize_airos(parsed)
 
@@ -1841,8 +1867,6 @@ def _try_airOS_status_https(ip: str, user: str, password: str) -> dict:
         dhcp_leases = None
 
         if raw_leases_text:
-            print("Respuesta leases.cgi:")
-            print(raw_leases_text)
 
             try:
                 dhcp_leases = parse_dhcp_leases(raw_leases_text) if "<tr" in raw_leases_text.lower() else None
@@ -1858,6 +1882,8 @@ def _try_airOS_status_https(ip: str, user: str, password: str) -> dict:
             "leases": leases,
             "dhcp_leases": dhcp_leases,
             "leases_error": leases_error,
+            **({"stations": attach_clients(result["stations"]) if result.get("stations") is not None else None,
+                "stations_error": result.get("stations_error")} if include_stations else {}),
         }
 
     except requests.exceptions.SSLError as e:
@@ -3381,5 +3407,5 @@ class MikrotikSectorStatusView(APIView):
         if int(pk) not in (101, 120, 128):
             return Response({"detail": "Sector MikroTik no configurado."}, status=404)
         ip = f"192.168.1.{int(pk)}"
-        data = query_with_credentials(mt_status, ip, ("admin", "ubnt2"), "mikrotik")
+        data = query_with_credentials(lambda ip, user, password: mt_status(ip, user, password, include_stations=True), ip, ("admin", "ubnt2"), "mikrotik")
         return Response({"sector_id": int(pk), "ip": ip, "mikrotik": data})

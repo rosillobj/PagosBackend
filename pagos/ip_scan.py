@@ -37,24 +37,46 @@ def ping_ip(ip):
         return ip, 'error'
 
 
+def query_airos_peers(ip, user, password):
+    # Share the same authenticated reader as SectorView, without re-querying the DB.
+    from .views import fetch_airos_status_and_leases_https_with_session
+    import requests
+    try:
+        data = fetch_airos_status_and_leases_https_with_session(ip, user, password, include_stations=True)
+        if not data.get('ok'):
+            return {'ok': False, 'stage': data.get('stage', 'login_failed'),
+                    'message': 'El sector rechazó el inicio de sesión.'}
+        if data.get('stations') is None:
+            return {'ok': False, 'stage': 'stations',
+                    'message': data.get('stations_error') or 'sta.cgi no devolvió una lista de asociaciones válida.'}
+        peers = [{'mac': row.get('mac'), 'ip': row.get('ip')} for row in data['stations']]
+        return {'ok': True, 'peers': peers}
+    except requests.exceptions.Timeout:
+        return {'ok': False, 'stage': 'timeout', 'message': 'El sector agotó el tiempo de espera.'}
+    except requests.exceptions.HTTPError as exc:
+        code = exc.response.status_code if exc.response is not None else None
+        return {'ok': False, 'stage': 'http', 'message': f'El sector devolvió HTTP {code or "desconocido"}.'}
+    except requests.exceptions.ConnectionError:
+        return {'ok': False, 'stage': 'connection', 'message': 'El worker no pudo conectar por HTTPS con el sector.'}
+    except Exception:
+        logger.exception('Unexpected airOS inventory error on %s', ip)
+        return {'ok': False, 'stage': 'unknown', 'message': 'Falló la consulta de asociaciones del sector.'}
+
+
 def sector_peers(item):
-    from .views import login_airos_session, mt_connect, _is_login_html
-    from .antenna_credentials import sector_credentials
+    from .views import mt_connect
+    from .antenna_credentials import sector_credentials, query_with_credentials
     family, number = item
     ip = f'192.168.1.{number}'
     connection = None
     try:
         if family == 'airos':
-            user, password = sector_credentials(number)
-            connection = login_airos_session(ip, user, password)
-            response = connection.get(f'https://{ip}/sta.cgi', timeout=(3, 6), verify=False)
-            response.raise_for_status()
-            if _is_login_html(response.text):
-                raise ValueError('authentication')
-            rows = response.json()
-            if not isinstance(rows, list):
-                raise ValueError('invalid station list')
-            peers = [{'mac': row.get('mac'), 'ip': row.get('lastip')} for row in rows if isinstance(row, dict)]
+            result = query_with_credentials(query_airos_peers, ip, sector_credentials(number), 'airos')
+            if not result.get('ok'):
+                logger.warning('Cannot read sector %s: stage=%s', ip, result.get('stage'))
+                return {'ip': ip, 'ok': False, 'peers': [], 'stage': result.get('stage'),
+                        'detail': result.get('message') or 'No se pudo consultar el sector.'}
+            peers = result['peers']
         else:
             connection = mt_connect(ip, 'admin', 'ubnt2')
             rows = list(connection('/interface/wireless/registration-table/print', stats=''))
@@ -62,7 +84,7 @@ def sector_peers(item):
         return {'ip': ip, 'ok': True, 'peers': peers, 'total': len(peers)}
     except Exception:
         logger.exception('Cannot read association list on sector %s', ip)
-        return {'ip': ip, 'ok': False, 'peers': [], 'detail': 'No se pudo consultar el sector.'}
+        return {'ip': ip, 'ok': False, 'peers': [], 'detail': 'No se pudo consultar el sector. Revisa los logs del worker.'}
     finally:
         if connection is not None:
             try:

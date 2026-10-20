@@ -44,3 +44,44 @@ class AssignmentReportTests(unittest.TestCase):
         before = copy.deepcopy((self.clients, self.sectors, self.arp, self.queues))
         self.report()
         self.assertEqual(before, (self.clients, self.sectors, self.arp, self.queues))
+
+    def test_name_with_private_street_and_punctuation(self):
+        self.sectors[0]['peers'][0]['name'] = 'JOSE-PEREZ / Privada Las Flores 24'
+        self.queues[0]['name'] = 'Jose Perez (Priv. Las Flores)'
+        self.assertEqual(self.report()['items'][0]['category'], 'coinciden')
+
+    def test_incomplete_name(self):
+        self.clients[0]['nombre'] = 'José Antonio Pérez López'
+        self.sectors[0]['peers'][0]['name'] = 'Jose Perez'
+        self.assertEqual(self.report()['items'][0]['category'], 'coinciden')
+
+    def test_single_name_when_unique(self):
+        self.sectors[0]['peers'][0]['name'] = 'Jose'
+        self.assertEqual(self.report()['items'][0]['category'], 'coinciden')
+
+    def test_single_name_shared_by_customers_still_requires_review(self):
+        self.clients.append({'id': 2, 'nombre': 'Jose Garcia', 'ip_completa': '192.168.1.31'})
+        self.sectors[0]['peers'][0]['name'] = 'Jose'
+        self.assertEqual(self.report()['items'][0]['category'], 'revisar')
+
+    def test_exact_other_customer_name_is_not_accepted_as_partial(self):
+        self.clients[0]['nombre'] = 'Jose Antonio Perez'
+        self.clients.append({'id': 2, 'nombre': 'Jose Perez', 'ip_completa': '192.168.1.31'})
+        self.assertEqual(self.report()['items'][0]['category'], 'revisar')
+
+    def test_different_names_still_require_review(self):
+        self.sectors[0]['peers'][0]['name'] = 'Maria Garcia Privada Flores'
+        self.assertEqual(self.report()['items'][0]['category'], 'revisar')
+
+    def test_common_surname_is_not_enough_for_full_names(self):
+        self.sectors[0]['peers'][0]['name'] = 'Luis Perez'
+        self.assertEqual(self.report()['items'][0]['category'], 'revisar')
+
+    def test_location_only_is_not_a_customer_match(self):
+        self.sectors[0]['peers'][0]['name'] = 'Privada 24'
+        self.assertEqual(self.report()['items'][0]['category'], 'revisar')
+
+    def test_short_name_plus_location_suffix(self):
+        self.sectors[0]['peers'][0]['name'] = 'Jose / Privada Las Flores'
+        self.queues[0]['name'] = 'Jose Priv. Las Flores 24'
+        self.assertEqual(self.report()['items'][0]['category'], 'coinciden')

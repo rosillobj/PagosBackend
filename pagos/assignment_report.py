@@ -7,7 +7,52 @@ from .queue_names import target_ip
 
 def canonical_name(value):
     value = unicodedata.normalize('NFD', str(value or ''))
-    return ' '.join(''.join(c for c in value if not unicodedata.combining(c)).lower().split())
+    value = ''.join(c for c in value if not unicodedata.combining(c)).lower()
+    return ' '.join(re.findall(r'[a-z0-9]+', value))
+
+
+# Location labels and connectors do not identify a customer.
+NAME_LABELS = frozenset(('de', 'del', 'la', 'las', 'el', 'los', 'y', 'privada',
+                         'priv', 'privado', 'calle', 'colonia', 'col', 'fracc',
+                         'fraccionamiento', 'casa', 'cliente', 'antena'))
+
+
+def name_words(value):
+    normalized = canonical_name(value)
+    # A location suffix does not form part of the person's name.
+    parts = re.split(r'\b(?:privada|priv|privado|calle|colonia|col|fracc|fraccionamiento)\b', normalized, maxsplit=1)
+    if len(parts) > 1 and parts[0].strip():
+        normalized = parts[0]
+    return {word for word in normalized.split()
+            if word not in NAME_LABELS and not word.isdigit() and len(word) > 1}
+
+
+def partial_name_match(left, right):
+    left, right = name_words(left), name_words(right)
+    if not left or not right:
+        return False
+    common = left & right
+    shorter = min(len(left), len(right))
+    if shorter == 1:
+        return bool(common) and len(next(iter(common))) >= 4
+    return len(common) >= 2 and len(common) / shorter >= 2 / 3
+
+
+def compatible_name(value, client, clients):
+    """Tolerate partial names only when they do not identify another customer."""
+    own = canonical_name(client.get('nombre'))
+    observed = canonical_name(value)
+    if observed and observed == own:
+        return True
+    if not partial_name_match(value, client.get('nombre')):
+        return False
+    # An exact match to another registered name takes precedence over a partial one.
+    if any(c['id'] != client['id'] and canonical_name(c.get('nombre')) == observed
+           and canonical_name(c.get('nombre')) != own for c in clients):
+        return False
+    # Partial/short names shared by several customers remain a review item.
+    return not any(c['id'] != client['id'] and canonical_name(c.get('nombre')) != own
+                   and partial_name_match(value, c.get('nombre')) for c in clients)
 
 
 def canonical_mac(value):
@@ -66,16 +111,16 @@ def build_audit(clients, sectors, arp, arp_ok, queues, queues_ok):
         for row in observed:
             if row['reported_ip'] and row['arp_ips'] and row['reported_ip'] not in row['arp_ips']:
                 findings.append('La IP reportada por el sector no coincide con las IP observadas en ARP para esa MAC.')
-            if row['name'] and canonical_name(row['name']) != canonical_name(client['nombre']):
+            if row['name'] and not compatible_name(row['name'], client, clients):
                 owners = [owner['nombre'] for owner in by_name.get(canonical_name(row['name']), []) if owner['id'] != client['id']]
-                findings.append(f'El equipo se llama "{row["name"]}" y el cliente registrado "{client["nombre"]}".' + (f' El nombre coincide con otro cliente: {", ".join(owners)}.' if owners else ' Puede ser un nombre antiguo o abreviado.'))
+                findings.append(f'El equipo se llama "{row["name"]}" y el cliente registrado "{client["nombre"]}".' + (f' El nombre coincide con otro cliente: {", ".join(owners)}.' if owners else ' No se pudo relacionar el nombre de forma suficiente o es ambiguo entre clientes.'))
         if not queues_ok:
             missing.append('No se pudieron consultar las Simple Queues.')
         elif not queue_matches:
             findings.append('No existe una Simple Queue con target individual para esta IP.')
         elif len(queue_matches) > 1:
             findings.append('Más de una Simple Queue individual usa esta IP.')
-        elif canonical_name(queue_matches[0].get('name')) != canonical_name(client['nombre']):
+        elif not compatible_name(queue_matches[0].get('name'), client, clients):
             findings.append(f'La cola se llama "{queue_matches[0].get("name", "")}". Diferencia de nombre; no demuestra una asignación incorrecta.')
         if not arp_ok:
             missing.append('No se pudo consultar ARP del router principal.')

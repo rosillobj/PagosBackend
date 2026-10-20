@@ -13,3 +13,6 @@ docker compose up -d --build django-web celery-worker
 ```
 
 Pruebas: `python manage.py test pagos.test_assignment_report`. La lógica pura puede probarse sin servicios; la conectividad real requiere la red de producción.
+
+
+La comparación de nombres tolera acentos, mayúsculas, puntuación, orden de palabras, nombres incompletos y sufijos de ubicación (Privada, Colonia, Calle, Fracc.). Acepta dos palabras significativas compartidas que cubran al menos dos tercios del nombre más corto; un nombre de una sola palabra requiere al menos cuatro caracteres y no coincidir parcialmente con otro cliente. Las coincidencias exactas con otro cliente y los nombres parciales ambiguos siguen en revisión. Los nombres originales se conservan en el reporte. Esta tolerancia no valida identidad ni elimina hallazgos de IP, MAC o colas duplicadas.

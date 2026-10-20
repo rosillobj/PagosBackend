@@ -1212,3 +1212,5 @@ def analisisSector():
 from .traffic import measure_client_traffic  # noqa: F401,E402
 
 from .ip_scan import scan_ip_inventory  # noqa: F401,E402
+
+from .queue_name_sync import sync_queue_names  # noqa: F401,E402

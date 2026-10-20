@@ -1,9 +1,12 @@
 from . import views
+from .queue_name_sync import QueueNameSyncView, QueueNameSyncResultView
 from .ip_scan import StartIpScanView, IpScanResultView
 from .traffic import StartTrafficMeasurement, TrafficMeasurementResult
 from django.urls import path
 
 urlpatterns = [
+    path("mikrotik/sincronizar-nombres/", QueueNameSyncView.as_view(), name="queue_name_sync"),
+    path("mikrotik/sincronizar-nombres/<str:token>/", QueueNameSyncResultView.as_view(), name="queue_name_sync_result"),
     path("ips-disponibles/escanear/", StartIpScanView.as_view(), name="start_ip_scan"),
     path("ips-disponibles/escaneos/<str:token>/", IpScanResultView.as_view(), name="ip_scan_result"),
     path("sectorMikrotikData/<int:pk>/", views.MikrotikSectorStatusView.as_view(), name="mikrotik_sector_status"),

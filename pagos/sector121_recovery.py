@@ -132,7 +132,7 @@ class AirOSSSH:
                     time.sleep(0.02)
             status = channel.recv_exit_status()
             if status != 0:
-                raise RecoveryError('La antena rechazó un comando SSH; no se continuó.')
+                raise RecoveryError(f'Falló el comando SSH ({command}; salida {status}); no se continuó.')
             return output.decode('utf-8', errors='strict')
         finally:
             channel.close()
@@ -143,7 +143,7 @@ class AirOSSSH:
             raise IdentityError('La IP responde, pero la MAC no es la del sector 121. No se modificó ese equipo.')
         if fields.get('board.name') != 'Rocket M2' or fields.get('board.sysid', '').lower() != '0xe868':
             raise IdentityError('El modelo de la antena no corresponde a la Rocket M2 esperada.')
-        version = self.run('cat /etc/version').strip()
+        version = self.run('cat /etc/version').strip().replace('\\.', '.')
         if not re.match(r'^XW(?:\.[A-Za-z0-9_-]+)*\.v6\.', version):
             raise IdentityError('La versión airOS no es XW 6.x. Se requiere revisión manual.')
 
@@ -156,14 +156,14 @@ class AirOSSSH:
     def preflight(self, prepare_ct):
         commands = 'command -v cfgmtd >/dev/null && command -v md5sum >/dev/null && command -v reboot >/dev/null'
         if prepare_ct:
-            commands += ' && command -v save >/dev/null && test -d /etc/persistent'
+            commands += ' && test -d /etc/persistent'
         self.run(commands)
 
     def ct_prepared(self):
         return self.run('if test -f /etc/persistent/ct; then printf yes; else printf no; fi') == 'yes'
 
     def prepare(self):
-        self.run('touch /etc/persistent/ct && save', timeout=20)
+        self.run('touch /etc/persistent/ct && cfgmtd -w -p /etc/', timeout=20)
 
     def upload(self, data):
         self.run(f'umask 077; cat > {REMOTE_BACKUP}', content=data, timeout=10)

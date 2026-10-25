@@ -9,7 +9,7 @@ Monitor Celery Beat cada cinco minutos. Opt-in con `SECTOR121_RECOVERY_ENABLED=t
 3. Si no responde, valida primero el respaldo local, busca `.20` y autentica por SSH como `ubnt` con la contraseña inicial configurada (default `ubnt`).
 4. Exige MAC `B4:FB:E4:5A:0E:0D`, modelo Rocket M2, sysid `0xe868` y firmware XW 6.x antes de cualquier modificación. La primera clave SSH se acepta en esta sesión solo tras estas comprobaciones; se exige la misma en las reconexiones. Es una comprobación de identidad operacional, no un anclaje criptográfico previo independiente.
 5. Conserva la configuración actual de la antena en una clave privada de Redis `sector121:pre-restore:<id>`, por siete días. No hay endpoint HTTP para esa copia. Redis contiene material confidencial.
-6. Si falta `/etc/persistent/ct`, ejecuta `touch /etc/persistent/ct && save`, reinicia y espera un arranque distinto con SSH listo durante un máximo de 30 segundos. Si el marcador ya existe, no repite el primer reinicio. La placa indica ~40 s de reinicio: el límite solicitado de 30 puede ser insuficiente; en ese caso se notifica y se detiene sin aplicar el respaldo.
+6. Si falta `/etc/persistent/ct`, ejecuta `touch /etc/persistent/ct && cfgmtd -w -p /etc/`, reinicia y espera un arranque distinto con SSH listo durante un máximo de 30 segundos. Si el marcador ya existe, no repite el primer reinicio. La placa indica ~40 s de reinicio: el límite solicitado de 30 puede ser insuficiente; en ese caso se notifica y se detiene sin aplicar el respaldo.
 7. Si `.121` volvió antes de escribir el respaldo, cancela para evitar duplicar IPs.
 8. Transfiere el archivo a `/tmp/sector121-restore.cfg` mediante SSH/stdin (no requiere SFTP), comprueba MD5 de la transferencia dentro de la conexión SSH y ejecuta `cfgmtd -f /tmp/sector121-restore.cfg -w -p /etc/`. Un fallo de transferencia o del comando impide el siguiente paso.
 9. Reinicia y espera hasta 60 s por `.121`, comprobando ping, SSH, MAC y nuevo boot ID. La verificación utiliza el usuario/contraseña restaurados configurados; por defecto, las credenciales existentes del sector 121 (`sector_credentials(121)`). Si el respaldo tiene otra contraseña, es necesario configurar la variable correspondiente.
@@ -86,3 +86,5 @@ No ejecutar `FLUSHALL`, ni borrar bloqueos/cooldowns de una operación activa. P
 `python manage.py test pagos.test_sector121_recovery`
 
 Pruebas simuladas de flujo, plazos, identidad, checksum, flash, conservación del backup, exclusión mutua, enfriamiento y coordinación con la tarea anterior. Falta validar SSH/comandos/credenciales y el respaldo real en la red de producción; ninguna prueba de desarrollo tocó antenas ni envió notificaciones.
+
+En airOS 6.1.7, `save` puede no existir en sesiones SSH sin terminal. La preparación usa directamente `cfgmtd -w -p /etc/` para persistir el marcador. Los errores SSH indican el comando y código de salida, sin imprimir el contenido del respaldo.

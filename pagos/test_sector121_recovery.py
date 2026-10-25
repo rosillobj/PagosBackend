@@ -185,6 +185,17 @@ class SSHChecks(unittest.TestCase):
         return ssh
     def test_expected_identity(self): self.device().verify_identity()
     def test_architecture_in_version_string(self): self.device(version='XW.ar934x.v6.1.7.32555').verify_identity()
+    def test_escaped_dot_in_device_firmware(self):
+        self.device(version=r'XW\.v6.1.7').verify_identity()
+
+    def test_prepare_persists_without_interactive_save(self):
+        ssh = object.__new__(AirOSSSH)
+        ssh.run = Mock()
+        ssh.preflight(True)
+        self.assertNotIn('command -v save', ssh.run.call_args.args[0])
+        ssh.prepare()
+        ssh.run.assert_called_with('touch /etc/persistent/ct && cfgmtd -w -p /etc/', timeout=20)
+
     def test_other_mac_never_accepted(self):
         with self.assertRaises(IdentityError): self.device(mac='001122334455').verify_identity()
     def test_other_model_never_accepted(self):

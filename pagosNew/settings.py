@@ -183,3 +183,14 @@ CELERY_BEAT_SCHEDULE = {
         "schedule": crontab(hour="8,20",minute=3),
     },
 }
+
+# Explicit activation after checking the physical identity and local backup.
+SECTOR121_RECOVERY_ENABLED = os.environ.get("SECTOR121_RECOVERY_ENABLED", "false").lower() in ("true", "1", "yes")
+CELERY_BEAT_SCHEDULE["recover-sector-121"] = {
+    "task": "pagos.recover_sector121",
+    "schedule": crontab(minute="*/5"),
+    "options": {"expires": 60},
+}
+if SECTOR121_RECOVERY_ENABLED:
+    # The recovery monitor calls the old client-based check while holding one lock.
+    CELERY_BEAT_SCHEDULE.pop("auto-reboot-sector-121", None)

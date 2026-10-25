@@ -17,3 +17,4 @@ librouteros==3.4.1
 beautifulsoup4==4.12.3
 celery==5.4.0
 redis==5.0.8
+paramiko==4.0.0

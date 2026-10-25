@@ -113,3 +113,5 @@ node_modules/
 
 # VS Code
 .vscode
+# Private radio configuration backups (mounted read-only in the worker).
+Respaldo121/

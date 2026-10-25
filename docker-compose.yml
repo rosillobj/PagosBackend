@@ -49,6 +49,12 @@ services:
     env_file:
       - .env.prod
     volumes:
+      - type: bind
+        source: ./Respaldo121
+        target: /app/Respaldo121
+        read_only: true
+        bind:
+          create_host_path: false
       - ./static:/app/staticfiles
       - ./media:/app/media
       - ./db.sqlite3:/app/db.sqlite3

@@ -2,3 +2,5 @@ gitignore
 
 db.sqlite3
 .env.*
+# Private radio configuration backups (mounted read-only in the worker).
+Respaldo121/

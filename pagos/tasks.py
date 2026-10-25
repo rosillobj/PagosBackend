@@ -89,10 +89,12 @@ def reboot_via_https_confirm(
             "stage": "error",
             "message": str(e),
         }
-def enviar_notificacion_expo(title, body, data=None):
+def enviar_notificacion_expo(title, body, data=None, user_id=None):
+    queryset = tokenExpo.objects.exclude(token="")
+    if user_id is not None:
+        queryset = queryset.filter(id_user_id=user_id)
     tokens = list(
-        tokenExpo.objects.exclude(token="")
-        .values_list("token", flat=True)
+        queryset.values_list("token", flat=True)
     )
 
     if not tokens:
@@ -272,6 +274,14 @@ def comprobar_ping(ip: str) -> dict:
 
 @shared_task
 def autoReboot121():
+    from django.conf import settings
+    if settings.SECTOR121_RECOVERY_ENABLED:
+        return {"state": "coordinated", "task": "pagos.recover_sector121"}
+    from .sector121_tasks import run_legacy_sector121
+    return run_legacy_sector121()
+
+
+def _auto_reboot121_unlocked():
 
     # Antenas que vamos a comprobar
     antenas = [
@@ -1218,3 +1228,5 @@ from .queue_name_sync import sync_queue_names  # noqa: F401,E402
 from .assignment_audit import audit_assignments  # noqa: F401,E402
 
 from .server_ping import server_ping  # noqa: F401,E402
+
+from .sector121_tasks import recover_sector121  # noqa: F401,E402

@@ -1,13 +1,20 @@
+from rest_framework.exceptions import PermissionDenied
 from rest_framework.serializers import ModelSerializer
 from .models import Cliente, Pagos,antenasPerdidas,tokenExpo
 
 
 
 class ClienteSerializer(ModelSerializer):
+    def validate_frecuencia_pago(self, value):
+        request = self.context.get("request")
+        if request is None or request.user.pk != 1:
+            raise PermissionDenied("Solo el usuario 1 puede cambiar la frecuencia de pago.")
+        return value
+
     
     class Meta:
         model = Cliente
-        fields = ['nombre','direccion','ip_completa','id','Tipo_instalacion','cortado','telefono']
+        fields = ['nombre','direccion','ip_completa','id','Tipo_instalacion','cortado','telefono','frecuencia_pago']
 
 class PagosSerializer(ModelSerializer):
     

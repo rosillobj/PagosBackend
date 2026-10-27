@@ -1,6 +1,6 @@
 # Recuperación automática del sector 121
 
-Monitor Celery Beat cada cinco minutos. Opt-in con `SECTOR121_RECOVERY_ENABLED=true` en `.env.prod` tanto para worker como beat. No se ejecutó en equipos reales durante el desarrollo.
+Monitor Celery Beat cada 30 segundos; la revisión anterior de clientes saludables se limita a una vez cada cinco minutos. Opt-in con `SECTOR121_RECOVERY_ENABLED=true` en `.env.prod` tanto para worker como beat. No se ejecutó en equipos reales durante el desarrollo.
 
 ## Flujo
 
@@ -9,13 +9,13 @@ Monitor Celery Beat cada cinco minutos. Opt-in con `SECTOR121_RECOVERY_ENABLED=t
 3. Si no responde, valida primero el respaldo local, busca `.20` y autentica por SSH como `ubnt` con la contraseña inicial configurada (default `ubnt`).
 4. Exige MAC `B4:FB:E4:5A:0E:0D`, modelo Rocket M2, sysid `0xe868` y firmware XW 6.x antes de cualquier modificación. La primera clave SSH se acepta en esta sesión solo tras estas comprobaciones; se exige la misma en las reconexiones. Es una comprobación de identidad operacional, no un anclaje criptográfico previo independiente.
 5. Conserva la configuración actual de la antena en una clave privada de Redis `sector121:pre-restore:<id>`, por siete días. No hay endpoint HTTP para esa copia. Redis contiene material confidencial.
-6. Si falta `/etc/persistent/ct`, ejecuta `touch /etc/persistent/ct && cfgmtd -w -p /etc/`, reinicia y espera un arranque distinto con SSH listo durante un máximo de 30 segundos. Si el marcador ya existe, no repite el primer reinicio. La placa indica ~40 s de reinicio: el límite solicitado de 30 puede ser insuficiente; en ese caso se notifica y se detiene sin aplicar el respaldo.
+6. Si falta `/etc/persistent/ct`, ejecuta `touch /etc/persistent/ct && cfgmtd -w -p /etc/`, reinicia y espera un arranque distinto con SSH listo durante un máximo de 90 segundos. Si el marcador ya existe, no repite el primer reinicio. La placa indica ~40 s de reinicio: se espera hasta 90 segundos, terminando antes en cuanto vuelve SSH; en ese caso se notifica y se detiene sin aplicar el respaldo.
 7. Si `.121` volvió antes de escribir el respaldo, cancela para evitar duplicar IPs.
 8. Transfiere el archivo a `/tmp/sector121-restore.cfg` mediante SSH/stdin (no requiere SFTP), comprueba MD5 de la transferencia dentro de la conexión SSH y ejecuta `cfgmtd -f /tmp/sector121-restore.cfg -w -p /etc/`. Un fallo de transferencia o del comando impide el siguiente paso.
-9. Reinicia y espera hasta 60 s por `.121`, comprobando ping, SSH, MAC y nuevo boot ID. La verificación utiliza el usuario/contraseña restaurados configurados; por defecto, las credenciales existentes del sector 121 (`sector_credentials(121)`). Si el respaldo tiene otra contraseña, es necesario configurar la variable correspondiente.
+9. Reinicia y espera hasta 90 s por `.121`, comprobando ping, SSH, MAC y nuevo boot ID. La verificación utiliza el usuario/contraseña restaurados configurados; por defecto, las credenciales existentes del sector 121 (`sector_credentials(121)`). Si el respaldo tiene otra contraseña, es necesario configurar la variable correspondiente.
 10. Notifica recuperación, cancelación o fallo al usuario 1 de la app (configurable). No anuncia éxito solo por recibir ping. Suprime avisos idénticos por una hora; no envía avisos en cada consulta saludable.
 
-Cada intento que inicia cambios tiene un enfriamiento de una hora, incluso si falla; el monitor sigue consultando cada cinco minutos. Esto evita reinicios/restauraciones repetidos mientras se revisa un fallo. Un bloqueo Redis con propietario coordina todas las operaciones del sector. Soft/hard time limits: 230/250 s; lock 280 s; entradas Beat expiran en 60 s para no acumular recuperaciones antiguas tras una caída del worker. La exclusión es entre estas tareas del backend; no coordina acciones manuales externas sobre la antena.
+Cada intento fallido o cancelado que inicia cambios espera dos minutos desde su finalización antes de reintentar. Una recuperación exitosa conserva una hora de enfriamiento. El monitor consulta cada 30 segundos y reduce a dos minutos los cooldowns antiguos si el sector sigue sin ping. Una interrupción abrupta conserva inicialmente una clave de una hora, que la siguiente revisión sin ping también reduce. Esto evita reinicios/restauraciones repetidos mientras se revisa un fallo. Un bloqueo Redis con propietario coordina todas las operaciones del sector. Soft/hard time limits: 230/250 s; lock 280 s; entradas Beat expiran en 25 s para no acumular recuperaciones antiguas tras una caída del worker. La exclusión es entre estas tareas del backend; no coordina acciones manuales externas sobre la antena.
 
 ## Respaldo y variables
 

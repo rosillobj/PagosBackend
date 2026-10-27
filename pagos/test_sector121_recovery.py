@@ -238,6 +238,8 @@ class TaskCoordinationTests(unittest.TestCase):
         self.store = Mock()
         self.store.set.return_value = True
         self.store.exists.return_value = False
+        self.store.ttl.return_value = 120
+        self.store.get.return_value = 'job'
         self.status = Mock()
         self.release = Mock()
         self.notify = Mock()
@@ -274,6 +276,19 @@ class TaskCoordinationTests(unittest.TestCase):
         self.assertEqual(self.task()['state'], 'cooldown')
         self.runner.recover.assert_not_called()
         self.release.assert_called_once_with(self.store, 'operation', 'job')
+    def test_old_cooldown_is_shortened(self):
+        self.store.exists.return_value = True
+        self.store.ttl.return_value = 2154
+        self.store.get.return_value = 'previous-job'
+        self.assertEqual(self.task()['state'], 'cooldown')
+        self.store.expire.assert_called_once_with('cooldown', 120)
+    def test_failed_attempt_retries_two_minutes_after_completion(self):
+        self.runner.recover.side_effect = RecoveryError('SSH timeout')
+        self.assertEqual(self.task()['state'], 'failed')
+        self.store.expire.assert_called_once_with('cooldown', 120)
+    def test_success_keeps_long_cooldown(self):
+        self.task()
+        self.store.expire.assert_called_once_with('cooldown', 3600)
     def test_failed_backup_never_connects(self):
         self.namespace['validate_backup'].side_effect = RecoveryError('bad backup')
         self.assertEqual(self.task()['state'], 'failed')
@@ -325,8 +340,8 @@ class ScheduleTests(unittest.TestCase):
         schedule = self.schedule('true')
         self.assertNotIn('auto-reboot-sector-121', schedule)
         self.assertEqual(schedule['auto-reboot-sector-127'], 'unchanged')
-        self.assertEqual(schedule['recover-sector-121']['schedule'], {'minute': '*/5'})
-        self.assertEqual(schedule['recover-sector-121']['options']['expires'], 60)
+        self.assertEqual(schedule['recover-sector-121']['schedule'], 30.0)
+        self.assertEqual(schedule['recover-sector-121']['options']['expires'], 25)
 
 
 class NotificationScopeTests(unittest.TestCase):

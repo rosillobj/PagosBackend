@@ -188,8 +188,8 @@ CELERY_BEAT_SCHEDULE = {
 SECTOR121_RECOVERY_ENABLED = os.environ.get("SECTOR121_RECOVERY_ENABLED", "false").lower() in ("true", "1", "yes")
 CELERY_BEAT_SCHEDULE["recover-sector-121"] = {
     "task": "pagos.recover_sector121",
-    "schedule": crontab(minute="*/5"),
-    "options": {"expires": 60},
+    "schedule": 30.0,
+    "options": {"expires": 25},
 }
 if SECTOR121_RECOVERY_ENABLED:
     # The recovery monitor calls the old client-based check while holding one lock.

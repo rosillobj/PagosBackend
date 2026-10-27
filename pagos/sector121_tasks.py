@@ -31,8 +31,8 @@ def recovery_config():
         restored_user=os.environ.get('SECTOR121_RESTORED_USER', user),
         restored_password=os.environ.get('SECTOR121_RESTORED_PASSWORD', password),
         prepare_ct=True,
-        return_timeout=30,
-        final_timeout=60,
+        return_timeout=90,
+        final_timeout=90,
     )
 
 
@@ -105,11 +105,15 @@ def recover_sector121():
             store.delete(ALERT)
             record_status(store, state='healthy', phase='192.168.1.121 responde')
             # Avoid an immediate legacy reboot after a recovery attempt.
-            if not store.exists(COOLDOWN):
+            if not store.exists(COOLDOWN) and store.set(
+                    "sector121:legacy-check", token, nx=True, ex=300):
                 from .tasks import _auto_reboot121_unlocked
                 return {'state': 'healthy', 'legacy': _auto_reboot121_unlocked()}
             return {'state': 'healthy'}
         if store.exists(COOLDOWN):
+            # Shorten cooldowns left by the previous one-hour retry policy.
+            if store.ttl(COOLDOWN) > 120 or store.ttl(COOLDOWN) == -1:
+                store.expire(COOLDOWN, 120)
             record_status(store, state='cooldown', phase='Sin ping; esperando antes de otro intento',
                           retry_in_seconds=store.ttl(COOLDOWN))
             return {'state': 'cooldown'}
@@ -137,9 +141,12 @@ def recover_sector121():
         return {'state': 'failed', 'detail': detail}
     except Exception:
         logger.exception('Sector 121 recovery failed')
-        detail = 'No se pudo completar la recuperación del sector 121. Revisa el log del worker; no se reintentará durante una hora si ya se inició un cambio.'
+        detail = 'No se pudo completar la recuperación del sector 121. Revisa el log del worker; se reintentará tras una pausa de dos minutos si ya se inició un cambio.'
         record_status(store, state='failed', detail=detail)
         notify(store, 'failed', detail)
         return {'state': 'failed', 'detail': detail}
     finally:
+        if store.get(COOLDOWN) == token:
+            # Cool down from completion, rather than from the start of a long attempt.
+            store.expire(COOLDOWN, 3600 if locals().get('result', {}).get('state') == 'recovered' else 120)
         release(store, OPERATION_LOCK, token)

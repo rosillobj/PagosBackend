@@ -89,6 +89,17 @@ class RecoveryTests(unittest.TestCase):
         self.assertLess(self.actions().index('upload'), self.actions().index('apply'))
         self.assertEqual(self.preserved, ['factory_config=yes\n'])
         self.assertEqual(self.device.calls[-2], ('connect', SECTOR_IP))
+    def test_first_reboot_can_take_forty_seconds(self):
+        from dataclasses import replace
+        self.runner.config = replace(self.runner.config, return_timeout=90, final_timeout=90)
+        original_ping = self.device.ping
+        def slow_boot(ip, seconds):
+            if ip == DEFAULT_IP and self.device.boot == 1 and self.clock.now < 40:
+                return False
+            return original_ping(ip, seconds)
+        self.runner.ping = slow_boot
+        self.assertEqual(self.runner.recover(VALID)['state'], 'recovered')
+        self.assertGreaterEqual(self.clock.now, 40)
     def test_default_not_found_never_connects_or_writes(self):
         self.device.default_online = False
         with self.assertRaises(RecoveryError): self.runner.recover(VALID)

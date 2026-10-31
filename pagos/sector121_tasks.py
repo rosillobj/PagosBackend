@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 STATUS = 'sector121:recovery:status'
 COOLDOWN = 'sector121:recovery:cooldown'
 ALERT = 'sector121:recovery:last-alert'
-LOCK_SECONDS = 280
+LOCK_SECONDS = 380
 
 
 def recovery_config():
@@ -92,7 +92,7 @@ def run_legacy_sector121():
 
 
 @shared_task(name='pagos.recover_sector121', ignore_result=True,
-             soft_time_limit=230, time_limit=250)
+             soft_time_limit=330, time_limit=350)
 def recover_sector121():
     if not settings.SECTOR121_RECOVERY_ENABLED:
         return {'state': 'disabled'}
@@ -100,6 +100,7 @@ def recover_sector121():
     token = str(uuid4())
     if not store.set(OPERATION_LOCK, token, nx=True, ex=LOCK_SECONDS):
         return {'state': 'busy'}
+    result = {}
     try:
         if sector_ping(SECTOR_IP):
             store.delete(ALERT)
@@ -146,7 +147,9 @@ def recover_sector121():
         notify(store, 'failed', detail)
         return {'state': 'failed', 'detail': detail}
     finally:
-        if store.get(COOLDOWN) == token:
-            # Cool down from completion, rather than from the start of a long attempt.
-            store.expire(COOLDOWN, 3600 if locals().get('result', {}).get('state') == 'recovered' else 120)
-        release(store, OPERATION_LOCK, token)
+        try:
+            if store.get(COOLDOWN) == token:
+                # Cool down from completion, rather than from the start of a long attempt.
+                store.expire(COOLDOWN, 3600 if result.get('state') == 'recovered' else 120)
+        finally:
+            release(store, OPERATION_LOCK, token)
